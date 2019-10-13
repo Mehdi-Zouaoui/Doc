@@ -2,5 +2,6 @@
 
 CliCliC documentation &amp; snippets
 
-Tools : Angular
-
+Tools : 
+ - Angular 8.2.9
+ - Bootstrap 4.3.1
