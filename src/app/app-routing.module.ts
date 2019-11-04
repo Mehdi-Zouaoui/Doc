@@ -8,7 +8,8 @@ import {ModerationComponent} from "./moderation/moderation.component";
 const routes: Routes = [
   {path : 'display', component: DisplayComponent},
   {path : 'snippets', component: SnippetsComponent},
-  {path : 'moderation', component: ModerationComponent}
+  {path : 'moderation', component: ModerationComponent},
+  {path : '', component: DisplayComponent}
 ];
 
 @NgModule({
