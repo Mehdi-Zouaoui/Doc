@@ -5,30 +5,22 @@ import { DisplayRoutingModule } from './display-routing.module';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DisplayComponent } from './display.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {FormsModule} from '@angular/forms';
+import {FilterPipe} from '../pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     DisplayComponent,
-    SidebarComponent
+    SidebarComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
-    DisplayRoutingModule
+    DisplayRoutingModule,
+    FontAwesomeModule,
+    FormsModule,
   ]
 })
 export class DisplayModule {
-  public menus = [
-    {
-      title :  'un',
-      content : 'lorem un'
-    },
-    {
-      title :  'deux',
-      content : 'lorem deux'
-    },
-    {
-      title :  'trois',
-      content : 'lorem trois'
-    }
-  ];
 }

@@ -1,3 +1,25 @@
 <div class="sidebar">
-  <div *ngFor="let menu of menus">{{menu.title}}</div>
+  <form class="form-inline my-2 my-lg-0">
+    <div class="input-group mb-3">
+      <input type="text" [(ngModel)]="displaySearch" name="displaySearch" class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="button-search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-search">
+          <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <ul class="nav nav-pills w-100">
+      <li class="nav-item w-100">
+        <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === menu.title}" [attr.id]="menu.title+'-tab'" data-toggle="tab"
+           [attr.href]="'#'+menu.title" role="tab"
+           [attr.aria-controls]="menu.title" aria-selected="true"
+           *ngFor="let menu of menus | filter :  displaySearch">
+          {{menu.title}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
 </div>

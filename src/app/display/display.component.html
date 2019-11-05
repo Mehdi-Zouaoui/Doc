@@ -1,10 +1,18 @@
 <div class="wrapper">
-  <app-sidebar menus="menus"></app-sidebar>
+  <app-sidebar [menus]="menus"></app-sidebar>
   <div class="container-fluid">
     <div class="row py-3">
-      <div class="col-6">
-        dd
+      <div class="col-12">
+        <div class="tab-content" id="myTabContent">
+          <div *ngFor="let menu of menus" class="tab-pane fade show active"
+               [attr.id]="menu.title" role="tabpanel"
+               [attr.aria-labelledby]="menu.title+'-tab'"
+               [ngClass]="{ 'active': activeTab === menu.title }">
+            {{menu.content}}
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 

@@ -8,19 +8,26 @@ import { SnippetsComponent } from './snippets/snippets.component';
 import { ModerationComponent } from './moderation/moderation.component';
 import { HeaderComponent } from './header/header.component';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FormsModule} from "@angular/forms";
+
 @NgModule({
   declarations: [
     AppComponent,
     SnippetsComponent,
     ModerationComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DisplayModule
+    FontAwesomeModule,
+    DisplayModule,
+    FormsModule
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
