@@ -1,25 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { DisplayRoutingModule } from './display-routing.module';
 
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { DisplayComponent } from './display.component';
+import { SidebarMainComponent } from './main/sidebar/sidebarMain.component';
+import { DisplayComponent } from './main/content/display.component';
+
+import { EditComponent } from './edit/edit.component';
+
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {FormsModule} from '@angular/forms';
-import {FilterPipe} from '../pipes/filter.pipe';
+
+import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
 
 @NgModule({
   declarations: [
+    SidebarMainComponent,
     DisplayComponent,
-    SidebarComponent,
-    FilterPipe
+    EditComponent,
+    SearchDisplayFilterPipe
   ],
   imports: [
     CommonModule,
     DisplayRoutingModule,
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class DisplayModule {

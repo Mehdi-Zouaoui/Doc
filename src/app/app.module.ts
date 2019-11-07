@@ -9,7 +9,7 @@ import { ModerationComponent } from './moderation/moderation.component';
 import { HeaderComponent } from './header/header.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [

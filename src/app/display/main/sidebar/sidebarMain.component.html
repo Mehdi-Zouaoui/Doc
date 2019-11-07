@@ -1,6 +1,6 @@
 <div class="sidebar">
   <form class="form-inline my-2 my-lg-0">
-    <div class="input-group mb-3">
+    <div class="input-group mb-3 w-100">
       <input type="text" [(ngModel)]="displaySearch" name="displaySearch" class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="button-search">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" id="button-search">
@@ -15,11 +15,15 @@
         <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === menu.title}" [attr.id]="menu.title+'-tab'" data-toggle="tab"
            [attr.href]="'#'+menu.title" role="tab"
            [attr.aria-controls]="menu.title" aria-selected="true"
-           *ngFor="let menu of menus | filter :  displaySearch">
+           *ngFor="let menu of menus | searchDisplayFilter :  displaySearch">
           {{menu.title}}
         </a>
       </li>
     </ul>
+    <div class="col-12 text-right">
+      <button class="btn btn-dark" routerLink="/display/edit"><fa-icon [icon]="faPlus"></fa-icon> Ajouter</button>
+    </div>
+
   </div>
 
 </div>

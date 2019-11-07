@@ -1,16 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html'
+  templateUrl: './sidebarMain.component.html'
 })
-export class SidebarComponent implements OnInit {
+export class SidebarMainComponent implements OnInit {
   @Input() menus: string[];
   activeTab: string;
   displaySearch: string ;
 
   faSearch = faSearch;
+  faPlus = faPlus;
 
   constructor() {
 
