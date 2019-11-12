@@ -1,28 +1,40 @@
 <div class="wrapper">
   <div class="sidebar">
     <div class="col-12 text-right">
-      <button class="btn btn-primary btn-block" (click)="addItem({id : 1, type: 'number', title: 'r'})"><fa-icon [icon]="faPlus"></fa-icon> Titre</button>
-      <button class="btn btn-primary btn-block" (click)="addItem()"><fa-icon [icon]="faPlus"></fa-icon> Texte</button>
-      <button class="btn btn-primary btn-block" (click)="addItem()"><fa-icon [icon]="faPlus"></fa-icon> Code</button>
+      <button class="btn btn-primary btn-block" (click)="addItem('text')"><fa-icon [icon]="faPlus"></fa-icon> Titre</button>
+      <button class="btn btn-primary btn-block" (click)="addItem('textarea')"><fa-icon [icon]="faPlus"></fa-icon> Texte</button>
+      <button class="btn btn-primary btn-block" (click)="addItem('code')"><fa-icon [icon]="faPlus"></fa-icon> Code</button>
     </div>
   </div>
   <div class="container-fluid">
     <div class="row py-3">
-      <div class="col-12">
-        <form #formRef="ngForm">
+      <div class="col-6">
+        <form [formGroup]="displayForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="mainTitle">
               Titre
             </label>
-            <input type="text" [(ngModel)]="mainTitle" id="mainTitle" class="form-control">
+            <input type="text" formControlName="mainTitle" id="mainTitle" class="form-control">
           </div>
+
           <div id="content" class="form-group">
-            <div *ngFor="let field of fields; let i = index;">
-                <input [value]="field.title" [id]="field.id" [type]="field.type">
+            <div formArrayName="items"
+                 ngSwitch="item.type"
+                 *ngFor="let item of displayForm.get('items').controls; let i = index;">
+              <label>{{item.type}}</label>
+              <textarea class="form-control" *ngSwitchCase="'textarea'" formControlName="item.content">{{item.content}}}</textarea>
+<!--              <code-mirror *ngSwitchCase="'code'" [formControlName]="i"></code-mirror>-->
+              <input class="form-control" *ngSwitchDefault formControlName="item.content" [type]="item.type" [value]="item.content">
             </div>
           </div>
-          <button class="btn btn-primary">Enregistrer</button>
+          <button class="btn btn-success">Enregistrer</button>
         </form>
+      </div>
+      <div class="col-6">
+        <h2>{{displayForm.mainTitle}}</h2>
+        <div *ngFor="let item of displayForm.items; let i = index;">
+          {{item.value}}/{{item.type}}
+        </div>
       </div>
     </div>
   </div>
