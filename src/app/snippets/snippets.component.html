@@ -1,1 +1,15 @@
-<p>snippets works!</p>
+<snippetSidebar></snippetSidebar>
+<div class="container">
+
+<div class="snippets" >
+  <div class="snippet" *ngFor="let snippet of snippets">
+    <div class="button_container">
+<!--      <button class="delete" (click)="deleteSnippet(snippet)">X</button>-->
+      <button class="modify">Modifier</button>
+    </div>
+    <h1>{{snippet.title}}</h1>
+    <div class="content"> {{snippet.contentHTML}}</div>
+    <div class="description"> {{snippet.description}}</div>
+  </div>
+</div>
+</div>

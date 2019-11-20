@@ -20,6 +20,9 @@ import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
     EditComponent,
     SearchDisplayFilterPipe
   ],
+  exports: [
+    SidebarMainComponent
+  ],
   imports: [
     CommonModule,
     DisplayRoutingModule,

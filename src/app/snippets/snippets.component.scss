@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  .snippets {
+    display: flex;
+    justify-content: space-evenly;
+
+    .snippet {
+      padding: 10px 10px;
+      border: 1px solid black;
+      width: auto;
+      h1{
+        font-size: 40px;
+      }
+      .delete {
+        background: red;
+        color: white;
+        font-weight: bold;
+      }
+
+      .modify {
+        background: #d69746;
+        border: 1px solid darkslategrey ;
+        width: 100px;
+        height: 35px;
+        border-radius: 100px;
+        color: black;
+        font-weight: bold;
+      }
+    }
+  }
+}
