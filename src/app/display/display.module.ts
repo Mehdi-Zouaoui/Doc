@@ -6,12 +6,13 @@ import { DisplayRoutingModule } from './display-routing.module';
 
 import { SidebarMainComponent } from './main/sidebar/sidebarMain.component';
 import { DisplayComponent } from './main/content/display.component';
-
 import { EditComponent } from './edit/edit.component';
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
+
+import {DisplayService} from "../services/display.service";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,9 @@ import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers : [
+    DisplayService
   ]
 })
 export class DisplayModule {

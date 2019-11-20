@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {DisplayService} from "../../services/display.service";
+import {DisplayContentModel} from "../../models/DisplayContent.model";
 
 @Component({
   selector: 'app-edit',
@@ -9,31 +11,42 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 export class EditComponent implements OnInit {
   faPlus = faPlus;
 
-  displayForm: FormGroup;
-  items: FormArray;
+  displayForm : FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private displayService: DisplayService
+  ) {}
 
   ngOnInit() {
-    this.displayForm = this.formBuilder.group({
-      mainTitle: 'Ma premère doc',
-      items: this.formBuilder.array([this.createItem('textarea')])
-    });
+    this.initForm();
   }
 
-  createItem(type): FormGroup {
-    console.warn(type);
-    return this.formBuilder.group({
-      type: <FormControl>type,
-      content: 'dsd'
-    });
+  initForm(){
+    this.displayForm = this.fb.group({
+        title: 'ee',
+      content: []
+      }
+    )
+  }
+
+  createItem(type) {
+
   }
 
   addItem(type): void {
-    this.items = this.displayForm.get('items') as FormArray;
-    this.items.push(this.createItem(type));
+
   }
+
   onSubmit() {
-    console.warn(this.displayForm.value);
+    const formValue = this.displayForm.value;
+    const newContent = new DisplayContentModel(
+      formValue['title'],
+      formValue['title'],
+      formValue['content'] = ['sdfsf','ça marche'],
+    );
+    console.warn('submit', newContent);
+
+    this.displayService.addContent(newContent);
   }
 }

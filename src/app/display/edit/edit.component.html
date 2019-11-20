@@ -11,30 +11,19 @@
       <div class="col-6">
         <form [formGroup]="displayForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="mainTitle">
+            <label for="title">
               Titre
             </label>
-            <input type="text" formControlName="mainTitle" id="mainTitle" class="form-control">
+            <input type="text" id="title" class="form-control" formControlName="title">
           </div>
 
           <div id="content" class="form-group">
-            <div formArrayName="items"
-                 *ngFor="let item of displayForm.get('items').controls; let i = index;">
-              <label>{{item.value.type}}</label>
-              <div contenteditable="true" *ngIf="item.value.type == 'textarea'" formControlName="item.content">{{item.content}}}</div>
-<!--              <code-mirror *ngSwitchCase="'code'" [formControlName]="i"></code-mirror>-->
-              <input class="form-control" *ngIf="item.value.type == 'text'" [type]="item.value.type" [value]="item.value.content">
-            </div>
+
           </div>
           <button class="btn btn-success">Enregistrer</button>
         </form>
       </div>
-<!--      <div class="col-6">-->
-<!--        <h2>{{displayForm.value.mainTitle}}</h2>-->
-<!--        <div *ngFor="let item of displayForm.get('items').controls; let i = index;">-->
-<!--          {{item.value.content}}-->
-<!--        </div>-->
-<!--      </div>-->
+
     </div>
   </div>
 

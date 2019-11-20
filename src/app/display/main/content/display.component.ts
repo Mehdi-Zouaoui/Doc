@@ -1,35 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import {DisplayService} from "../../../services/display.service";
 
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html'
 })
 export class DisplayComponent implements OnInit {
-  menus = [
-    {
-      title :  'un',
-      sanitizeTitle : 'un',
-      content : 'lorem un'
-    },
-    {
-      title :  'deux',
-      sanitizeTitle : 'deux',
-      content : 'lorem deux'
-    },
-    {
-      title :  'trois',
-      sanitizeTitle : 'trois',
-      content : 'lorem trois'
-    },
-    {
-      title :  'épique',
-      sanitizeTitle : 'epique',
-      content : 'lorem épique'
-    }
-  ];
-  activeTab = this.menus[0].title;
+  menus: any[];
+  activeTab: string;
 
-  constructor() { }
+  constructor(private displayService: DisplayService) {
+    this.menus = this.displayService.menus;
+    this.activeTab = this.menus[0].title;
+  }
 
   ngOnInit() {
   }

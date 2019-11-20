@@ -8,7 +8,10 @@
                [attr.id]="menu.title" role="tabpanel"
                [attr.aria-labelledby]="menu.title+'-tab'"
                [ngClass]="{ 'active': activeTab === menu.title }">
-            {{menu.content}}
+            <h1>{{menu.title | uppercase}}</h1>
+            <div *ngFor="let item of menu.content">
+              {{item}}
+            </div>
           </div>
         </div>
       </div>
