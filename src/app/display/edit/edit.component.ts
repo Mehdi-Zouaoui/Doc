@@ -22,9 +22,10 @@ export class EditComponent implements OnInit {
   }
 
   createItem(type): FormGroup {
+    console.warn(type);
     return this.formBuilder.group({
-      type: FormControl,
-      content: FormControl
+      type: <FormControl>type,
+      content: 'dsd'
     });
   }
 

@@ -19,23 +19,22 @@
 
           <div id="content" class="form-group">
             <div formArrayName="items"
-                 ngSwitch="item.type"
                  *ngFor="let item of displayForm.get('items').controls; let i = index;">
-              <label>{{item.type}}</label>
-              <textarea class="form-control" *ngSwitchCase="'textarea'" formControlName="item.content">{{item.content}}}</textarea>
+              <label>{{item.value.type}}</label>
+              <div contenteditable="true" *ngIf="item.value.type == 'textarea'" formControlName="item.content">{{item.content}}}</div>
 <!--              <code-mirror *ngSwitchCase="'code'" [formControlName]="i"></code-mirror>-->
-              <input class="form-control" *ngSwitchDefault formControlName="item.content" [type]="item.type" [value]="item.content">
+              <input class="form-control" *ngIf="item.value.type == 'text'" [type]="item.value.type" [value]="item.value.content">
             </div>
           </div>
           <button class="btn btn-success">Enregistrer</button>
         </form>
       </div>
-      <div class="col-6">
-        <h2>{{displayForm.mainTitle}}</h2>
-        <div *ngFor="let item of displayForm.items; let i = index;">
-          {{item.value}}/{{item.type}}
-        </div>
-      </div>
+<!--      <div class="col-6">-->
+<!--        <h2>{{displayForm.value.mainTitle}}</h2>-->
+<!--        <div *ngFor="let item of displayForm.get('items').controls; let i = index;">-->
+<!--          {{item.value.content}}-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 
