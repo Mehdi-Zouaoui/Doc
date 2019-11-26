@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DisplayService} from "../../../services/display.service";
+import {DisplayService} from '../../../services/display.service';
 
 @Component({
   selector: 'app-display',
