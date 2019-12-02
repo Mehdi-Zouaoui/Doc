@@ -1,6 +1,6 @@
 import {Component, NgModule, OnInit} from '@angular/core';
 import { SnippetsModel} from "../models/snippets.model";
-import {BrowserModule} from "@angular/platform-browser";
+import { SNIPPETS} from "../models/mock-snippets";
 import {SnippetService} from "../services/snippet.service";
 
 @Component({
@@ -11,19 +11,12 @@ import {SnippetService} from "../services/snippet.service";
 
 export class SnippetsComponent implements OnInit {
 
-   snippets: SnippetsModel[];
+  snippets = SNIPPETS;
 
-  constructor() {
+  constructor(private snippetService: SnippetService) {
   }
 
   ngOnInit() {
-    this.snippets = [
-      {title : 'BUBULLE' , contentHTML : 'HTML HERE' , description : 'DESCRIPTION HERE'},
-        {title : 'AVATAR' , contentHTML : 'HTML HERE' , description : 'DESCRIPTION HERE'}
-      ];
-  }
-  onDeletClick(){
 
   }
-
 }
