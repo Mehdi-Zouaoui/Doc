@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar ">
   <form class="form-inline my-2 my-lg-0">
     <div class="input-group mb-3 w-100">
       <input type="text" [(ngModel)]="displaySearch" name="displaySearch" class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="button-search">
@@ -13,9 +13,9 @@
     <ul class="nav nav-pills w-100">
       <li class="nav-item w-100">
         <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === menu.title}" [attr.id]="menu.title+'-tab'" data-toggle="tab"
-           [attr.href]="'#'+menu.title" role="tab"
-           [attr.aria-controls]="menu.title" aria-selected="true"
-           *ngFor="let menu of menus | searchDisplayFilter :  displaySearch">
+          [attr.href]="'#'+menu.title" role="tab"
+          [attr.aria-controls]="menu.title" aria-selected="true"
+          *ngFor="let menu of menus | searchDisplayFilter :  displaySearch">
           {{menu.title}}
         </a>
       </li>

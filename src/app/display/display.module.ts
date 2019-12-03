@@ -21,6 +21,9 @@ import {DisplayService} from "../services/display.service";
     EditComponent,
     SearchDisplayFilterPipe
   ],
+  exports: [
+    SidebarMainComponent
+  ],
   imports: [
     CommonModule,
     DisplayRoutingModule,

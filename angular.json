@@ -47,10 +47,7 @@
               "src/assets"
             ],
             "styles": [
-              "./src/styles.scss",
-              "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-              "./node_modules/froala-editor/css/froala_style.min.css",
-              "./node_modules/froala-editor/css/plugins/code_view.css"
+              "./src/styles.scss"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",

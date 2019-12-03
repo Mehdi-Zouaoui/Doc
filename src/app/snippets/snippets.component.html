@@ -1,1 +1,27 @@
-<p>snippets works!</p>
+<div class="wrapper">
+  <snippetSidebar></snippetSidebar>
+  <div class="container-fluid">
+    <div class="row py-3">
+      <div class=" col-4" *ngFor="let snippet of snippets; let i = index ">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">
+              {{snippet.title}}
+            </h3>
+            <div *ngIf="snippet.body && snippet.body.length > 0">
+              <div class="my-3" *ngFor="let object of snippet.body;">
+                {{object.content}}
+              </div>
+
+            </div>
+            <button class=" btn btn-success btn-sm mr-2"  routerLinkActive="active" routerLink="/snippets/editSnippet">Modifier</button>
+            <button class=" btn btn-danger btn-sm" (click)="onDelete(i)">Supprimer</button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
