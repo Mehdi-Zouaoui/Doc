@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {DisplayService} from "../../services/display.service";
-import {DisplayContentModel} from "../../models/DisplayContent.model";
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {DisplayService} from '../../services/display.service';
+import {DisplayContentModel} from '../../models/display/DisplayContent.model';
 
 @Component({
   selector: 'app-edit',

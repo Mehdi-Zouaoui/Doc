@@ -1,5 +1,5 @@
 import {Injectable, Input} from '@angular/core';
-import {SnippetsModel} from "../models/snippets.model";
+import {SnippetsModel} from '../models/snippets/snippets.model';
 import {Subject} from "rxjs";
 import {snippetContentModel} from "../models/snippetContent.model";
 

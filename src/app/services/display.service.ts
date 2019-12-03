@@ -1,4 +1,4 @@
-import {DisplayContentModel} from '../models/DisplayContent.model';
+import {DisplayContentModel} from '../models/display/DisplayContent.model';
 import {Subject} from 'rxjs';
 
 export class DisplayService {

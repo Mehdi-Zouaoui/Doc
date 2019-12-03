@@ -6,8 +6,7 @@ import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   {path : 'display', component: DisplayComponent},
-  {path : 'display/editSnippet', component: EditComponent},
-  {path : '', component: DisplayComponent}
+  {path : 'display/edit', component: EditComponent}
 ];
 
 @NgModule({

@@ -1,6 +1,5 @@
 import {Component, Input, NgModule, OnInit} from '@angular/core';
-import {SnippetsModel} from "../models/snippets.model";
-import {SnippetService} from "../services/snippet.service";
+import {SnippetService} from '../services/snippet.service';
 
 @Component({
   selector: 'app-snippets',

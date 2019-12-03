@@ -12,7 +12,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
 
-import {DisplayService} from "../services/display.service";
+import {DisplayService} from '../services/display.service';
 
 @NgModule({
   declarations: [

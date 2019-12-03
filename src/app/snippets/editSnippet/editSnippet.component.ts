@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {SnippetService} from "../../services/snippet.service";
-import {Router} from "@angular/router";
-import {SnippetsModel} from "../../models/snippets.model";
+import {SnippetService} from '../../services/snippet.service';
+import {Router} from '@angular/router';
+import {SnippetsModel} from '../../models/snippets/snippets.model';
 
 @Component({
   selector: 'snippet-edit',
