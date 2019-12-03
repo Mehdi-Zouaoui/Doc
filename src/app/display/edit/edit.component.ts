@@ -27,8 +27,8 @@ export class EditComponent implements OnInit {
       title: 'ee',
       body: this.fb.array(
         [
-          this.fb.control({type: 'text', content: 'dsfsf'}),
-          this.fb.control({type: 'number', content: 5}),
+          this.fb.control({type: 'text', content: 'dsfsf', id: 0}),
+          this.fb.control({type: 'number', content: 5, id: 1}),
         ]
       )
     });
@@ -36,25 +36,12 @@ export class EditComponent implements OnInit {
 
 
   addField(type): void {
-    const add = new FormControl({content: 'dsfsf', type});
+    const add = new FormControl({content: '', type});
     this.body = this.displayForm.get('body') as FormArray;
     this.body.push(add);
   }
 
-  onSubmit() {
-    const formValue = this.displayForm.value;
-
-    formValue.content = [];
-    formValue.content[0] = {};
-    formValue.content[0].field = 'textarea';
-    formValue.content[0].content = 'textarea dtc';
-    const newContent = new DisplayModel(
-      formValue.title,
-      formValue.title,
-      formValue.content
-    );
-    console.warn('submit', newContent);
-
-    this.displayService.addContent(newContent);
+    onSubmit() {
+    console.log(this.displayForm.value);
+    }
   }
-}

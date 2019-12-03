@@ -18,9 +18,9 @@
             <input type="text" id="title" class="form-control" formControlName="title">
           </div>
 
-          <div id="content" class="form-group">
-            <div class="form-group" *ngFor="let field of displayForm.get('body').controls; let i = index">
-              <input type="{{field.value.type}}" class="form-control" [formControlName]="" value="{{field.value.content}}">
+          <div id="content" class="form-group" formArrayName="body">
+            <div class="form-group" *ngFor="let field of displayForm.get('body').controls;index as i">
+              <input type="{{field.value.type}}" class="form-control">
             </div>
           </div>
           <button class="btn btn-success">Enregistrer</button>
