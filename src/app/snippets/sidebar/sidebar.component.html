@@ -1,0 +1,25 @@
+<div class="wrapper">
+<div class="sidebar h-100">
+  <form class="form-inline my-2 my-lg-0">
+  <div class="input-group mb-3 w-100">
+    <input type="text"  class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="button-search">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" id="button-search">
+        <fa-icon [icon]="faSearch"></fa-icon>
+      </button>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <ul *ngFor="let links of navLinks" class="nav nav-pills w-100">
+    <li class="nav-item w-100" *ngIf="links.title !='Form'"><a class="nav-link rounded-0">{{links.title}}</a></li>
+    <li  class="nav-item w-100" *ngIf="links.title ==='Form'" routerLinkActive="active"><a class=" nav-link rounded-0" routerLink="/snippets/editSnippet">{{links.title}}</a></li>
+
+  </ul>
+  <div class="col-12 text-right">
+    <button class="btn btn-dark" routerLink="/snippets/editSnippet"><fa-icon [icon]="faPlus"></fa-icon> Ajouter</button>
+  </div>
+
+</div>
+</div>
+</div>
