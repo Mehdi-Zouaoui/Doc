@@ -1,6 +1,5 @@
-import {Component, NgModule, OnInit} from '@angular/core';
-import { SnippetsModel} from "../models/snippets.model";
-import { SNIPPETS} from "../models/mock-snippets";
+import {Component, Input, NgModule, OnInit} from '@angular/core';
+import {SnippetsModel} from "../models/snippets.model";
 import {SnippetService} from "../services/snippet.service";
 
 @Component({
@@ -9,14 +8,24 @@ import {SnippetService} from "../services/snippet.service";
   styleUrls: ['./snippets.component.scss']
 })
 
+
 export class SnippetsComponent implements OnInit {
 
-  snippets = SNIPPETS;
+  snippets = this.getSnippets();
 
   constructor(private snippetService: SnippetService) {
   }
 
   ngOnInit() {
-
+    this.getSnippets();
   }
+
+  getSnippets() {
+    return this.snippetService.snippets;
+  }
+  onDelete(i:number){
+    this.snippetService.deleteSnippet(i);
+  }
+
+
 }

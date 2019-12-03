@@ -1,6 +1,7 @@
-export class  SnippetsModel {
-  title:string;
-  contentHTML : string;
-  description : string;
+import {snippetContentModel} from "./snippetContent.model";
+
+export class SnippetsModel {
+  constructor(public title :string, public body:snippetContentModel[]){}
+
 }
 
