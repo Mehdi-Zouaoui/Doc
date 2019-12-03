@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DisplayService} from '../../services/display.service';
-import {DisplayContentModel} from '../../models/display/DisplayContent.model';
+import {DisplayModel} from '../../models/display/Display.model';
 
 @Component({
   selector: 'app-edit',
@@ -11,7 +11,7 @@ import {DisplayContentModel} from '../../models/display/DisplayContent.model';
 export class EditComponent implements OnInit {
   faPlus = faPlus;
   displayForm: FormGroup;
-  content: FormGroup;
+  body: FormArray;
 
   constructor(
     private fb: FormBuilder,
@@ -25,10 +25,10 @@ export class EditComponent implements OnInit {
   initForm() {
     this.displayForm = this.fb.group({
       title: 'ee',
-      content: this.fb.array(
+      body: this.fb.array(
         [
-          this.fb.control({field: 'text', content: 'dsfsf'}),
-          this.fb.control({field: 'number', content: 5}),
+          this.fb.control({type: 'text', content: 'dsfsf'}),
+          this.fb.control({type: 'number', content: 5}),
         ]
       )
     });
@@ -36,7 +36,9 @@ export class EditComponent implements OnInit {
 
 
   addField(type): void {
-
+    const add = new FormControl({content: 'dsfsf', type});
+    this.body = this.displayForm.get('body') as FormArray;
+    this.body.push(add);
   }
 
   onSubmit() {
@@ -46,7 +48,7 @@ export class EditComponent implements OnInit {
     formValue.content[0] = {};
     formValue.content[0].field = 'textarea';
     formValue.content[0].content = 'textarea dtc';
-    const newContent = new DisplayContentModel(
+    const newContent = new DisplayModel(
       formValue.title,
       formValue.title,
       formValue.content

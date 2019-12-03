@@ -2,6 +2,7 @@
   <div class="sidebar">
     <div class="col-12 text-right">
       <button class="btn btn-primary btn-block" (click)="addField('text')"><fa-icon [icon]="faPlus"></fa-icon> Titre</button>
+      <button class="btn btn-primary btn-block" (click)="addField('number')"><fa-icon [icon]="faPlus"></fa-icon> Number</button>
       <button class="btn btn-primary btn-block" (click)="addField('textarea')"><fa-icon [icon]="faPlus"></fa-icon> Texte</button>
       <button class="btn btn-primary btn-block" (click)="addField('code')"><fa-icon [icon]="faPlus"></fa-icon> Code</button>
     </div>
@@ -18,8 +19,8 @@
           </div>
 
           <div id="content" class="form-group">
-            <div class="form-group" *ngFor="let field of displayForm.get('content').controls; let i = index">
-              <input type="{{field.value.field}}" class="form-control" [formControlName]="" value="{{field.value.content}}">
+            <div class="form-group" *ngFor="let field of displayForm.get('body').controls; let i = index">
+              <input type="{{field.value.type}}" class="form-control" [formControlName]="" value="{{field.value.content}}">
             </div>
           </div>
           <button class="btn btn-success">Enregistrer</button>

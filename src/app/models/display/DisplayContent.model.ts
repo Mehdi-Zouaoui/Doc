@@ -1,7 +1,8 @@
 export class DisplayContentModel {
   constructor(
-    public title: string,
-    public sanitizeTitle: string,
-    public content: Array<{ field: string, content: string }>
-  ) { }
+    public content: string,
+    public type: string,
+    public id: number,
+    public index: number
+  ) {}
 }
