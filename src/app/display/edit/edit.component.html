@@ -1,9 +1,9 @@
 <div class="wrapper">
   <div class="sidebar">
     <div class="col-12 text-right">
-      <button class="btn btn-primary btn-block" (click)="addField('text')"><fa-icon [icon]="faPlus"></fa-icon> Titre</button>
+      <button class="btn btn-primary btn-block" (click)="addField('title')"><fa-icon [icon]="faPlus"></fa-icon> Titre</button>
       <button class="btn btn-primary btn-block" (click)="addField('number')"><fa-icon [icon]="faPlus"></fa-icon> Number</button>
-      <button class="btn btn-primary btn-block" (click)="addField('textarea')"><fa-icon [icon]="faPlus"></fa-icon> Texte</button>
+      <button class="btn btn-primary btn-block" (click)="addField('text')"><fa-icon [icon]="faPlus"></fa-icon> Texte</button>
       <button class="btn btn-primary btn-block" (click)="addField('code')"><fa-icon [icon]="faPlus"></fa-icon> Code</button>
     </div>
   </div>
@@ -19,8 +19,12 @@
           </div>
 
           <div id="content" class="form-group" formArrayName="body">
-            <div class="form-group" *ngFor="let field of displayForm.get('body').controls;index as i">
-              <input type="{{field.value.type}}" class="form-control">
+            <div class="form-group" [formGroupName]="i" *ngFor="let field of displayForm.controls.body.controls ;index as i">
+              <div [ngSwitch]="field.value.type">
+                <textarea class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <textarea class="form-control" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
+              </div>
             </div>
           </div>
           <button class="btn btn-success">Enregistrer</button>
