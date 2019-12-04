@@ -12,14 +12,18 @@ import { HeaderComponent } from './header/header.component';
 import { DisplayModule } from './display/display.module';
 
 import {SnippetsModule} from './snippets/snippets.module';
-
+import { SnippetsComponent } from './snippets/snippets.component';
+import {SidebarComponent} from './snippets/sidebar/sidebar.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    SnippetsComponent,
     HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +32,7 @@ import {SnippetsModule} from './snippets/snippets.module';
     DisplayModule,
     FormsModule,
     SnippetsModule,
+    HttpClientModule
   ],
   providers: [],
   exports: [
