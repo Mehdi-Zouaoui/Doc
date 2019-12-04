@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SnippetService} from '../services/snippet.service';
-
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-snippets',
@@ -15,8 +15,7 @@ export class SnippetsComponent implements OnInit {
     type: 'number'
   }];
   snippets = this.getSnippets();
-
-  constructor(private snippetService: SnippetService) {
+  constructor(private snippetService: SnippetService ,  private router:Router) {
   }
 
   ngOnInit() {
@@ -24,13 +23,16 @@ export class SnippetsComponent implements OnInit {
   }
 
   getSnippets() {
+    console.log('SNIPSNIP' , this.snippetService.snippets);
     return this.snippetService.snippets;
   }
 
   onDelete(i: number) {
     this.snippetService.deleteSnippet(i);
   }
-
+// onModify(){
+//     this.router.navigate(['/editSnippet'] , {id : this.snippet.snippets.id})
+// }
 
 
 }

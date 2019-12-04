@@ -12,7 +12,7 @@
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6">
-        <form [formGroup]="displayForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="snippetForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="title">
               Titre
@@ -21,7 +21,7 @@
           </div>
 
           <div id="content" class="form-group" formArrayName="body">
-            <div class="form-group" [formGroupName]="i" *ngFor="let field of displayForm.controls.body.controls ;index as i">
+            <div class="form-group" [formGroupName]="i" *ngFor="let field of snippetForm.controls.body.controls ;index as i">
               <div [ngSwitch]="field.value.type">
                 <textarea class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
                 <textarea class="form-control" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
@@ -29,17 +29,21 @@
               </div>
             </div>
           </div>
-          <select  class="browser-default custom-select mb-3 "name="categories" id="category-select">
-            <option value="{{category.id}}" *ngFor="let category of categories">{{category.name}}</option>
+
+          <select class="browser-default custom-select mb-3" formControlName="categoryId" id="categoryId">
+            <option [value]="categories[i].id" *ngFor="let category of categories ; index as i ">{{category.name}}</option>
           </select>
-          <button class="btn btn-success"  (click)="onSubmit()">Enregistrer</button>
+         
+
+          <button class="btn btn-success"   (click)="onSubmit()">Enregistrer</button>
         </form>
       </div>
       <div class="col-6">
-        <h1>{{displayForm.value.title}}</h1>
-        <div *ngFor="let content of displayForm.value.body">
+        <h1>{{snippetForm.value.title}}</h1>
+        <div *ngFor="let content of snippetForm.value.body">
           <p>{{content.content}}</p>
         </div>
+
       </div>
     </div>
   </div>

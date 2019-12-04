@@ -13,11 +13,10 @@ import {DisplayService} from "../../services/display.service";
 export class EditSnippetComponent implements OnInit {
 
 
-  displayForm: FormGroup;
+  snippetForm: FormGroup;
   body: FormArray;
   contents : Array<any>;
   categories : Array<any>;
-
 
   constructor(
     private fb: FormBuilder,
@@ -28,34 +27,35 @@ export class EditSnippetComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.contents = [
-      {
-        content: 'Bulles',
-        type: 'code',
-        id: 0,
-        index: 0
-      },
-      {
-        content: 'Bulle en arrière plan avec tête des avatars',
-        type: 'text',
-        id: 1,
-        index: 1
-      }
-    ];
+    this.contents = this.snippet.snippets[0].body
     this.categories = this.snippet.categories;
     console.log(this.contents);
-    console.log(this.categories);
-    this.initForm();
+    console.log(this.snippet.snippets);
+    if(!this.snippet.modify){
+      this.initForm();
+    }else this.initModifyForm()
+
+
   }
 
   initForm() {
-    this.displayForm = this.fb.group({
+    this.snippetForm = this.fb.group({
       title: 'filter',
       body: this.fb.array(
-        this.contents.map(elem => this.addContents(elem)))
-    });
+        this.contents.map(elem => this.addContents(elem))),
+      categoryId:''
+    },
+  )
   }
-
+  initModifyForm(){
+    console.log('MODIFICATIONS EN COURS');
+    this.snippetForm = this.fb.group({
+      title:this.snippet.snippets[1].title,
+      body: this.fb.array(
+        this.contents.map(elem => this.addContents(elem))),
+      categoryId:this.snippet.snippets[0].categoryId
+    })
+  }
   addContents(control) : FormGroup {
     return this.fb.group({
       content: this.fb.control([control.content]),
@@ -71,24 +71,26 @@ export class EditSnippetComponent implements OnInit {
       content: type === 'code' ? 'code' : (type === 'title' ? 'Bienvenue' : 3),
       type,
       // @ts-ignore
-      id: this.displayForm.controls.body.controls.length,
+      id: this.snippetForm.controls.body.controls.length,
       // @ts-ignore
-      index: this.displayForm.controls.body.controls.length
+      index: this.snippetForm.controls.body.controls.length
     });
-    this.body = this.displayForm.get('body') as FormArray;
+    this.body = this.snippetForm.get('body') as FormArray;
     this.body.push(add);
 
     return;
   }
 
   onSubmit() {
-    console.log(this.displayForm.value);
-    const formValue = this.displayForm.value;
+    console.log(this.snippetForm.value);
+    const formValue = this.snippetForm.value;
     const entry = new SnippetsModel(
       formValue['title'],
-      formValue['body']
-    );
+      formValue['body'],
+      formValue['categoryId'],
+      this.snippet.snippets.length + 1);
     this.snippet.addSnippet(entry);
     this.router.navigate(['/snippets']);
   }
+
 }

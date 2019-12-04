@@ -14,7 +14,7 @@
               </div>
 
             </div>
-            <button class=" btn btn-success btn-sm mr-2"  routerLinkActive="active" routerLink="/snippets/editSnippet">Modifier</button>
+            <button class=" btn btn-success btn-sm mr-2" routerLinkActive="active" routerLink="/snippets/editSnippet">Modifier</button>
             <button class=" btn btn-danger btn-sm" (click)="onDelete(i)">Supprimer</button>
 
           </div>
@@ -25,5 +25,3 @@
 
   </div>
 </div>
-
-<input [(ngModel)]="body[0].content" type="{{body[0].type}}">{{body[0].type}}

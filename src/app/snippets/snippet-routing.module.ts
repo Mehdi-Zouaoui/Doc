@@ -5,6 +5,7 @@ import {EditSnippetComponent} from "./editSnippet/editSnippet.component";
 
 const snippetRoutes: Routes = [
   {path : 'snippets/editSnippet', component: EditSnippetComponent},
+  {path : 'snippets/editSnippet/:title', component: EditSnippetComponent},
   {path: '', component:SnippetsComponent }
 
 ];

@@ -6,23 +6,31 @@ import {CategoryModel} from "../models/snippets/category.model";
   providedIn: 'root'
 })
 export class SnippetService {
-
+  modify: boolean;
   snippets: SnippetsModel[] = [
     new SnippetsModel('Regex', [
-      {content: 'test', type: 'text', id: 0, index: 0},
+      {content: 'test', type: 'text', id: 0, index: 0 },
       {content: 'test2', type: 'text', id: 1, index: 2},
       {content: 'test1', type: 'text', id: 2, index: 1},
-    ])];
+    ], 0 , 0),
+    new SnippetsModel('Bulles', [
+      {content: 'ICI', type: 'text', id: 0, index: 0},
+      {content: 'LA', type: 'text', id: 1, index: 2},
+      {content: 'T ES OU ', type: 'text', id: 2, index: 1},
+    ], 1 , 1)];
+
   categories: CategoryModel[] = [
     new CategoryModel(
       'Animations',
       'animations',
       0
     ),
-    new CategoryModel('JS',
+    new CategoryModel(
+      'JS',
       'javascript',
       1),
-    new CategoryModel('Filter',
+    new CategoryModel(
+      'Filter',
       'filter',
       2)
   ];
@@ -39,9 +47,7 @@ export class SnippetService {
     this.snippets.splice(i, 1);
   }
 
-  modifySnippet(snippet: SnippetsModel) {
 
-  }
 }
 
 
