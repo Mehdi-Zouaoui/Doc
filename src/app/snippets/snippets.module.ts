@@ -7,10 +7,16 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {EditSnippetComponent} from './editSnippet/editSnippet.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
+import {SnippetsComponent} from "./snippets.component";
+import {OrderBy} from "../pipes/orderBy.pipe";
+
 
 @NgModule({
   declarations: [
-    EditSnippetComponent
+    EditSnippetComponent,
+    SidebarComponent,
+    SnippetsComponent,
+    OrderBy
   ],
   exports: [
     RouterModule

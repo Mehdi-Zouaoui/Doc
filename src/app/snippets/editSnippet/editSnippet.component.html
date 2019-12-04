@@ -1,48 +1,51 @@
-<div class="container d-flex justify-content-around align-items-start">
-
-  <div class="row col-6 d-inline-block text-left mt-5">
-    <div>
-      <form (ngSubmit)="onSubmitForm()" [formGroup]="snippetForm">
-        <div class="form-group">
-          <label for="title">Titre</label>
-          <input type="text" id="title" class="form-control" formControlName='title'
-                  value="...">
-        </div>
-        <div formArrayName="body">
-          <h3>Contenu à ajouter</h3>
-          <div class="form-group" *ngFor="let contentControl of getContent().controls; let i = index">
-            <textarea class="form-control" [formControlName]="i"
-                     ></textarea>
-          </div>
-          <button type="button" class="btn btn-success mt-3 mr-1" (click)="onAddContent()">Add Textarea</button>
-          <button type="button" class="btn btn-dark mt-3 mr-1" (click)="onAddContent()">Add Code</button>
-          <button type="button" class="btn btn-info mt-3 mr-1" (click)="onAddContent()">Add something else</button>
-
-        </div>
-        <button type="submit" class="btn btn-warning mt-3" [disabled]="snippetForm.invalid">Soumettre</button>
-
-      </form>
+<div class="wrapper">
+  <div class="sidebar">
+    <div class="col-12 text-right">
+      <button class="btn btn-primary btn-block" (click)="addField('title')"> Titre</button>
+      <button class="btn btn-primary btn-block" (click)="addField('number')"> Number</button>
+      <button class="btn btn-primary btn-block" (click)="addField('text')"> Texte</button>
+      <button class="btn btn-primary btn-block" (click)="addField('code')"> Code</button>
     </div>
   </div>
 
-    <div class="container-fluid ml-5">
-      <div class="row mt-5">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title">
-              {{snippetForm.controls.title}}
-            </h3>
+
+  <div class="container-fluid">
+    <div class="row py-3">
+      <div class="col-6">
+        <form [formGroup]="displayForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="title">
+              Titre
+            </label>
+            <input type="text" id="title" class="form-control" formControlName="title">
           </div>
-          <div>
-            <div class="mt-3" *ngFor="let contentControl of getContent().controls; let i = index">
-              {{snippetForm.controls.body[i]}}
+
+          <div id="content" class="form-group" formArrayName="body">
+            <div class="form-group" [formGroupName]="i" *ngFor="let field of displayForm.controls.body.controls ;index as i">
+              <div [ngSwitch]="field.value.type">
+                <textarea class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <textarea class="form-control" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
+              </div>
             </div>
           </div>
+          <select  class="browser-default custom-select mb-3 "name="categories" id="category-select">
+            <option value="{{category.id}}" *ngFor="let category of categories">{{category.name}}</option>
+          </select>
+          <button class="btn btn-success"  (click)="onSubmit()">Enregistrer</button>
+        </form>
+      </div>
+      <div class="col-6">
+        <h1>{{displayForm.value.title}}</h1>
+        <div *ngFor="let content of displayForm.value.body">
+          <p>{{content.content}}</p>
         </div>
       </div>
-
     </div>
+  </div>
 
   </div>
+
+
 
 

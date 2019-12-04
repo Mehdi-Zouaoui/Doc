@@ -11,9 +11,8 @@
   </div>
 </form>
 <div class="row">
-  <ul *ngFor="let links of navLinks" class="nav nav-pills w-100">
-    <li class="nav-item w-100" *ngIf="links.title !='Form'"><a class="nav-link rounded-0">{{links.title}}</a></li>
-    <li  class="nav-item w-100" *ngIf="links.title ==='Form'" routerLinkActive="active"><a class=" nav-link rounded-0" routerLink="/snippets/editSnippet">{{links.title}}</a></li>
+  <ul *ngFor="let links of categories" class="nav nav-pills w-100">
+    <li class="nav-item w-100"><a class="nav-link rounded-0">{{links.name}}</a></li>
 
   </ul>
   <div class="col-12 text-right">

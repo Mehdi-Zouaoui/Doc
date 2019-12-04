@@ -1,9 +1,8 @@
 <div class="wrapper">
   <snippetSidebar></snippetSidebar>
-  <div>TEST PUSH MASTER !</div>
   <div class="container-fluid">
     <div class="row py-3">
-      <div class=" col-4" *ngFor="let snippet of snippets; let i = index ">
+      <div class=" col-4" *ngFor="let snippet of snippets | orderBy : '-'">
         <div class="card">
           <div class="card-body">
             <h3 class="card-title">
@@ -26,3 +25,5 @@
 
   </div>
 </div>
+
+<input [(ngModel)]="body[0].content" type="{{body[0].type}}">{{body[0].type}}

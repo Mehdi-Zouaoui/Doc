@@ -1,5 +1,6 @@
 import {Injectable, Input} from '@angular/core';
 import {SnippetsModel} from '../models/snippets/snippets.model';
+import {CategoryModel} from "../models/snippets/category.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,19 @@ export class SnippetService {
       {content: 'test2', type: 'text', id: 1, index: 2},
       {content: 'test1', type: 'text', id: 2, index: 1},
     ])];
+  categories: CategoryModel[] = [
+    new CategoryModel(
+      'Animations',
+      'animations',
+      0
+    ),
+    new CategoryModel('JS',
+      'javascript',
+      1),
+    new CategoryModel('Filter',
+      'filter',
+      2)
+  ];
 
   constructor() {
   }

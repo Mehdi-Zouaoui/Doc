@@ -1,27 +1,23 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {stringify} from "querystring";
 import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {SnippetService} from "../../services/snippet.service";
 
 @Component({
   selector: 'snippetSidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {
 
-  navLinks : any[];
-  constructor() { }
+  categories : Array<any>;
+
+  constructor( private snippet : SnippetService) {
+  }
 
   ngOnInit() {
-    this.navLinks = [
-      {title : 'Home'},
-      {title : 'Form'},
-      {title : 'Snippet'}
-    ]
+   this.categories = this.snippet.categories
   }
+
   @Input() menus: string[];
-  activeTab: string;
-  displaySearch: string ;
 
   faSearch = faSearch;
   faPlus = faPlus;
