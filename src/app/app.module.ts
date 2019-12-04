@@ -14,6 +14,7 @@ import { DisplayModule } from './display/display.module';
 import {SnippetsModule} from './snippets/snippets.module';
 import { SnippetsComponent } from './snippets/snippets.component';
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -31,6 +32,7 @@ import {SidebarComponent} from './snippets/sidebar/sidebar.component';
     DisplayModule,
     FormsModule,
     SnippetsModule,
+    HttpClientModule
   ],
   providers: [],
   exports: [
