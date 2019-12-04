@@ -30,7 +30,12 @@
           <button class="btn btn-success">Enregistrer</button>
         </form>
       </div>
-
+      <div class="col-6">
+        <h1>{{displayForm.value.title}}</h1>
+        <div *ngFor="let content of displayForm.value.body">
+          <p>{{content.content}}</p>
+        </div>
+      </div>
     </div>
   </div>
 

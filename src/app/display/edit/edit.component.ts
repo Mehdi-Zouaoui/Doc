@@ -25,14 +25,14 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.contents = [
       {
-        content: 'dsfsf',
-        type: 'text',
+        content: 'split:separator:index',
+        type: 'code',
         id: 0,
         index: 0
       },
       {
-        content: 5,
-        type: 'number',
+        content: 'Scinde une chaine avec la fonction split et renvoie la sous-chaîne spécifiée par index',
+        type: 'text',
         id: 1,
         index: 1
       }
@@ -43,7 +43,7 @@ export class EditComponent implements OnInit {
 
   initForm() {
     this.displayForm = this.fb.group({
-      title: 'ee',
+      title: 'filter',
       body: this.fb.array(
         this.contents.map(elem => this.addContents(elem)))
     });
