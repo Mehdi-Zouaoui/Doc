@@ -8,6 +8,7 @@ import {CategoryModel} from "../models/snippets/category.model";
 export class SnippetService {
   modify: boolean;
   snippets: SnippetsModel[] = [
+
     new SnippetsModel('Regex', [
       {content: 'test', type: 'text', id: 0, index: 0 },
       {content: 'test2', type: 'text', id: 1, index: 2},
@@ -18,7 +19,8 @@ export class SnippetService {
       {content: 'LA', type: 'text', id: 1, index: 2},
       {content: 'T ES OU ', type: 'text', id: 2, index: 1},
       {content: 'Dans ton cul ', type: 'text', id: 2, index: 1},
-    ], 1 , 1)];
+    ], 1 , 1)
+  ];
 
   categories: CategoryModel[] = [
     new CategoryModel(
@@ -44,10 +46,13 @@ export class SnippetService {
     console.log('YO', this.snippets)
   }
 
-  deleteSnippet(i: number) {
-    this.snippets.splice(i, 1);
+  deleteSnippet(id) {
+    this.snippets.splice(id, 1);
   }
-
+  getIndex(index){
+    console.log('INDEX',index);
+    return index;
+  }
 
 }
 

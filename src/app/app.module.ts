@@ -15,6 +15,7 @@ import { DisplayModule } from './display/display.module';
 import {SnippetsModule} from './snippets/snippets.module';
 import { SnippetsComponent } from './snippets/snippets.component';
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
+import { SnippetsViewComponent } from './views/snippets-view/snippets-view.component';
 
 
 
@@ -23,7 +24,8 @@ import {SidebarComponent} from './snippets/sidebar/sidebar.component';
     AppComponent,
     SnippetsComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    SnippetsViewComponent
   ],
   imports: [
     BrowserModule,
