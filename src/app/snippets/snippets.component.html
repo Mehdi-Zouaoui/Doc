@@ -10,8 +10,8 @@
               </div>
 
             </div>
-            <button class=" btn btn-success btn-sm mr-2" (click)="onModify(snippetIndex)" routerLinkActive="active" routerLink="/snippets/editSnippet">Modifier</button>
-            <button class=" btn btn-danger btn-sm" (click)="onDelete(snippetIndex)">Supprimer</button>
+            <button class=" btn btn-success btn-sm mr-2" (click)="onModify(snippetId)" routerLinkActive="active" [routerLink]="[snippetId]">Modifier</button>
+            <button class=" btn btn-danger btn-sm" (click)="onDelete(snippetId)">Supprimer</button>
 
           </div>
         </div>

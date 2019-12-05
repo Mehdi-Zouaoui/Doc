@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SnippetService} from '../services/snippet.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {snippetContentModel} from "../models/snippets/snippetContent.model";
 
 @Component({
@@ -11,26 +11,22 @@ import {snippetContentModel} from "../models/snippets/snippetContent.model";
 
 
 export class SnippetsComponent implements OnInit {
-  @Input() snippetIndex:number;
+  @Input() snippetId:number;
   @Input() snippetTitle:string;
   @Input() snippetBody:snippetContentModel[];
-  body =
-  [{
-    content:'',
-    type: 'number'
-  }];
-  snippets = this.getSnippets();
-  constructor(private snippetService: SnippetService ,  private router:Router) {
+  @Input() index:number;
+  title:string;
+  body:snippetContentModel[];
+  snippets = this.snippetService.snippets;
+  id:number;
+
+  constructor(private snippetService: SnippetService ,  private router:ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.getSnippets();
+
   }
 
-  getSnippets() {
-    console.log('SNIPSNIP' , this.snippetService.snippets);
-    return this.snippetService.snippets;
-  }
 
   onDelete(index: number) {
 
@@ -38,8 +34,8 @@ export class SnippetsComponent implements OnInit {
   }
  onModify(index){
   this.snippetService.getIndex(index);
-
 }
+
 
 
 

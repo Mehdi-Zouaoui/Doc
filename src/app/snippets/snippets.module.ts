@@ -7,12 +7,14 @@ import {EditSnippetComponent} from './editSnippet/editSnippet.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {OrderBy} from "../pipes/orderBy.pipe";
+import { SingleSnippetComponent } from './single-snippet/single-snippet.component';
 
 
 @NgModule({
   declarations: [
     EditSnippetComponent,
-    OrderBy
+    OrderBy,
+    SingleSnippetComponent
   ],
   exports: [
     RouterModule,

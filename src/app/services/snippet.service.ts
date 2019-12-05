@@ -53,6 +53,17 @@ export class SnippetService {
     console.log('INDEX',index);
     return index;
   }
+  getSnippetById(id: number) {
+    const snippet = this.snippets.find(
+      (item) => {
+        console.log('id' , item.id , id);
+        return item.id === id;
+      }
+
+    );
+
+    return snippet;
+  }
 
 }
 
