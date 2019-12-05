@@ -2,7 +2,6 @@
   <div class="sidebar">
     <div class="col-12 text-right">
       <button class="btn btn-primary btn-block" (click)="addField('title')"><fa-icon [icon]="faPlus"></fa-icon> Titre</button>
-      <button class="btn btn-primary btn-block" (click)="addField('number')"><fa-icon [icon]="faPlus"></fa-icon> Number</button>
       <button class="btn btn-primary btn-block" (click)="addField('text')"><fa-icon [icon]="faPlus"></fa-icon> Texte</button>
       <button class="btn btn-primary btn-block" (click)="addField('code')"><fa-icon [icon]="faPlus"></fa-icon> Code</button>
     </div>
@@ -27,7 +26,11 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-success">Enregistrer</button>
+          <div class="row">
+            <div class="col-12 text-right">
+              <button class="btn btn-success">Enregistrer</button>
+            </div>
+          </div>
         </form>
       </div>
       <div class="col-6 wysiwyg">

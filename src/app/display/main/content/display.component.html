@@ -3,15 +3,15 @@
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-12">
-        <div class="tab-content" id="myTabContent">
-          <div *ngFor="let menu of menus" class="tab-pane fade show active"
+        <div class="tab-content" id="content">
+          <div *ngFor="let menu of menus" class="tab-pane fade show active wysiwyg"
                [attr.id]="menu.title" role="tabpanel"
                [attr.aria-labelledby]="menu.title+'-tab'"
                [ngClass]="{ 'active': activeTab === menu.title }">
             <h1>{{menu.title | uppercase}}</h1>
-            <div *ngFor="let item of menu.body">
+            <p *ngFor="let item of menu.body">
               {{item.content}}
-            </div>
+            </p>
           </div>
         </div>
       </div>

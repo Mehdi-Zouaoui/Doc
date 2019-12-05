@@ -31,7 +31,7 @@ export class EditComponent implements OnInit {
         index: 0
       },
       {
-        content: 'Scinde une chaine avec la fonction split et renvoie la sous-chaîne spécifiée par index',
+        content: 'Scinde une chaine avec la fonction split et renvoie la sous-chaîne spécifiée par index \nPourquoi pas.',
         type: 'text',
         id: 1,
         index: 1
