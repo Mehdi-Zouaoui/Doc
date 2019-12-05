@@ -13,6 +13,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
 
 import {DisplayService} from '../services/display.service';
+import {AutosizeModule} from 'ngx-autosize';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {DisplayService} from '../services/display.service';
     DisplayRoutingModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutosizeModule
   ],
   providers : [
     DisplayService

@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-
 import {FormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
+import {HttpClientModule} from "@angular/common/http";
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AutosizeModule } from 'ngx-autosize';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +15,6 @@ import { DisplayModule } from './display/display.module';
 import {SnippetsModule} from './snippets/snippets.module';
 import { SnippetsComponent } from './snippets/snippets.component';
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
-import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -27,12 +27,15 @@ import {HttpClientModule} from "@angular/common/http";
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FontAwesomeModule,
-    DisplayModule,
     FormsModule,
-    SnippetsModule,
-    HttpClientModule
+    HttpClientModule,
+
+    FontAwesomeModule,
+    AutosizeModule,
+
+    AppRoutingModule,
+    DisplayModule,
+    SnippetsModule
   ],
   providers: [],
   exports: [

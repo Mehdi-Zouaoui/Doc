@@ -21,8 +21,8 @@
           <div id="content" class="form-group" formArrayName="body">
             <div class="form-group" [formGroupName]="i" *ngFor="let field of displayForm.controls.body.controls ;index as i">
               <div [ngSwitch]="field.value.type">
-                <textarea class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
-                <textarea class="form-control" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <textarea class="form-control" autosize *ngSwitchCase="'text'" name="content" formControlName="content"></textarea>
+                <textarea class="form-control" autosize *ngSwitchCase="'code'" name="content" formControlName="content"></textarea>
                 <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
               </div>
             </div>
@@ -30,7 +30,7 @@
           <button class="btn btn-success">Enregistrer</button>
         </form>
       </div>
-      <div class="col-6">
+      <div class="col-6 wysiwyg">
         <h1>{{displayForm.value.title}}</h1>
         <div *ngFor="let content of displayForm.value.body">
           <p>{{content.content}}</p>
