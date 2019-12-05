@@ -17,6 +17,7 @@ export class SnippetService {
       {content: 'ICI', type: 'text', id: 0, index: 0},
       {content: 'LA', type: 'text', id: 1, index: 2},
       {content: 'T ES OU ', type: 'text', id: 2, index: 1},
+      {content: 'Dans ton cul ', type: 'text', id: 2, index: 1},
     ], 1 , 1)];
 
   categories: CategoryModel[] = [
