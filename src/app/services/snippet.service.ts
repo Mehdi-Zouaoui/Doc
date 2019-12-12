@@ -1,12 +1,15 @@
 import {Injectable, Input} from '@angular/core';
 import {SnippetsModel} from '../models/snippets/snippets.model';
 import {CategoryModel} from "../models/snippets/category.model";
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SnippetService {
-  modify: boolean;
+  modify:boolean;
+  index : number;
+  snippetForm: FormGroup;
   snippets: SnippetsModel[] = [
 
     new SnippetsModel('Regex', [
@@ -18,7 +21,7 @@ export class SnippetService {
       {content: 'ICI', type: 'text', id: 0, index: 0},
       {content: 'LA', type: 'text', id: 1, index: 2},
       {content: 'T ES OU ', type: 'text', id: 2, index: 1},
-      {content: 'Dans ton cul ', type: 'text', id: 2, index: 1},
+      {content: 'Dans ton cul ', type: 'text', id: 3, index: 3},
     ], 1 , 1)
   ];
 
@@ -49,11 +52,19 @@ export class SnippetService {
   deleteSnippet(id) {
     this.snippets.splice(id, 1);
   }
+  loadSnippet( snippetForm:FormGroup ,  index:number) : void {
+    snippetForm.setValue({
+      title: this.snippets[index].title,
+      body: this.snippets[index].body
+    })
+  };
   getIndex(index){
+    this.modify = true;
     console.log('INDEX',index);
+    this.index = index ;
     return index;
   }
-  getSnippetById(id: number) {
+  getSnippetByIndex(id: number) {
     const snippet = this.snippets.find(
       (item) => {
         console.log('id' , item.id , id);
@@ -64,6 +75,8 @@ export class SnippetService {
 
     return snippet;
   }
+
+
 
 }
 

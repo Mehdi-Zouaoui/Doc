@@ -18,13 +18,14 @@ export class SnippetsComponent implements OnInit {
   title:string;
   body:snippetContentModel[];
   snippets = this.snippetService.snippets;
+  snippetIndex : number;
   id:number;
 
   constructor(private snippetService: SnippetService ,  private router:ActivatedRoute) {
   }
 
   ngOnInit() {
-
+    this.snippetService.modify = false;
   }
 
 
@@ -32,8 +33,9 @@ export class SnippetsComponent implements OnInit {
 
     this.snippetService.deleteSnippet(index);
   }
- onModify(index){
-  this.snippetService.getIndex(index);
+ onModify(index:number){
+
+   this.snippetService.getIndex(index);
 }
 
 

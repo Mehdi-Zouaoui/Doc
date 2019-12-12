@@ -16,7 +16,7 @@ import {SnippetsModule} from './snippets/snippets.module';
 import { SnippetsComponent } from './snippets/snippets.component';
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
 import { SnippetsViewComponent } from './views/snippets-view/snippets-view.component';
-
+import { SingleSnippetComponent} from "./snippets/single-snippet/single-snippet.component";
 
 
 @NgModule({
@@ -25,7 +25,9 @@ import { SnippetsViewComponent } from './views/snippets-view/snippets-view.compo
     SnippetsComponent,
     HeaderComponent,
     SidebarComponent,
-    SnippetsViewComponent
+    SnippetsViewComponent,
+    SingleSnippetComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { SnippetsViewComponent } from './views/snippets-view/snippets-view.compo
   ],
   providers: [],
   exports: [
+    SnippetsComponent
   ],
   bootstrap: [AppComponent]
 })

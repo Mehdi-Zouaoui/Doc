@@ -12,7 +12,7 @@ import {DisplayService} from "../../services/display.service";
 })
 export class EditSnippetComponent implements OnInit {
 
-
+  snippetIndex : number;
   snippetForm: FormGroup;
   body: FormArray;
   contents : Array<any>;
@@ -21,24 +21,26 @@ export class EditSnippetComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private displayService: DisplayService,
-    private snippet:SnippetService,
+    private snippetService:SnippetService,
     private router:Router
 
   ) {}
 
   ngOnInit() {
-    this.contents = this.snippet.snippets[0].body
-    this.categories = this.snippet.categories;
+    this.snippetIndex = this.snippetService.index;
+    this.contents = this.snippetService.snippets[0].body;
+    this.categories = this.snippetService.categories;
     console.log(this.contents);
-    console.log(this.snippet.snippets);
-    if(!this.snippet.modify){
-      this.initForm();
-    }else this.initModifyForm()
+    console.log(this.snippetService.snippets);
+    this.initForm();
+    if(this.snippetService.modify) this.initModifyForm();
 
 
   }
 
   initForm() {
+    console.log('CREATION EN COURS' , this.snippetService.modify);
+
     this.snippetForm = this.fb.group({
       title: 'filter',
       body: this.fb.array(
@@ -48,14 +50,15 @@ export class EditSnippetComponent implements OnInit {
   )
   }
   initModifyForm(){
-    console.log('MODIFICATIONS EN COURS');
-    this.snippetForm = this.fb.group({
-      title:this.snippet.snippets[1].title,
-      body: this.fb.array(
-        this.contents.map(elem => this.addContents(elem))),
-      categoryId:this.snippet.snippets[0].categoryId
+    console.log('INDEX' , this.snippetIndex);
+    console.log('MODIFICATIONS EN COURS' , this.snippetService.modify);
+    this.snippetForm.patchValue({
+      title:this.snippetService.snippets[this.snippetIndex].title,
+      body:this.snippetService.snippets[this.snippetIndex].body,
+      categoryId:this.snippetService.snippets[this.snippetIndex].categoryId,
     })
   }
+
   addContents(control) : FormGroup {
     return this.fb.group({
       content: this.fb.control([control.content]),
@@ -64,6 +67,7 @@ export class EditSnippetComponent implements OnInit {
       index: [control.index,[Validators.required]]
     });
   }
+
 
 
   addField(type): FormGroup {
@@ -81,15 +85,21 @@ export class EditSnippetComponent implements OnInit {
     return;
   }
 
+  // @ts-ignore
   onSubmit() {
+
     console.log(this.snippetForm.value);
     const formValue = this.snippetForm.value;
     const entry = new SnippetsModel(
       formValue['title'],
       formValue['body'],
       formValue['categoryId'],
-      this.snippet.snippets.length + 1);
-    this.snippet.addSnippet(entry);
+     !this.snippetService.modify ? this.snippetService.snippets.length +1 : this.snippetService.snippets.length
+    );
+    if(!this.snippetService.modify){
+      this.snippetService.addSnippet(entry);
+    }else this.snippetService.snippets[this.snippetService.index] = entry ;
+
     this.router.navigate(['/snippets']);
   }
 
