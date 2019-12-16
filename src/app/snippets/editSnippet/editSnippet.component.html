@@ -12,8 +12,9 @@
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6">
-        <form [formGroup]="snippetForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="snippetForm" (ngSubmit)="onSubmit(snippetIndex)">
           <div class="form-group">
+            <div> INDEX : {{snippetIndex}}</div>
             <label for="title">
               Titre
             </label>
@@ -33,9 +34,9 @@
           <select class="browser-default custom-select mb-3" formControlName="categoryId" id="categoryId">
             <option [value]="categories[i].id" *ngFor="let category of categories ; index as i ">{{category.name}}</option>
           </select>
-         
 
-          <button class="btn btn-success"   (click)="onSubmit()">Enregistrer</button>
+
+          <button class="btn btn-success" (click)="onSubmit(snippetIndex)">Enregistrer</button>
         </form>
       </div>
       <div class="col-6">

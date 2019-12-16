@@ -3,7 +3,9 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {SnippetService} from '../../services/snippet.service';
 import {Router} from '@angular/router';
 import {SnippetsModel} from '../../models/snippets/snippets.model';
-import {DisplayService} from "../../services/display.service";
+import {DisplayService} from '../../services/display.service';
+import {SingleSnippetComponent} from '../single-snippet/single-snippet.component';
+import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 
 
 @Component({
@@ -12,59 +14,65 @@ import {DisplayService} from "../../services/display.service";
 })
 export class EditSnippetComponent implements OnInit {
 
-  snippetIndex : number;
+  snippetIndex: number;
   snippetForm: FormGroup;
+  snippetBodyFrom: FormGroup;
   body: FormArray;
-  contents : Array<any>;
-  categories : Array<any>;
+  contents: snippetContentModel[];
+  categories: Array<any>;
 
   constructor(
     private fb: FormBuilder,
     private displayService: DisplayService,
-    private snippetService:SnippetService,
-    private router:Router
+    private snippetService: SnippetService,
+    private router: Router
 
   ) {}
 
   ngOnInit() {
-    this.snippetIndex = this.snippetService.index;
-    this.contents = this.snippetService.snippets[0].body;
+    // console.log('RESET');
+
+    if (this.snippetService.modify) {
+      this.snippetIndex = this.snippetService.index;
+      this.contents = this.snippetService.snippets[this.snippetIndex].body;
+    } else {
+      this.snippetIndex = this.snippetService.snippets.length;
+      this.contents = this.snippetService.contentModel;
+    }
     this.categories = this.snippetService.categories;
-    console.log(this.contents);
+    // console.log(this.contents);
     console.log(this.snippetService.snippets);
     this.initForm();
-    if(this.snippetService.modify) this.initModifyForm();
-
-
+    if (this.snippetService.modify) { this.initModifyForm(); }
   }
 
   initForm() {
     console.log('CREATION EN COURS' , this.snippetService.modify);
 
     this.snippetForm = this.fb.group({
-      title: 'filter',
+      title: 'Titre',
       body: this.fb.array(
         this.contents.map(elem => this.addContents(elem))),
-      categoryId:''
+      categoryId: ''
     },
-  )
+  );
   }
-  initModifyForm(){
-    console.log('INDEX' , this.snippetIndex);
-    console.log('MODIFICATIONS EN COURS' , this.snippetService.modify);
-    this.snippetForm.patchValue({
-      title:this.snippetService.snippets[this.snippetIndex].title,
-      body:this.snippetService.snippets[this.snippetIndex].body,
-      categoryId:this.snippetService.snippets[this.snippetIndex].categoryId,
-    })
+  initModifyForm( ) {
+    console.log('SNIPPET BEFORE' ,  this.snippetService.snippets[this.snippetIndex]);
+    this.snippetForm.setValue({
+      title: this.snippetService.snippets[this.snippetIndex].title,
+      body: this.snippetService.snippets[this.snippetIndex].body,
+      categoryId: this.snippetService.snippets[this.snippetIndex].categoryId,
+    });
+    console.log('BODY' , this.snippetForm.value.body);
   }
 
-  addContents(control) : FormGroup {
+  addContents(control): FormGroup {
     return this.fb.group({
       content: this.fb.control([control.content]),
-      type: [control.type,[Validators.required]],
-      id: [control.id,[Validators.required]],
-      index: [control.index,[Validators.required]]
+      type: [control.type, [Validators.required]],
+      id: [control.id, [Validators.required]],
+      index: [control.index, [Validators.required]]
     });
   }
 
@@ -85,21 +93,26 @@ export class EditSnippetComponent implements OnInit {
     return;
   }
 
-  // @ts-ignore
-  onSubmit() {
 
-    console.log(this.snippetForm.value);
+  onSubmit(index) {
+
+    // console.log(this.snippetForm.value);
+    console.log('INDEX', this.snippetService.index);
+    console.log('1', this.snippetService.snippets[this.snippetService.index]);
     const formValue = this.snippetForm.value;
     const entry = new SnippetsModel(
-      formValue['title'],
-      formValue['body'],
-      formValue['categoryId'],
-     !this.snippetService.modify ? this.snippetService.snippets.length +1 : this.snippetService.snippets.length
+      formValue.title,
+      formValue.body,
+      formValue.categoryId,
+     !this.snippetService.modify ? this.snippetService.snippets.length + 1 : this.snippetService.snippets[index].id
     );
-    if(!this.snippetService.modify){
+    if (!this.snippetService.modify) {
       this.snippetService.addSnippet(entry);
-    }else this.snippetService.snippets[this.snippetService.index] = entry ;
-
+    } else {
+      this.snippetService.snippets[this.snippetService.index] = entry;
+    }
+    console.log('2' , this.snippetService.snippets[this.snippetService.index]);
+    console.log('INDEX', this.snippetService.index);
     this.router.navigate(['/snippets']);
   }
 

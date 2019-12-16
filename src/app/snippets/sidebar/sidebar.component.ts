@@ -8,18 +8,22 @@ import {SnippetService} from "../../services/snippet.service";
 })
 export class SidebarComponent implements OnInit {
 
-  categories : Array<any>;
+  categories: Array<any>;
 
-  constructor( private snippet : SnippetService) {
+  constructor( private snippetService: SnippetService) {
   }
 
   ngOnInit() {
-   this.categories = this.snippet.categories
+   this.categories = this.snippetService.categories;
   }
 
   @Input() menus: string[];
 
   faSearch = faSearch;
   faPlus = faPlus;
+
+  // onAdd(index: number) {
+  //   this.snippetService.getIndex(index);
+  // }
 
 }
