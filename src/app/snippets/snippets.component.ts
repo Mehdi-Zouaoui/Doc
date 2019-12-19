@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SnippetService} from '../services/snippet.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {snippetContentModel} from '../models/snippets/snippetContent.model';
 
 @Component({
@@ -18,10 +17,9 @@ export class SnippetsComponent implements OnInit {
   title: string;
   body: snippetContentModel[];
   snippets = this.snippetService.snippets;
-  snippetIndex: number;
   id: number;
 
-  constructor(private snippetService: SnippetService ,  private router: ActivatedRoute) {
+  constructor(private snippetService: SnippetService ) {
   }
 
   ngOnInit() {

@@ -10,6 +10,8 @@ import {snippetContentModel} from '../models/snippets/snippetContent.model';
 export class SnippetService {
   modify: boolean;
   index: number;
+  categoryId: number;
+  categoryIndex: number;
   snippetForm: FormGroup;
   contentModel: snippetContentModel[] = [
     new snippetContentModel('text ', 'text', 0, 2),
@@ -21,29 +23,29 @@ export class SnippetService {
       {content: 'test', type: 'text', id: 0, index: 0},
       {content: 'test2', type: 'text', id: 1, index: 2},
       {content: 'test1', type: 'text', id: 2, index: 1},
-    ], 0, 0),
+    ], 1, 0),
     new SnippetsModel('Bulles', [
       {content: 'ICI', type: 'text', id: 0, index: 0},
       {content: 'LA', type: 'text', id: 1, index: 2},
       {content: 'T ES OU ', type: 'text', id: 2, index: 1},
       {content: 'Dans ton cul ', type: 'text', id: 3, index: 3},
-    ], 1, 1)
+    ], 2, 1)
   ];
 
   categories: CategoryModel[] = [
     new CategoryModel(
       'Animations',
       'animations',
-      0
+      1
     ),
     new CategoryModel(
       'JS',
       'javascript',
-      1),
+      2),
     new CategoryModel(
       'Filter',
       'filter',
-      2)
+      3)
   ];
 
   constructor() {
@@ -71,6 +73,8 @@ export class SnippetService {
     this.index = index;
     return index;
   }
+
+
 
   getSnippetByIndex(id: number) {
     const snippet = this.snippets.find(

@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <div class="sidebar h-100">
+    <form class="form-inline my-2 my-lg-0">
+      <div class="input-group mb-3 w-100">
+        <input type="text" class="form-control" placeholder="Recherche" aria-label="Recherche"
+               aria-describedby="button-search">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-search">
+            <fa-icon [icon]="faSearch"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="col-4 row">
+      <snippetSidebar class="mb-2" *ngFor=" let category of categories; index as i"
+                      [categoryId]="category.id"
+                      [categoryIndex]="i">
+      </snippetSidebar>
+    </div>
+      <button class="btn btn-dark text-right " routerLink="/snippets/editSnippet">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Ajouter
+      </button>
+  </div>
+
+
+  <div class="container">
+    <div class=" row py-2" *ngIf="categoryId">
+      <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter : categories[categoryIndex].id; index as i"
+                    [snippetId]="snippet.id"
+                    [snippetTitle]="snippet.title"
+                    [snippetBody]="snippet.body"
+                    [index]="i">
+      </app-snippets>
+      </div>
+    <div class=" row py-2" *ngIf="!categoryId ">
+
+        <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets; index as i"
+                      [snippetId]="snippet.id"
+                      [snippetTitle]="snippet.title"
+                      [snippetBody]="snippet.body"
+                      [index]="i">
+        </app-snippets>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+

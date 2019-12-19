@@ -1,29 +1,31 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {SnippetService} from "../../services/snippet.service";
+import {SnippetService} from '../../services/snippet.service';
+import {CategoryModel} from '../../models/snippets/category.model';
+import {SnippetsViewComponent} from "../../views/snippets-view/snippets-view.component";
 
 @Component({
   selector: 'snippetSidebar',
-  templateUrl: './sidebar.component.html'
+  // tslint:disable-next-line:max-line-length
+  template: '<div class="nav-item w-100"> <a routerLinkActive="active" (click)="getId(categoryId) ; getIndex(categoryIndex)">{{categories[categoryIndex].name}}</a> </div>'
 })
 export class SidebarComponent implements OnInit {
-
-  categories: Array<any>;
-
-  constructor( private snippetService: SnippetService) {
+  constructor( private snippetService: SnippetService , private snippetView: SnippetsViewComponent) {
   }
+
+  categories: CategoryModel[] = this.snippetService.categories;
+  @Input() categoryId;
+  @Input() categoryIndex: number;
+  @Input() menus: string[];
+  snippets = this.snippetService.snippets;
 
   ngOnInit() {
    this.categories = this.snippetService.categories;
   }
 
-  @Input() menus: string[];
-
-  faSearch = faSearch;
-  faPlus = faPlus;
-
-  // onAdd(index: number) {
-  //   this.snippetService.getIndex(index);
-  // }
-
+getId(id: number) {
+    this.snippetView.getCategoryId(id);
+}
+getIndex(index: number) {
+    this.snippetView.getCategoryIndex(index);
+}
 }
