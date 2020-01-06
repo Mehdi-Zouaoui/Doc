@@ -17,7 +17,7 @@ import { SnippetsComponent } from './snippets/snippets.component';
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
 import { SnippetsViewComponent } from './views/snippets-view/snippets-view.component';
 import { SingleSnippetComponent} from './snippets/single-snippet/single-snippet.component';
-
+import {CategoryFilter} from "./pipes/categoryFilter.pipe";
 
 @NgModule({
   declarations: [

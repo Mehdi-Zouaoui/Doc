@@ -13,7 +13,6 @@ export class SnippetsComponent implements OnInit {
   @Input() snippetId: number;
   @Input() snippetTitle: string;
   @Input() snippetBody: snippetContentModel[];
-  @Input() index: number;
   title: string;
   body: snippetContentModel[];
   snippets = this.snippetService.snippets;
@@ -25,16 +24,17 @@ export class SnippetsComponent implements OnInit {
   ngOnInit() {
     this.snippetService.modify = false;
     console.log('MODIFY' , this.snippetService.modify);
+    console.log('Keys' ,  this.snippets);
   }
+//Changer les index par id
+  // Jamais utiliser un index pour identifier un objet
 
-
-  onDelete(index: number) {
-
-    this.snippetService.deleteSnippet(index);
+  onDelete(key: number) {
+    this.snippetService.deleteSnippet(key);
   }
- onModify(index: number) {
-
-   this.snippetService.getIndex(index);
+ onModify(key) {
+    this.snippetService.modify = true;
+   this.snippetService.snippets.get(key)
 }
 
 
