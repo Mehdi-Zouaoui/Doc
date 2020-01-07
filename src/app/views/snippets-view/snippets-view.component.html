@@ -25,14 +25,14 @@
 
 
   <div class="container">
-    <div class=" row py-2" *ngIf="categoryId">
-      <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter : categories[categoryIndex].id; index as i"
-                    [snippetId]="snippet.id"
-                    [snippetTitle]="snippet.title"
-                    [snippetBody]="snippet.body"
-                    [index]="i">
-      </app-snippets>
-      </div>
+<!--    <div class=" row py-2" *ngIf="categoryId">-->
+<!--      <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter : categories[categoryIndex].id; index as i"-->
+<!--                    [snippetId]="snippet.id"-->
+<!--                    [snippetTitle]="snippet.title"-->
+<!--                    [snippetBody]="snippet.body"-->
+<!--                    [index]="i">-->
+<!--      </app-snippets>-->
+<!--      </div>-->
     <div class=" row py-2" *ngIf="!categoryId ">
 
         <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets; index as i"
@@ -41,6 +41,7 @@
                       [snippetBody]="snippet.body"
                       [index]="i">
         </app-snippets>
+
       </div>
 
     </div>

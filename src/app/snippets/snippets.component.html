@@ -1,18 +1,25 @@
-
-        <div class="card my-2">
-          <div class="card-body">
-            <h3 class="card-title">
-              {{snippetTitle}}
-            </h3>
-            <div *ngIf="snippetBody && snippetBody.length > 0">
-              <div class="my-3" *ngFor="let object of snippetBody;" >
-                {{object.content}}
-              </div>
-
-            </div>
-            <button class=" btn btn-success btn-sm mr-2" (click)="onModify(snippetId)" routerLinkActive="active" [routerLink]="[snippetId]">Modifier</button>
-            <button class=" btn btn-danger btn-sm" (click)="onDelete(snippetId)">Supprimer</button>
-
-          </div>
+<div class="card my-2">
+  <div class="card-body">
+    <h3 class="card-title">
+      {{snippetTitle}}
+    </h3>
+    <div *ngIf="snippetBody && snippetBody.length > 0">
+      <div class="my-3" *ngFor="let object of snippetBody; index as id;">
+        <div *ngIf="object.type !=='code'">
+          {{object.content}}
         </div>
+        <pre *ngIf="object.type ==='code'" class="line-numbers">
+          <code class="language-ts">
+                {{object.content}}
+          </code>
+        </pre>
+      </div>
 
+    </div>
+    <button class=" btn btn-success btn-sm mr-2" (click)="onModify(snippetId)" routerLinkActive="active"
+            [routerLink]="[snippetId]">Modifier
+    </button>
+    <button class=" btn btn-danger btn-sm" (click)="onDelete(snippetId)">Supprimer</button>
+
+  </div>
+</div>

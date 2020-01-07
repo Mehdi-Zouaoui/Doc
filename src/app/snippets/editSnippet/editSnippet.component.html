@@ -42,7 +42,16 @@
       <div class="col-6">
         <h1>{{snippetForm.value.title}}</h1>
         <div *ngFor="let content of snippetForm.value.body">
-          <p>{{content.content}}</p>
+          <div *ngIf="content.type !=='code'">
+           {{content.content}}
+          </div>
+
+          <div *ngIf="content.type ==='code'">
+          <pre class="line-numbers"><code class="language-ts">
+           {{content.content}}
+          </code></pre>
+          </div>
+
         </div>
 
       </div>

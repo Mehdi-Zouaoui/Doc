@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AutosizeModule } from 'ngx-autosize';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { SnippetsComponent } from './snippets/snippets.component';
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
 import { SnippetsViewComponent } from './views/snippets-view/snippets-view.component';
 import { SingleSnippetComponent} from './snippets/single-snippet/single-snippet.component';
+import {PrismService} from "./services/prism.service";
 
 
 @NgModule({
@@ -33,15 +34,14 @@ import { SingleSnippetComponent} from './snippets/single-snippet/single-snippet.
     BrowserModule,
     FormsModule,
     HttpClientModule,
-
     FontAwesomeModule,
-    AutosizeModule,
-
     AppRoutingModule,
     DisplayModule,
     SnippetsModule
   ],
-  providers: [],
+  providers: [
+    PrismService
+  ],
   exports: [
     SnippetsComponent
   ],

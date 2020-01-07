@@ -1,6 +1,8 @@
 @import "styles/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "styles/bootswatch";
-
 @import "styles/app/app";
+@import '../node_modules/prismjs/themes/prism-tomorrow.css';
+@import '../node_modules/prismjs/plugins/toolbar/prism-toolbar.css';
+@import '../node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css';
 

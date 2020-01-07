@@ -22,13 +22,36 @@ export class SnippetService {
     new SnippetsModel('Regex', [
       {content: 'test', type: 'text', id: 0, index: 0},
       {content: 'test2', type: 'text', id: 1, index: 2},
-      {content: 'test1', type: 'text', id: 2, index: 1},
+      {
+        content: `
+        ngAfterViewInit(): void {
+             if (!this.highlighted) {
+                 this.snippetBody.forEach((item) => {
+                 if(item.type === 'code') {
+                    this.prismService.highlightAll();
+                 }
+               });
+         this.highlighted = true;
+                      }
+}`, type: 'code', id: 2, index: 1
+      },
     ], 1, 0),
     new SnippetsModel('Bulles', [
       {content: 'ICI', type: 'text', id: 0, index: 0},
       {content: 'LA', type: 'text', id: 1, index: 2},
       {content: 'T ES OU ', type: 'text', id: 2, index: 1},
-      {content: 'Dans ton cul ', type: 'text', id: 3, index: 3},
+      {
+        content: `
+        @Input() snippetId:number;
+        @Input() snippetTitle: string; 
+        @Input() snippetBody: snippetContentModel[];  
+        @Input() index: number;
+        title: string;
+        highlighted: Boolean = false;
+        body: snippetContentModel[]" 
+        snippets = this.snippetService.snippets;id: number; `
+        , type: 'code', id: 3, index: 3
+      },
     ], 2, 1)
   ];
 
@@ -74,7 +97,9 @@ export class SnippetService {
     return index;
   }
 
-
+  getSnippets(): SnippetsModel[] {
+    return this.snippets;
+  }
 
   getSnippetByIndex(id: number) {
     const snippet = this.snippets.find(

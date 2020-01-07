@@ -7,7 +7,7 @@ import {EditSnippetComponent} from './editSnippet/editSnippet.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {OrderBy} from '../pipes/orderBy.pipe';
-import {CategoryFilter} from '../pipes/categoryFilter.pipe';
+import {PrismService} from "../services/prism.service";
 
 
 
@@ -15,12 +15,11 @@ import {CategoryFilter} from '../pipes/categoryFilter.pipe';
   declarations: [
     EditSnippetComponent,
     OrderBy,
-    CategoryFilter
+
   ],
   exports: [
     RouterModule,
     OrderBy,
-    CategoryFilter,
     EditSnippetComponent
   ],
   imports: [
@@ -31,6 +30,9 @@ import {CategoryFilter} from '../pipes/categoryFilter.pipe';
     ReactiveFormsModule,
     SnippetRoutingModule
 
+  ],
+  providers: [
+    PrismService
   ]
 })
 export class SnippetsModule {
