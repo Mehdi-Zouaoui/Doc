@@ -24,17 +24,17 @@
     </button>
   </div>
 
-
+<div>HELLO {{categoryId}}</div>
   <div class="container">
-    <!--        <div class=" row py-2" *ngIf="categoryId">-->
-    <!--          <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter | keyvalue "-->
-    <!--                        [snippetId]="snippet.key"-->
-    <!--                        [snippetTitle]="snippet.value.title"-->
-    <!--                        [snippetBody]="snippet.value.body"-->
-    <!--                       >-->
-    <!--          </app-snippets>-->
-    <!--          </div>-->
-    <div class=" row py-2">
+<!--            <div class=" row py-2" *ngIf="categoryId">-->
+<!--              <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter :1 | keyvalue "-->
+<!--                            [snippetId]="snippet.key"-->
+<!--                            [snippetTitle]="snippet.value.title"-->
+<!--                            [snippetBody]="snippet.value.body"-->
+<!--                           >-->
+<!--              </app-snippets>-->
+<!--              </div>-->
+    <div class=" row py-2" *ngIf="!categoryId">
 
       <app-snippets class="col-6 w-50 " *ngFor="let snippet of snippets | keyvalue"
                     [snippetId]="snippet.key"

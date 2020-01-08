@@ -12,6 +12,7 @@ import {CategoryFilter} from "../pipes/categoryFilter.pipe";
 
 
 
+
 @NgModule({
   declarations: [
     EditSnippetComponent,

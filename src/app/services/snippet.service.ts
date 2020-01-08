@@ -3,6 +3,7 @@ import {SnippetsModel} from '../models/snippets/snippets.model';
 import {CategoryModel} from '../models/snippets/category.model';
 import {FormGroup} from '@angular/forms';
 import {snippetContentModel} from '../models/snippets/snippetContent.model';
+import {CategoryFilter} from "../pipes/categoryFilter.pipe";
 
 @Injectable({
   providedIn: 'root'
@@ -70,17 +71,8 @@ export class SnippetService {
     this.snippets.delete(key);
   }
 
-  filteredSnippet(key: string) {
-    for (let id of this.snippets.keys()) {
-      console.log(this.snippets.get(id).categoryId, 'KEYS', key);
-
-    }
-  }
   getCategoryName(id : number) : string{
       return this.categories.get(id).name ;
-
-
-
   }
 
   // loadSnippet(snippetForm: FormGroup, index: number): void {
