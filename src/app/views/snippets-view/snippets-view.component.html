@@ -27,14 +27,14 @@
 <div>HELLO {{categoryId}}</div>
   <div class="container">
 <!--            <div class=" row py-2" *ngIf="categoryId">-->
-<!--              <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter :1 | keyvalue "-->
+<!--              <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | keyvalue | categoryFilter :1  "-->
 <!--                            [snippetId]="snippet.key"-->
 <!--                            [snippetTitle]="snippet.value.title"-->
 <!--                            [snippetBody]="snippet.value.body"-->
 <!--                           >-->
 <!--              </app-snippets>-->
 <!--              </div>-->
-    <div class=" row py-2" *ngIf="!categoryId">
+    <div class=" row py-2">
 
       <app-snippets class="col-6 w-50 " *ngFor="let snippet of snippets | keyvalue"
                     [snippetId]="snippet.key"
