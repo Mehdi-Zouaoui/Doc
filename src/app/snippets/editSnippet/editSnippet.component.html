@@ -32,11 +32,11 @@
           </div>
 
           <select class="browser-default custom-select mb-3" formControlName="categoryId" id="categoryId">
-            <option [value]="categories[i].id" *ngFor="let category of categories ; index as i ">{{category.name}}</option>
+            <option [value]="category.key" *ngFor="let category of categories | keyvalue; ">{{category.value.name}}</option>
           </select>
 
 
-          <button class="btn btn-success" (click)="onSubmit(snippetIndex)">Enregistrer</button>
+          <button class="btn btn-success" (click)="onSubmit(key)">Enregistrer</button>
         </form>
       </div>
       <div class="col-6">

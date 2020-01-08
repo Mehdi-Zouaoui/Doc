@@ -15,7 +15,8 @@ export class SnippetsComponent implements OnInit , AfterViewInit {
   @Input() snippetId: number;
   @Input() snippetTitle: string;
   @Input() snippetBody: snippetContentModel[];
-  @Input() index: number;
+  @Input() snippetCategory: number;
+  categoryName: string ;
   title: string;
   highlighted: Boolean = false;
   body: snippetContentModel[];
@@ -36,18 +37,20 @@ ngAfterViewInit(): void {
 }
   ngOnInit() {
     this.snippetService.modify = false;
-    console.log('HEHEHE', this.highlighted);
-    console.log('MODIFY', this.snippetService.modify);
+
+    console.log('MODIFY' , this.snippetService.modify);
+    console.log('Keys' ,  this.snippets);
+    this.categoryName = this.snippetService.getCategoryName(this.snippetCategory);
   }
+//Changer les index par id
+  // Jamais utiliser un index pour identifier un objet
 
-  onDelete(index: number) {
-
-    this.snippetService.deleteSnippet(index);
+  onDelete(key: number) {
+    this.snippetService.deleteSnippet(key);
   }
-
-  onModify(index: number) {
-
-    this.snippetService.getIndex(index);
+  onModify(key) {
+    this.snippetService.modify = true;
+    this.snippetService.snippets.get(key)
   }
 
 

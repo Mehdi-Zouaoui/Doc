@@ -8,6 +8,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {OrderBy} from '../pipes/orderBy.pipe';
 import {PrismService} from "../services/prism.service";
+import {CategoryFilter} from "../pipes/categoryFilter.pipe";
 
 
 
@@ -15,12 +16,14 @@ import {PrismService} from "../services/prism.service";
   declarations: [
     EditSnippetComponent,
     OrderBy,
+    CategoryFilter
 
   ],
   exports: [
     RouterModule,
     OrderBy,
-    EditSnippetComponent
+    EditSnippetComponent,
+    CategoryFilter
   ],
   imports: [
     BrowserModule,
