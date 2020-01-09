@@ -4,6 +4,8 @@ import {CategoryModel} from '../models/snippets/category.model';
 import {FormGroup} from '@angular/forms';
 import {snippetContentModel} from '../models/snippets/snippetContent.model';
 import {CategoryFilter} from "../pipes/categoryFilter.pipe";
+import * as firebase from 'firebase';
+import DataSnapshot = firebase.database.DataSnapshot;
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ export class SnippetService {
   modify: boolean;
   index: number;
   categoryId: number;
+  snippetRef = firebase.database().ref('snippets');
   contentModel: snippetContentModel[] = [
     new snippetContentModel('text ', 'text', 0, 2),
     new snippetContentModel('code ', 'text', 1, 0),
@@ -69,27 +72,44 @@ export class SnippetService {
 
   deleteSnippet(key) {
     this.snippets.delete(key);
+    firebase.database().ref('snippets').child(key).remove();
   }
 
-  getCategoryName(id : number) : string{
-      return this.categories.get(id).name ;
+  getCategoryName(id: number): string {
+    return this.categories.get(id).name;
   }
-
-  // loadSnippet(snippetForm: FormGroup, index: number): void {
-  //   snippetForm.setValue({
-  //     title: this.snippets[index].title,
-  //     body: this.snippets[index].body
-  //   });
-  // }
+  getData() {
+      firebase.database().ref('snippets')
+        .on('value', (data: DataSnapshot) => {
+            this.snippetRef = data.val() ? data.val() : [];
+          }
+        );
+      console.log('snippetRef', this.snippetRef);
+    // firebase.database().ref('snippets').once('value').then((snapshot) => {
+    //   console.log(snapshot.val() , 'KEYS', snapshot.key);
+    // });
+  }
+  pushDatabase(snippetMap: Map<string, SnippetsModel>) {
+    snippetMap.forEach((item) => {
+      firebase.database().ref('snippets/').push({
+        title: item.title,
+        body: item.body,
+        category: this.getCategoryName(item.categoryId)
+      });
+    });
+  }
 }
 
 
 
 
 
-
-
-
+// loadSnippet(snippetForm: FormGroup, index: number): void {
+//   snippetForm.setValue({
+//     title: this.snippets[index].title,
+//     body: this.snippets[index].body
+//   });
+// }
 
 
 

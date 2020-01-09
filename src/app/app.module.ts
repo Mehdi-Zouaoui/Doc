@@ -12,9 +12,13 @@ import { SnippetsComponent } from './snippets/snippets.component';
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
 import { SnippetsViewComponent } from './views/snippets-view/snippets-view.component';
 import { SingleSnippetComponent} from './snippets/single-snippet/single-snippet.component';
-import {PrismService} from "./services/prism.service";
+import {PrismService} from './services/prism.service';
+import { environment } from '../environments/environment';
+import * as firebase from 'firebase';
+
 import {CategoryFilter} from "./pipes/categoryFilter.pipe";
 
+firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [
     AppComponent,

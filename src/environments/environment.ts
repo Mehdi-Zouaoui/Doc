@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+   firebase : {
+    apiKey: 'AIzaSyAmaLF0cLhs-nDd4Rw8wG2Jxof0TF3arQ4',
+    authDomain: 'doc-cliclic.firebaseapp.com',
+    databaseURL: 'https://doc-cliclic.firebaseio.com',
+    projectId: 'doc-cliclic',
+    storageBucket: 'doc-cliclic.appspot.com',
+    messagingSenderId: '562825531269',
+    appId: '1:562825531269:web:670978e0d7bbc1b5fcbeec',
+    measurementId: 'G-NWXSRR5T77'
+  }
 };
 
 /*

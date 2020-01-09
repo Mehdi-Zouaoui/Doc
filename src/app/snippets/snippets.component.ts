@@ -20,7 +20,6 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   categoryName: string;
   title: string;
   highlighted: Boolean = false;
-  body: snippetContentModel[];
   @Input() categoryKey: any;
   snippets = this.snippetService.snippets;
   id: number;
@@ -44,10 +43,11 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.snippetService.modify = false;
     this.categoryKey = this.route.snapshot.paramMap.get('categoryId');
-    console.log('CategoryKey', );
+    console.log('Content', this.snippetService.snippets.values());
     console.log('MODIFY', this.snippetService.modify);
     console.log('Keys', this.snippets);
     this.categoryName = this.snippetService.getCategoryName(this.snippetCategory);
+
   }
 
 //Changer les index par id

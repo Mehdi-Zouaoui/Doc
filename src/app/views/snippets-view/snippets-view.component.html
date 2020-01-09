@@ -13,6 +13,7 @@
     </form>
     <div class="col-4 row">
       <snippetSidebar class="mb-2" *ngFor=" let category of categories | keyvalue;"
+                      (idEvent)="receiveId($event)"
                       [categoryId]="category.key"
                       [categoryName]="category.value.name"
       >
@@ -26,15 +27,14 @@
 
 <div>HELLO {{categoryId}}</div>
   <div class="container">
-<!--            <div class=" row py-2" *ngIf="categoryId">-->
-<!--              <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | keyvalue | categoryFilter :1  "-->
-<!--                            [snippetId]="snippet.key"-->
-<!--                            [snippetTitle]="snippet.value.title"-->
-<!--                            [snippetBody]="snippet.value.body"-->
-<!--                           >-->
-<!--              </app-snippets>-->
-<!--              </div>-->
-    <div class=" row py-2">
+            <div class=" row py-2" *ngIf="categoryId">
+              <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter : categoryId "
+                            [snippetTitle]="snippet.title"
+                            [snippetBody]="snippet.body"
+              >
+              </app-snippets>
+              </div>
+    <div class=" row py-2" *ngIf="!categoryId">
 
       <app-snippets class="col-6 w-50 " *ngFor="let snippet of snippets | keyvalue"
                     [snippetId]="snippet.key"

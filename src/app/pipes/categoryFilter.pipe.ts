@@ -8,9 +8,17 @@ import {SnippetService} from "../services/snippet.service";
 })
 export class CategoryFilter implements PipeTransform {
 
-  transform(snippetsMap: Map<string, SnippetsModel> , categoryKey : any)  {
-    // return Array.from(snippetsMap.values()).filter(snippet => snippet.categoryId == categoryKey);
+  transform(snippetsMap: Map<string, SnippetsModel>, categoryKey: any): SnippetsModel[] {
+    for (const id of snippetsMap.keys()) {
+      if (categoryKey === snippetsMap.get(id).categoryId) {
+        console.log(snippetsMap.get(id));
+        return Array(snippetsMap.get(id));
+      }
+    }
   }
+}
+    // return Array.from(snippetsMap.values()).filter(snippet => snippet.categoryId == categoryKey);
+
 
 //   transform(snippetsArray: Map<string, SnippetsModel> , categoryKey : any): SnippetsModel | undefined {
 //     if (snippetsArray ) {
@@ -23,6 +31,6 @@ export class CategoryFilter implements PipeTransform {
 //
 //     }
 //     return null ;
-  }
+
 
 
