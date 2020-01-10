@@ -59,7 +59,7 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
 
   onModify(key) {
     this.snippetService.modify = true;
-    this.snippetService.snippets.get(key)
+    // this.snippetService.snippets.get(key)
   }
 
 

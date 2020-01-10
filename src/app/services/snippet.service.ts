@@ -14,13 +14,13 @@ export class SnippetService {
   modify: boolean;
   index: number;
   categoryId: number;
-  snippetRef = firebase.database().ref('snippets');
+  snippets : Map<any, SnippetsModel> = new Map();
   contentModel: snippetContentModel[] = [
     new snippetContentModel('text ', 'text', 0, 2),
     new snippetContentModel('code ', 'text', 1, 0),
     new snippetContentModel('description ', 'text', 2, 1)
   ];
-  snippets: Map<string, SnippetsModel> = new Map([['1',
+  snippetsRef: Map<string, SnippetsModel> = new Map([['1',
     new SnippetsModel('Regex', [
       {content: 'test', type: 'text', id: 0, index: 0},
       {content: 'test2', type: 'text', id: 1, index: 2},
@@ -70,33 +70,50 @@ export class SnippetService {
     console.log('YO', this.snippets);
   }
 
+
+
+  getCategoryName(id: number): string {
+    return this.categories.get(id).name;
+  }
+  // var userId = firebase.auth().currentUser.uid;
+  // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+  // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+  getData() {
+    firebase.database().ref('/snippets')
+      .once('value').then((data : DataSnapshot) =>{
+        data.forEach((child : DataSnapshot) =>{
+            this.snippets.set(child.key , child.val());
+            console.log(this.snippets);
+          console.log('DATASNAPSHOT' ,child.val());
+        })
+    })
+
+
+  }
+  updateData(snippetMap : SnippetsModel , key){
+
+    firebase.database().ref('/snippets').child(key)
+      .update({
+        title: snippetMap.title,
+        body: snippetMap.body,
+        category: this.getCategoryName(snippetMap.categoryId),
+        categoryId: snippetMap.categoryId
+      })
+  }
+
   deleteSnippet(key) {
     this.snippets.delete(key);
     firebase.database().ref('snippets').child(key).remove();
   }
 
-  getCategoryName(id: number): string {
-    return this.categories.get(id).name;
-  }
-  getData() {
-      firebase.database().ref('snippets')
-        .on('value', (data: DataSnapshot) => {
-            this.snippetRef = data.val() ? data.val() : [];
-          }
-        );
-      console.log('snippetRef', this.snippetRef);
-    // firebase.database().ref('snippets').once('value').then((snapshot) => {
-    //   console.log(snapshot.val() , 'KEYS', snapshot.key);
-    // });
-  }
-  pushDatabase(snippetMap: Map<string, SnippetsModel>) {
-    snippetMap.forEach((item) => {
+  pushDatabase(snippetMap:  SnippetsModel) {
+
       firebase.database().ref('snippets/').push({
-        title: item.title,
-        body: item.body,
-        category: this.getCategoryName(item.categoryId)
+        title: snippetMap.title,
+        body: snippetMap.body,
+        category: this.getCategoryName(snippetMap.categoryId),
+        categoryId : snippetMap.categoryId
       });
-    });
   }
 }
 

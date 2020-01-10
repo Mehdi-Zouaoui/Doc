@@ -11,26 +11,26 @@
         </div>
       </div>
     </form>
-    <div class="col-4 row">
+    <ul class="col-4 nav flex-column">
       <snippetSidebar class="mb-2" *ngFor=" let category of categories | keyvalue;"
                       (idEvent)="receiveId($event)"
                       [categoryId]="category.key"
                       [categoryName]="category.value.name"
       >
       </snippetSidebar>
-    </div>
+    </ul>
     <button class="btn btn-dark text-right " routerLink="/snippets/editSnippet">
       <fa-icon [icon]="faPlus"></fa-icon>
       Ajouter
     </button>
   </div>
 
-<div>HELLO {{categoryId}}</div>
   <div class="container">
             <div class=" row py-2" *ngIf="categoryId">
               <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter : categoryId "
                             [snippetTitle]="snippet.title"
                             [snippetBody]="snippet.body"
+                            [snippetCategory]="snippet.categoryId"
               >
               </app-snippets>
               </div>

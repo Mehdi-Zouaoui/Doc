@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
   // tslint:disable-next-line:component-selector
   selector: 'snippetSidebar',
   // tslint:disable-next-line:max-line-length
-  template: '<div class="nav-item w-100"> <a routerLinkActive="active" (click)=" sendId();" >{{categoryName}}</a> </div>'
+  template: ' <li class="nav-item"><a  class="nav-link" routerLinkActive="active" (click)=" sendId();" >{{categoryName}}</a></li> '
 })
 export class SidebarComponent implements OnInit {
   constructor( private snippetService: SnippetService , private snippetView: SnippetsViewComponent , private route: ActivatedRoute) {

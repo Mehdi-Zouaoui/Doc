@@ -18,6 +18,7 @@ export class SnippetsViewComponent implements OnInit {
   constructor(private snippetService: SnippetService) { }
   ngOnInit() {
     this.snippetService.getData();
+    // this.snippetService.modify = false ;
   }
 
   receiveId($event) {

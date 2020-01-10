@@ -105,10 +105,12 @@ export class EditSnippetComponent implements OnInit {
       formValue.categoryId * 1,
     );
     if (!this.snippetService.modify) {
-      this.snippetService.addSnippet(entry);
+      // this.snippetService.addSnippet(entry);
+      this.snippetService.pushDatabase(entry);
     } else {
       this.snippetService.snippets.set(key, entry);
-      this.snippetService.pushDatabase(this.snippetService.snippets);
+      this.snippetService.updateData(entry , key);
+
     }
     this.snippetService.modify = false;
     this.router.navigate(['/snippets']);

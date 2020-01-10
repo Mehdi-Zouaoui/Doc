@@ -9,7 +9,7 @@
         <div *ngIf="object.type !=='code'">
           {{object.content}}
         </div>
-        <pre *ngIf="object.type ==='code'" class="line-numbers">
+        <pre class="line-numbers" *ngIf="object.type ==='code'" >
           <code class="language-ts">
                 {{object.content}}
           </code>
