@@ -1,22 +1,22 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {SnippetsModel} from "../models/snippets/snippets.model";
-import {SnippetService} from "../services/snippet.service";
-
-@Pipe({
-  name: 'categoryFilter',
-  pure: false
-})
-export class CategoryFilter implements PipeTransform {
-
-  transform(snippetsMap: Map<string, SnippetsModel>, categoryKey: any): SnippetsModel[] {
-    for (const id of snippetsMap.keys()) {
-      if (categoryKey === snippetsMap.get(id).categoryId) {
-        console.log('ICI Y A LE FILTRE MON POTE' , snippetsMap.get(id));
-        return Array(snippetsMap.get(id));
-      }
-    }
-  }
-}
+// import {Pipe, PipeTransform} from '@angular/core';
+// import {SnippetsModel} from "../models/snippets/snippets.model";
+// import {SnippetService} from "../services/snippet.service";
+//
+// @Pipe({
+//   name: 'categoryFilter',
+//   pure: false
+// })
+// export class CategoryFilter implements PipeTransform {
+//
+//   transform(snippetsMap: Map<string, SnippetsModel>, categoryKey: any): SnippetsModel[] {
+//     for (const id of snippetsMap.keys()) {
+//       if (categoryKey === snippetsMap.get(id).categoryId) {
+//         console.log('ICI Y A LE FILTRE MON POTE' , snippetsMap.get(id));
+//         return Array(snippetsMap.get(id));
+//       }
+//     }
+//   }
+// }
     // return Array.from(snippetsMap.values()).filter(snippet => snippet.categoryId == categoryKey);
 
 

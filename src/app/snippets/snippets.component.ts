@@ -4,6 +4,7 @@ import {snippetContentModel} from '../models/snippets/snippetContent.model';
 import {PrismService} from "../services/prism.service";
 import Prism from 'prismjs';
 import {ActivatedRoute} from "@angular/router";
+import {CategoryModel} from "../models/snippets/category.model";
 
 @Component({
   selector: 'app-snippets',
@@ -16,8 +17,8 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   @Input() snippetId: number;
   @Input() snippetTitle: string;
   @Input() snippetBody: snippetContentModel[];
-  @Input() snippetCategory: number;
-  categoryName: string;
+  @Input() snippetCategory: Map<any,CategoryModel>;
+  categoryNames: string |Array<string>;
   title: string;
   highlighted: Boolean = false;
   @Input() categoryKey: any;
@@ -46,7 +47,8 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
     console.log('Content', this.snippetService.snippets.values());
     console.log('MODIFY', this.snippetService.modify);
     console.log('Keys', this.snippets);
-    this.categoryName = this.snippetService.getCategoryName(this.snippetCategory);
+
+   this.categoryNames = this.snippetService.snippets.get(this.snippetId).categories;
 
   }
 

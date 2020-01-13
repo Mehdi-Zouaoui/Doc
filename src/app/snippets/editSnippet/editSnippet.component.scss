@@ -1,0 +1,14 @@
+.hidden_input{
+visibility: hidden;
+  position: absolute;
+  margin-left: 150px;
+  border-radius: 10px;
+  transition: 2s;
+  width: 150px;
+
+}
+.list_container:hover{
+  &.hidden_input{
+    visibility: visible;
+  }
+}

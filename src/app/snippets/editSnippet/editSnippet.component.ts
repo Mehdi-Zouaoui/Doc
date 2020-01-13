@@ -6,12 +6,13 @@ import {SnippetsModel} from '../../models/snippets/snippets.model';
 import {DisplayService} from '../../services/display.service';
 import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 import {CategoryModel} from '../../models/snippets/category.model';
-
+import * as jquery from 'jquery'
 
 @Component({
-  // tslint:disable-next-line:component-selector
+
   selector: 'snippet-edit',
-  templateUrl: './editSnippet.component.html'
+  templateUrl: './editSnippet.component.html',
+  styleUrls:['./editSnippet.component.scss']
 })
 export class EditSnippetComponent implements OnInit {
 
@@ -20,6 +21,7 @@ export class EditSnippetComponent implements OnInit {
   body: FormArray;
   key: string;
   contents: snippetContentModel[];
+  categoriesArray: Array<string>;
   categories: Map<number, CategoryModel>;
 
   constructor(
@@ -34,11 +36,13 @@ export class EditSnippetComponent implements OnInit {
   ngOnInit() {
     this.key = this.route.snapshot.paramMap.get('id');
     console.log('key' , this.key);
+    // jquery('.select').select2();
     this.contents = this.snippetService.contentModel;
     this.categories = this.snippetService.categories;
     this.initForm();
-    if (this.snippetService.modify) {
+    if (this.key) {
       this.initModifyForm(this.key , this.snippetService.snippets);
+
       // setInterval( () => {
       //   console.log(this.snippetForm);
       //
@@ -56,7 +60,7 @@ export class EditSnippetComponent implements OnInit {
         title: 'Titre',
         body: this.fb.array(
           this.contents.map(elem => this.addContents(elem))),
-        categoryId: ''
+        categoriesArray: ''
       },
     );
   }
@@ -66,9 +70,10 @@ export class EditSnippetComponent implements OnInit {
     this.snippetForm.patchValue({
       title: snippet.get(key).title,
       body: snippet.get(key).body,
-      categoryId: snippet.get(key).categoryId,
+      categoryId: snippet.get(key).categories,
     });
-    console.log('BODY', this.snippetForm.value.body);
+    console.log('snippet' , snippet.get(key));
+    console.log('BODY', this.snippetForm.value);
   }
 
   addContents(control): FormGroup {
@@ -102,7 +107,7 @@ export class EditSnippetComponent implements OnInit {
     const entry = new SnippetsModel(
       formValue.title,
       formValue.body,
-      formValue.categoryId * 1,
+      formValue.categoriesArray
     );
     if (!this.snippetService.modify) {
       // this.snippetService.addSnippet(entry);

@@ -17,6 +17,7 @@ import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 
 import {CategoryFilter} from "./pipes/categoryFilter.pipe";
+import {IsotopeModule} from "ngx-isotope";
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -36,7 +37,8 @@ firebase.initializeApp(environment.firebase);
     FontAwesomeModule,
     AppRoutingModule,
     DisplayModule,
-    SnippetsModule
+    SnippetsModule,
+    IsotopeModule
   ],
   providers: [
     PrismService

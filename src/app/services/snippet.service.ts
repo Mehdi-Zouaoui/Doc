@@ -3,7 +3,6 @@ import {SnippetsModel} from '../models/snippets/snippets.model';
 import {CategoryModel} from '../models/snippets/category.model';
 import {FormGroup} from '@angular/forms';
 import {snippetContentModel} from '../models/snippets/snippetContent.model';
-import {CategoryFilter} from "../pipes/categoryFilter.pipe";
 import * as firebase from 'firebase';
 import DataSnapshot = firebase.database.DataSnapshot;
 
@@ -20,29 +19,29 @@ export class SnippetService {
     new snippetContentModel('code ', 'text', 1, 0),
     new snippetContentModel('description ', 'text', 2, 1)
   ];
-  snippetsRef: Map<string, SnippetsModel> = new Map([['1',
-    new SnippetsModel('Regex', [
-      {content: 'test', type: 'text', id: 0, index: 0},
-      {content: 'test2', type: 'text', id: 1, index: 2},
-      {content: 'test1', type: 'text', id: 2, index: 1},
-    ], 1)], ['2',
-    new SnippetsModel('Bulles', [
-      {content: 'ICI', type: 'text', id: 0, index: 0},
-      {content: 'LA', type: 'text', id: 1, index: 2},
-      {
-        content: `ngAfterViewInit(): void {
-  if (!this.highlighted) {
-    this.snippetBody.forEach((item) => {
-      if(item.type === 'code') {
-        this.prismService.highlightAll();
-      }
-    });
-    this.highlighted = true;
-  }
-}`, type: 'code', id: 2, index: 1
-      },
-    ], 2)]
-  ]);
+//   snippetsRef: Map<string, SnippetsModel> = new Map([['1',
+//     new SnippetsModel('Regex', [
+//       {content: 'test', type: 'text', id: 0, index: 0},
+//       {content: 'test2', type: 'text', id: 1, index: 2},
+//       {content: 'test1', type: 'te xt', id: 2, index: 1},
+//     ], 1)], ['2',
+//     new SnippetsModel('Bulles', [
+//       {content: 'ICI', type: 'text', id: 0, index: 0},
+//       {content: 'LA', type: 'text', id: 1, index: 2},
+//       {
+//         content: `ngAfterViewInit(): void {
+//   if (!this.highlighted) {
+//     this.snippetBody.forEach((item) => {
+//       if(item.type === 'code') {
+//         this.prismService.highlightAll();
+//       }
+//     });
+//     this.highlighted = true;
+//   }
+// }`, type: 'code', id: 2, index: 1
+//       },
+//     ], 2)]
+//   ]);
   categories: Map<number, CategoryModel> = new Map([[1,
     new CategoryModel(
       'Animations',
@@ -72,8 +71,13 @@ export class SnippetService {
 
 
 
-  getCategoryName(id: number): string {
-    return this.categories.get(id).name;
+  getCategoryName(key): Array<string> {
+    let categoryNameArray:Array<string> = [];
+    const snapshot:any = this.getData();
+    snapshot.categories.forEach(name => {
+      categoryNameArray.push(name);
+    });
+    return categoryNameArray
   }
   // var userId = firebase.auth().currentUser.uid;
   // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
@@ -90,14 +94,17 @@ export class SnippetService {
 
 
   }
-  updateData(snippetMap : SnippetsModel , key){
+  test(snippet : SnippetsModel){
+    console.log('snippetHERE' , snippet);
+  }
+  updateData(snippet : SnippetsModel , key){
 
     firebase.database().ref('/snippets').child(key)
       .update({
-        title: snippetMap.title,
-        body: snippetMap.body,
-        category: this.getCategoryName(snippetMap.categoryId),
-        categoryId: snippetMap.categoryId
+        title: snippet.title,
+        body: snippet.body,
+        categories: snippet.categories,
+
       })
   }
 
@@ -106,14 +113,23 @@ export class SnippetService {
     firebase.database().ref('snippets').child(key).remove();
   }
 
-  pushDatabase(snippetMap:  SnippetsModel) {
+  pushDatabase(snippet:  SnippetsModel) {
 
       firebase.database().ref('snippets/').push({
-        title: snippetMap.title,
-        body: snippetMap.body,
-        category: this.getCategoryName(snippetMap.categoryId),
-        categoryId : snippetMap.categoryId
+        title: snippet.title,
+        body: snippet.body,
+        categories: snippet.categories,
+
       });
+  }
+
+  pushCategoryDatabase(categoryModel : CategoryModel) {
+
+    firebase.database().ref('categories').push({
+      title:categoryModel.name,
+      sanitizeName:categoryModel.sanitizeName,
+      id: categoryModel.id
+    });
   }
 }
 

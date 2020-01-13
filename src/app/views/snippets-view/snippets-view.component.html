@@ -14,8 +14,7 @@
     <ul class="col-4 nav flex-column">
       <snippetSidebar class="mb-2" *ngFor=" let category of categories | keyvalue;"
                       (idEvent)="receiveId($event)"
-                      [categoryId]="category.key"
-                      [categoryName]="category.value.name"
+                      [category]="category"
       >
       </snippetSidebar>
     </ul>
@@ -25,23 +24,27 @@
     </button>
   </div>
 
-  <div class="container">
-            <div class=" row py-2" *ngIf="categoryId">
-              <app-snippets class="col-6 w-50 "  *ngFor="let snippet of snippets | categoryFilter : categoryId "
-                            [snippetTitle]="snippet.title"
-                            [snippetBody]="snippet.body"
-                            [snippetCategory]="snippet.categoryId"
-              >
-              </app-snippets>
-              </div>
-    <div class=" row py-2" *ngIf="!categoryId">
-
-      <app-snippets class="col-6 w-50 " *ngFor="let snippet of snippets | keyvalue"
+  <div class="container-fluid">
+<!--            <div class=" row py-2" *ngIf="categoryId">-->
+<!--              <app-snippets class="col-6 w-50 "   *ngFor="let snippet of snippets | categoryFilter : categoryId "-->
+<!--                            [snippetTitle]="snippet.title"-->
+<!--                            [snippetBody]="snippet.body"-->
+<!--                            [snippetCategory]="snippet.categoryId"-->
+<!--              >-->
+<!--              </app-snippets>-->
+<!--              </div>-->
+    <div  class=" row py-2" >
+      <ng-container  *ngFor="let snippet of snippets | keyvalue">
+        <div  class="col-4 w-100"   *ngIf="!category || snippet.value.categories.includes(category.value.name)">
+      <app-snippets
                     [snippetId]="snippet.key"
                     [snippetTitle]="snippet.value.title"
                     [snippetBody]="snippet.value.body"
-                    [snippetCategory]="snippet.value.categoryId">
+                    [snippetCategory]="snippet.value.categories"
+                   >
       </app-snippets>
+      </div>
+      </ng-container>
     </div>
 
   </div>

@@ -1,6 +1,7 @@
+
 <div class="card my-2">
   <div class="card-body">
-    <div class="badge badge-secondary">{{categoryName}}</div>
+    <div class="badge badge-secondary ml-1" *ngFor="let badge of categoryNames">{{badge}}</div>
     <h3 class="card-title">
       {{snippetTitle}}
     </h3>
@@ -24,3 +25,5 @@
 
   </div>
 </div>
+
+

@@ -8,31 +8,32 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {OrderBy} from '../pipes/orderBy.pipe';
 import {PrismService} from "../services/prism.service";
-import {CategoryFilter} from "../pipes/categoryFilter.pipe";
-
-
+import { IsotopeModule } from 'ngx-isotope';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
   declarations: [
     EditSnippetComponent,
     OrderBy,
-    CategoryFilter
+
 
   ],
   exports: [
     RouterModule,
     OrderBy,
     EditSnippetComponent,
-    CategoryFilter
+
   ],
   imports: [
     BrowserModule,
     CommonModule,
     FontAwesomeModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    SnippetRoutingModule
+    SnippetRoutingModule,
+    IsotopeModule
 
   ],
   providers: [
