@@ -15,8 +15,7 @@ import { SingleSnippetComponent} from './snippets/single-snippet/single-snippet.
 import {PrismService} from './services/prism.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
-
-import {CategoryFilter} from "./pipes/categoryFilter.pipe";
+// import {CategoryFilter} from "./pipes/categoryFilter.pipe";
 import {IsotopeModule} from "ngx-isotope";
 
 firebase.initializeApp(environment.firebase);

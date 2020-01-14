@@ -6,16 +6,13 @@ import {SnippetsModel} from '../../models/snippets/snippets.model';
 import {DisplayService} from '../../services/display.service';
 import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 import {CategoryModel} from '../../models/snippets/category.model';
-import * as jquery from 'jquery'
 
 @Component({
-
   selector: 'snippet-edit',
   templateUrl: './editSnippet.component.html',
   styleUrls:['./editSnippet.component.scss']
 })
 export class EditSnippetComponent implements OnInit {
-
   snippetIndex: number;
   snippetForm: FormGroup;
   body: FormArray;
@@ -35,20 +32,13 @@ export class EditSnippetComponent implements OnInit {
 
   ngOnInit() {
     this.key = this.route.snapshot.paramMap.get('id');
-    console.log('key' , this.key);
-    // jquery('.select').select2();
-    this.contents = this.snippetService.contentModel;
+    this.contents = this.snippetService.snippets.get(this.key).body;
     this.categories = this.snippetService.categories;
     this.initForm();
     if (this.key) {
       this.initModifyForm(this.key , this.snippetService.snippets);
 
-      // setInterval( () => {
-      //   console.log(this.snippetForm);
-      //
-      // } , 2000);
     }
-    // this.test();
   }
   test() {
     setInterval( () => {console.log( this.snippetService.snippets); } , 2000 );
@@ -57,23 +47,21 @@ export class EditSnippetComponent implements OnInit {
     console.log('CREATION EN COURS', this.snippetService.modify);
 
     this.snippetForm = this.fb.group({
-        title: 'Titre',
+        title: '',
         body: this.fb.array(
           this.contents.map(elem => this.addContents(elem))),
         categoriesArray: ''
       },
     );
+
   }
 
   initModifyForm(key: string, snippet: Map<string , SnippetsModel>) {
-
     this.snippetForm.patchValue({
       title: snippet.get(key).title,
       body: snippet.get(key).body,
       categoryId: snippet.get(key).categories,
     });
-    console.log('snippet' , snippet.get(key));
-    console.log('BODY', this.snippetForm.value);
   }
 
   addContents(control): FormGroup {
@@ -90,17 +78,11 @@ export class EditSnippetComponent implements OnInit {
     const add = this.fb.group({
       content: type === 'code' ? 'code' : (type === 'title' ? 'Bienvenue' : 3),
       type,
-
-      // id: this.snippetForm.controls.body.controls.length,
-      //
-      // index: this.snippetForm.controls.body.controls.length
     });
     this.body = this.snippetForm.get('body') as FormArray;
     this.body.push(add);
-
     return add;
   }
-
 
   onSubmit(key) {
     const formValue = this.snippetForm.value;
@@ -110,15 +92,12 @@ export class EditSnippetComponent implements OnInit {
       formValue.categoriesArray
     );
     if (!this.snippetService.modify) {
-      // this.snippetService.addSnippet(entry);
       this.snippetService.pushDatabase(entry);
     } else {
       this.snippetService.snippets.set(key, entry);
       this.snippetService.updateData(entry , key);
-
     }
     this.snippetService.modify = false;
     this.router.navigate(['/snippets']);
   }
-
 }

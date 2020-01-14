@@ -24,6 +24,7 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   @Input() categoryKey: any;
   snippets = this.snippetService.snippets;
   id: number;
+  private key: string;
 
 
 
@@ -43,6 +44,8 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.snippetService.modify = false;
+    this.key = this.route.snapshot.paramMap.get('id');
+
     this.categoryKey = this.route.snapshot.paramMap.get('categoryId');
     console.log('Content', this.snippetService.snippets.values());
     console.log('MODIFY', this.snippetService.modify);
