@@ -6,11 +6,12 @@ import {SnippetsModel} from '../../models/snippets/snippets.model';
 import {DisplayService} from '../../services/display.service';
 import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 import {CategoryModel} from '../../models/snippets/category.model';
+import {MatFormField} from '@angular/material';
 
 @Component({
   selector: 'snippet-edit',
   templateUrl: './editSnippet.component.html',
-  styleUrls:['./editSnippet.component.scss']
+  styleUrls: ['./editSnippet.component.scss']
 })
 export class EditSnippetComponent implements OnInit {
   snippetIndex: number;
@@ -20,7 +21,7 @@ export class EditSnippetComponent implements OnInit {
   contents: snippetContentModel[];
   categoriesArray: Array<string>;
   categories: Map<number, CategoryModel>;
-
+  fieldType: string;
   constructor(
     private fb: FormBuilder,
     private displayService: DisplayService,
@@ -32,7 +33,6 @@ export class EditSnippetComponent implements OnInit {
 
   ngOnInit() {
     this.key = this.route.snapshot.paramMap.get('id');
-    this.contents = this.snippetService.snippets.get(this.key).body;
     this.categories = this.snippetService.categories;
     this.initForm();
     if (this.key) {
@@ -45,11 +45,11 @@ export class EditSnippetComponent implements OnInit {
   }
   initForm() {
     console.log('CREATION EN COURS', this.snippetService.modify);
-
+    if (this.snippetService.modify) { this.contents = this.snippetService.snippets.get(this.key).body; }
     this.snippetForm = this.fb.group({
         title: '',
-        body: this.fb.array(
-          this.contents.map(elem => this.addContents(elem))),
+        body: this.snippetService.modify ?  this.fb.array(
+          this.contents.map(elem => this.addContents(elem))) : this.fb.array([]),
         categoriesArray: ''
       },
     );
@@ -73,12 +73,13 @@ export class EditSnippetComponent implements OnInit {
     });
   }
 
-
   addField(type): FormGroup {
+    this.fieldType = type;
     const add = this.fb.group({
       content: type === 'code' ? 'code' : (type === 'title' ? 'Bienvenue' : 3),
       type,
     });
+    console.log('Body' , this.body);
     this.body = this.snippetForm.get('body') as FormArray;
     this.body.push(add);
     return add;

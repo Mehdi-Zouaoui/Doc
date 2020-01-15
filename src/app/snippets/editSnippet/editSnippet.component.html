@@ -8,7 +8,7 @@
     </div>
   </div>
 
-
+<div>{{this.fieldType}}</div>
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6">
@@ -23,8 +23,10 @@
           <div id="content" class="form-group" formArrayName="body">
             <div class="form-group" [formGroupName]="i" *ngFor="let field of snippetForm.controls.body.controls ;index as i">
               <div [ngSwitch]="field.value.type">
-                <textarea class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
-                <textarea class="form-control" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+
+                <label  [attr.for]="fieldType">{{this.fieldType === 'code'? 'code' :  'text' }}</label>
+                <textarea class="form-control"  id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <textarea class="form-control"  id="code" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
                 <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
               </div>
             </div>
