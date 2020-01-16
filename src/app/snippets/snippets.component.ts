@@ -17,8 +17,9 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   @Input() snippetId: number;
   @Input() snippetTitle: string;
   @Input() snippetBody: snippetContentModel[];
-  @Input() snippetCategory: Map<any,CategoryModel>;
-  categoryNames: string |Array<string>;
+  @Input() snippetCategory: Map<any, CategoryModel>;
+  @Input() sanitizeTitle: string;
+  categoryNames: string | Array<string>;
   title: string;
   highlighted: Boolean = false;
   @Input() categoryKey: any;
@@ -26,9 +27,13 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   id: number;
   private key: string;
 
-
-
   constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {
+  }
+  ngOnInit() {
+    this.snippetService.modify = false;
+    this.key = this.route.snapshot.paramMap.get('id');
+    this.categoryKey = this.route.snapshot.paramMap.get('categoryId');
+    this.categoryNames = this.snippetService.snippets.get(this.snippetId).categories;
   }
 
   ngAfterViewInit(): void {
@@ -42,18 +47,7 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngOnInit() {
-    this.snippetService.modify = false;
-    this.key = this.route.snapshot.paramMap.get('id');
 
-    this.categoryKey = this.route.snapshot.paramMap.get('categoryId');
-    console.log('Content', this.snippetService.snippets.values());
-    console.log('MODIFY', this.snippetService.modify);
-    console.log('Keys', this.snippets);
-
-   this.categoryNames = this.snippetService.snippets.get(this.snippetId).categories;
-
-  }
 
   onDelete(key: number) {
     this.snippetService.deleteSnippet(key);

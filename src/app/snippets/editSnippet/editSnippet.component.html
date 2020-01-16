@@ -8,7 +8,7 @@
     </div>
   </div>
 
-
+  <div>{{this.fieldType}}</div>
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6">
@@ -21,43 +21,57 @@
           </div>
 
           <div id="content" class="form-group" formArrayName="body">
-            <div class="form-group" [formGroupName]="i" *ngFor="let field of snippetForm.controls.body.controls ;index as i">
+            <div class="form-group" [formGroupName]="i"
+                 *ngFor="let field of snippetForm.controls.body.controls ;index as i">
               <div [ngSwitch]="field.value.type">
-                <label for="text">Text</label>
-                <textarea  id="text" class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
-                <textarea class="form-control" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <label [attr.for]="field.value.type">{{field.value.type}}</label>
+                <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
+                          formControlName="content"></textarea>
+                <textarea class="form-control" id="code" *ngSwitchCase="'code'" name="content" cols="30" rows="10"
+                          formControlName="content"></textarea>
                 <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
               </div>
             </div>
           </div>
 
-              <ng-select
-                multiple="true"
-                          class="browser-default mb-3 "
-                          id="categoryId"
-                          [(ngModel)]="badges"
-                          formControlName="categoriesArray">
+          <ng-select
+            multiple="true"
+            class="browser-default mb-3 position-relative"
+            id="categoryId"
+            [(ngModel)]="badges"
+            formControlName="categoriesArray"
+            (click)="updateCat()"
+          >
 
-                <div class="rounded border border-primary">+</div>
-            <ng-option  [value]="category.value.name" *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
-
-         </ng-option>
+            <ng-option [value]="category.value.name"
+                       *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
+            </ng-option>
 
           </ng-select>
-<!--          <label for="category_title">-->
-<!--            Titre-->
-<!--          </label>-->
-<!--          <div class="list_container rounded border border-primary col-12 w-25" >+-->
-<!--            <input class="hidden_input form-control" type="text" id="category_title">-->
-<!--          </div>-->
-          <button class="btn btn-success" (click)="onSubmit(key)">Enregistrer</button>
+          <div>
+            <div class="hidden_input btn btn-warning mb-2" id="categoryForm"
+                 [ngClass]="{'showCategoryFrom': this.categoryClicked }"
+                 (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">Ajouter une
+              catégorie
+            </div>
+            <div class="d-flex"></div>
+            <div *ngIf="this.categoryClicked" class="hidden_text">
+              <form [formGroup]="categoryForm">
+                <input class="form-control w-25 mb-1" type="text"
+                       formControlName="categoryName" name="categoryName" id="categoryName">
+                <button class="btn btn-danger" (click)="this.categoryClicked = false ; onSubmitCategory()"> Enregistrer</button>
+              </form>
+            </div>
+          </div>
+          <button class="btn btn-success mt-5" (click)="onSubmit(key)">Enregistrer</button>
+
         </form>
       </div>
       <div class="col-6">
         <h1>{{snippetForm.value.title}}</h1>
         <div *ngFor="let content of snippetForm.value.body">
           <div *ngIf="content.type !=='code'">
-           {{content.content}}
+            {{content.content}}
           </div>
 
           <div *ngIf="content.type ==='code'">
@@ -72,7 +86,7 @@
     </div>
   </div>
 
-  </div>
+</div>
 
 
 

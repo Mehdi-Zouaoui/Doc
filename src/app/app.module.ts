@@ -17,6 +17,7 @@ import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 // import {CategoryFilter} from "./pipes/categoryFilter.pipe";
 import {IsotopeModule} from "ngx-isotope";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -37,7 +38,8 @@ firebase.initializeApp(environment.firebase);
     AppRoutingModule,
     DisplayModule,
     SnippetsModule,
-    IsotopeModule
+    IsotopeModule,
+    BrowserAnimationsModule
   ],
   providers: [
     PrismService

@@ -1,49 +1,18 @@
 <div class="wrapper">
-  <div class="sidebar h-100">
-    <form class="form-inline my-2 my-lg-0">
-      <div class="input-group mb-3 w-100">
-        <input type="text" class="form-control" placeholder="Recherche" aria-label="Recherche"
-               aria-describedby="button-search">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-search">
-            <fa-icon [icon]="faSearch"></fa-icon>
-          </button>
-        </div>
-      </div>
-    </form>
-    <ul class="col-4 nav flex-column">
-      <snippetSidebar class="mb-2" *ngFor=" let category of categories | keyvalue;"
-                      (idEvent)="receiveId($event)"
-                      [category]="category"
-      >
-      </snippetSidebar>
-    </ul>
-    <button class="btn btn-dark text-right " routerLink="/snippets/editSnippet">
-      <fa-icon [icon]="faPlus"></fa-icon>
-      Ajouter
-    </button>
-  </div>
-
+  <snippetSidebar (idEvent)="receiveId($event)"></snippetSidebar>
   <div class="container-fluid">
-<!--            <div class=" row py-2" *ngIf="categoryId">-->
-<!--              <app-snippets class="col-6 w-50 "   *ngFor="let snippet of snippets | categoryFilter : categoryId "-->
-<!--                            [snippetTitle]="snippet.title"-->
-<!--                            [snippetBody]="snippet.body"-->
-<!--                            [snippetCategory]="snippet.categoryId"-->
-<!--              >-->
-<!--              </app-snippets>-->
-<!--              </div>-->
-    <div  class=" row py-2" >
-      <ng-container  *ngFor="let snippet of snippets | keyvalue">
-        <div  class="col-4 w-100"   *ngIf="!category || snippet.value.categories.includes(category.value.name)">
-      <app-snippets
-                    [snippetId]="snippet.key"
-                    [snippetTitle]="snippet.value.title"
-                    [snippetBody]="snippet.value.body"
-                    [snippetCategory]="snippet.value.categories"
-                   >
-      </app-snippets>
-      </div>
+    <div class=" row py-2">
+      <ng-container *ngFor="let snippet of snippets | keyvalue">
+        <div class="col-4 w-100" *ngIf="!category || snippet.value.categories.includes(category.value.name)">
+          <app-snippets
+            [snippetId]="snippet.key"
+            [snippetTitle]="snippet.value.title"
+            [snippetBody]="snippet.value.body"
+            [sanitizeTitle]="snippet.value.sanitizeTitle"
+            [snippetCategory]="snippet.value.categories"
+          >
+          </app-snippets>
+        </div>
       </ng-container>
     </div>
 
