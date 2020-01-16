@@ -20,6 +20,7 @@ export class EditSnippetComponent implements OnInit {
   contents: snippetContentModel[];
   categoriesArray: Array<string>;
   categories: Map<number, CategoryModel>;
+  badges:Array<string>=[];
 
   constructor(
     private fb: FormBuilder,
@@ -37,8 +38,9 @@ export class EditSnippetComponent implements OnInit {
     this.initForm();
     if (this.key) {
       this.initModifyForm(this.key , this.snippetService.snippets);
-
     }
+    this.getCategoriesBadges(this.key, this.snippetService.snippets);
+    this.badges = this.getCategoriesBadges(this.key,this.snippetService.snippets);
   }
   test() {
     setInterval( () => {console.log( this.snippetService.snippets); } , 2000 );
@@ -64,6 +66,9 @@ export class EditSnippetComponent implements OnInit {
     });
   }
 
+  getCategoriesBadges( key:string, snippet: Map<string , SnippetsModel>){
+    return snippet.get(key).categories;
+    }
   addContents(control): FormGroup {
     return this.fb.group({
       content: this.fb.control([control.content]),

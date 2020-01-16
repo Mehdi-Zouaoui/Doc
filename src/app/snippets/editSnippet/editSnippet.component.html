@@ -23,17 +23,19 @@
           <div id="content" class="form-group" formArrayName="body">
             <div class="form-group" [formGroupName]="i" *ngFor="let field of snippetForm.controls.body.controls ;index as i">
               <div [ngSwitch]="field.value.type">
-                <textarea class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
+                <label for="text">Text</label>
+                <textarea  id="text" class="form-control" *ngSwitchCase="'text'" name="content" cols="30" rows="10" formControlName="content"></textarea>
                 <textarea class="form-control" *ngSwitchCase="'code'" name="content" cols="30" rows="10" formControlName="content"></textarea>
                 <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
               </div>
             </div>
           </div>
 
-              <ng-select  multiple="true"
+              <ng-select
+                multiple="true"
                           class="browser-default mb-3 "
                           id="categoryId"
-                          placeholder="Select categories"
+                          [(ngModel)]="badges"
                           formControlName="categoriesArray">
 
                 <div class="rounded border border-primary">+</div>
@@ -42,19 +44,12 @@
          </ng-option>
 
           </ng-select>
-
 <!--          <label for="category_title">-->
 <!--            Titre-->
 <!--          </label>-->
 <!--          <div class="list_container rounded border border-primary col-12 w-25" >+-->
 <!--            <input class="hidden_input form-control" type="text" id="category_title">-->
 <!--          </div>-->
-
-          <div>
-            {{categoriesArray}}
-          </div>
-
-
           <button class="btn btn-success" (click)="onSubmit(key)">Enregistrer</button>
         </form>
       </div>

@@ -55,9 +55,6 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
 
   }
 
-//Changer les index par id
-  // Jamais utiliser un index pour identifier un objet
-
   onDelete(key: number) {
     this.snippetService.deleteSnippet(key);
   }
