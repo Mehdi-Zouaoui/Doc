@@ -22,10 +22,13 @@ export class SidebarComponent implements OnInit {
   @Output() idEvent = new EventEmitter<object>();
   faSearch = faSearch;
   faPlus = faPlus;
-  snippetSearch:string;
-  categories: Map<string, CategoryModel> = this.snippetService.categories;
+  snippetSearch: string;
+  categories: Map<string, CategoryModel>;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.categories  = this.snippetService.categories;
+    console.log('heuuuuuuuuuuu',this.categories);
+  }
 
   sendCategory(category) {
     this.idEvent.emit(category);

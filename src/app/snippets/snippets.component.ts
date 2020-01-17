@@ -1,15 +1,15 @@
 import {AfterViewInit, Component, Inject, Input, OnInit} from '@angular/core';
 import {SnippetService} from '../services/snippet.service';
 import {snippetContentModel} from '../models/snippets/snippetContent.model';
-import {PrismService} from "../services/prism.service";
+import {PrismService} from '../services/prism.service';
 import Prism from 'prismjs';
-import {ActivatedRoute} from "@angular/router";
-import {CategoryModel} from "../models/snippets/category.model";
+import {ActivatedRoute} from '@angular/router';
+import {CategoryModel} from '../models/snippets/category.model';
 
 @Component({
   selector: 'app-snippets',
   templateUrl: './snippets.component.html',
-  styles: ['pre.line-numbers > code{ overflow: visible ; padding : 0 ; color : white;}']
+  styles: ['pre.line-numbers > code{ overflow: visible ; padding : 0 ; color : white;}   ']
 })
 
 
@@ -29,6 +29,7 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
 
   constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {
   }
+
   ngOnInit() {
     this.snippetService.modify = false;
     this.key = this.route.snapshot.paramMap.get('id');
@@ -46,7 +47,6 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
       this.highlighted = true;
     }
   }
-
 
 
   onDelete(key: number) {
