@@ -9,7 +9,6 @@ export class SearchSnippetFilterPipe implements PipeTransform {
       return [];
     }
     if (!searchText) {
-      console.log('ITEM', items);
       return items;
     }
     searchText = searchText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();

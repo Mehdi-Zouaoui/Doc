@@ -2,20 +2,21 @@
   <div class="sidebar">
     <div class="col-12 text-right">
       <button class="btn btn-primary btn-block" (click)="addField('title')"> Titre</button>
-      <button class="btn btn-primary btn-block" (click)="addField('number')"> Number</button>
       <button class="btn btn-primary btn-block" (click)="addField('text')"> Texte</button>
       <button class="btn btn-primary btn-block" (click)="addField('code')"> Code</button>
+      <button class="btn btn-primary btn-block" (click)="addField('html')"> HTML</button>
+      <button class="btn btn-primary btn-block" (click)="addField('css')"> CSS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('scss')"> SCSS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('js')"> JS</button>
     </div>
   </div>
-
-  <div>{{this.fieldType}}</div>
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6">
         <form [formGroup]="snippetForm" (ngSubmit)="onSubmit(snippetIndex)">
           <div class="form-group">
             <label for="title">
-              Titre
+              Titre :
             </label>
             <input type="text" id="title" class="form-control" formControlName="title">
           </div>
@@ -24,24 +25,26 @@
             <div class="form-group" [formGroupName]="i"
                  *ngFor="let field of snippetForm.controls.body.controls ;index as i">
               <div [ngSwitch]="field.value.type">
-                <label [attr.for]="field.value.type">{{field.value.type}}</label>
+                <label
+                  [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
+                  :</label>
                 <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
-                <textarea class="form-control" id="code" *ngSwitchCase="'code'" name="content" cols="30" rows="10"
+
+                <textarea class="form-control" *ngSwitchDefault  id="code"  name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
-                <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
+
               </div>
             </div>
           </div>
-
+          <label for="categoryId">Catégories :</label>
           <ng-select
             multiple="true"
             class="browser-default mb-3 position-relative"
             id="categoryId"
             [(ngModel)]="badges"
             formControlName="categoriesArray"
-            (click)="updateCat()"
-          >
+            (click)="updateCat()">
 
             <ng-option [value]="category.value.name"
                        *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
@@ -59,7 +62,9 @@
               <form [formGroup]="categoryForm">
                 <input class="form-control w-25 mb-1" type="text"
                        formControlName="categoryName" name="categoryName" id="categoryName">
-                <button class="btn btn-danger" (click)="this.categoryClicked = false ; onSubmitCategory()"> Enregistrer</button>
+                <button class="btn btn-danger" (click)="this.categoryClicked = false ; onSubmitCategory()">
+                  Enregistrer
+                </button>
               </form>
             </div>
           </div>
@@ -69,17 +74,13 @@
       </div>
       <div class="col-6">
         <h1>{{snippetForm.value.title}}</h1>
-        <div *ngFor="let content of snippetForm.value.body">
-          <div *ngIf="content.type !=='code'">
-            {{content.content}}
+        <div *ngFor="let body of snippetForm.value.body; trackBy: trackByFn">
+          <div *ngIf="body.type !== 'html' && body.type !=='css' && body.type !=='scss'  && body.type !== 'js'">
+            {{body.content}}
           </div>
-
-          <div *ngIf="content.type ==='code'">
-          <pre class="line-numbers"><code class="language-ts">
-           {{content.content}}
-          </code></pre>
+          <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
+            <pre class="language-markup line-numbers"><code class="language-{{body.type}}" (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
           </div>
-
         </div>
 
       </div>

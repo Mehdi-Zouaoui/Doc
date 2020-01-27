@@ -13,14 +13,9 @@
     <li *ngFor="let category of categories | keyvalue | searchSnippetFilter :  snippetSearch"  class="nav-item">
       <a class="nav-link" routerLinkActive="active" (click)="sendCategory(category);" >{{category.value.name}}</a>
     </li>
-    <li   class="nav-item">
-      <a class="nav-link" routerLinkActive="active" (click)="sendCategory('');" >Clear</a>
+    <li  class="nav-item">
+      <a class="nav-link" routerLinkActive="active" (click)="sendCategory(''); snippetSearch = ''" >Clear</a>
     </li>
-<!--    <snippetSidebar class="mb-2" *ngFor=" let category of categories | keyvalue;"-->
-<!--                    -->
-<!--                    [category]="category"-->
-<!--    >-->
-<!--    </snippetSidebar>-->
   </ul>
   <button class="btn btn-dark text-right " routerLink="/snippets/editSnippet">
     <fa-icon [icon]="faPlus"></fa-icon>

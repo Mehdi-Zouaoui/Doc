@@ -6,7 +6,7 @@ import {SingleSnippetComponent} from "./single-snippet/single-snippet.component"
 
 const snippetRoutes: Routes = [
   {path : 'snippets/editSnippet', component: EditSnippetComponent},
-  {path : 'snippets/:id/:sanitizeTitleURL', component: SingleSnippetComponent},
+  {path : 'snippets/:sanitizeTitleURL', component: SingleSnippetComponent},
   // {path : 'snippets/category/:categoryId' , component: SnippetsComponent},
   {path: '', component: SnippetsComponent }
 

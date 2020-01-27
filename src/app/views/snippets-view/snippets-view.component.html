@@ -3,22 +3,18 @@
   <div class="container-fluid">
     <div class=" row py-2">
       <ng-container *ngFor="let snippet of snippets | keyvalue">
-        <div class="col-4 w-100" *ngIf="!category || snippet.value.categories.includes(category.value.name)">
+        <div class="col-6 w-100" *ngIf="!category || snippet.value.categories.includes(category.value.name)">
           <app-snippets
             [snippetId]="snippet.key"
             [snippetTitle]="snippet.value.title"
             [snippetBody]="snippet.value.body"
             [sanitizeTitle]="snippet.value.sanitizeTitle"
-            [snippetCategory]="snippet.value.categories"
-          >
+            [snippetCategory]="snippet.value.categories">
           </app-snippets>
         </div>
       </ng-container>
     </div>
-
   </div>
-
-
 </div>
 
 

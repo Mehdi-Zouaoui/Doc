@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SnippetService} from '../../services/snippet.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SnippetsModel} from '../../models/snippets/snippets.model';
 import {DisplayService} from '../../services/display.service';
 import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 import {CategoryModel} from '../../models/snippets/category.model';
-import {MatFormField} from '@angular/material';
+import {PrismService} from "../../services/prism.service";
+import DocumentData = firebase.firestore.DocumentData;
 
 @Component({
   selector: 'snippet-edit',
-  templateUrl: './editSnippet.component.html',
-  styleUrls: ['./editSnippet.component.scss']
+  templateUrl: './editSnippet.component.html'
 })
-export class EditSnippetComponent implements OnInit {
+export class EditSnippetComponent implements OnInit, AfterViewInit {
   snippetIndex: number;
   snippetForm: FormGroup;
   categoryForm: FormGroup;
@@ -21,33 +21,38 @@ export class EditSnippetComponent implements OnInit {
   key: string;
   contents: snippetContentModel[];
   categoriesArray: Array<string>;
-  categories: Map<string, CategoryModel>;
+  categories: Map<string, DocumentData>;
   badges: Array<string> = [];
   categoryClicked: boolean;
-
+  highlighted: Boolean = false;
   fieldType: string;
+  language: string;
 
   constructor(
     private fb: FormBuilder,
     private displayService: DisplayService,
     private snippetService: SnippetService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private prismService: PrismService
   ) {
   }
 
   ngOnInit() {
     this.categoryClicked = false;
-    this.key = this.route.snapshot.paramMap.get('id');
+    this.key = this.route.snapshot.paramMap.get('sanitizeTitleURL');
     this.categories = this.snippetService.categories;
     this.initForm();
     this.initCategoryForm();
-
     this.snippetService.getCategoriesData();
     if (this.key) {
       this.initModifyForm(this.key, this.snippetService.snippets);
       this.badges = this.getCategoriesBadges(this.key, this.snippetService.snippets);
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.prismService.highlightAll();
   }
 
   initForm() {
@@ -72,7 +77,7 @@ export class EditSnippetComponent implements OnInit {
     })
   }
 
-  initModifyForm(key: string, snippet: Map<string, SnippetsModel>) {
+  initModifyForm(key: string, snippet: Map<string, DocumentData>) {
     this.snippetForm.patchValue({
       title: snippet.get(key).title,
       body: snippet.get(key).body,
@@ -80,7 +85,7 @@ export class EditSnippetComponent implements OnInit {
     });
   }
 
-  getCategoriesBadges(key: string, snippet: Map<string, SnippetsModel>) {
+  getCategoriesBadges(key: string, snippet: Map<string, DocumentData>) {
     return snippet.get(key).categories;
   }
 
@@ -91,16 +96,14 @@ export class EditSnippetComponent implements OnInit {
   addContents(control): FormGroup {
     return this.fb.group({
       content: this.fb.control([control.content]),
-      type: [control.type, [Validators.required]],
-      id: [control.id, [Validators.required]],
-      index: [control.index, [Validators.required]]
+      type: [control.type, [Validators.required]]
     });
   }
 
   addField(type): FormGroup {
     this.fieldType = type;
     const add = this.fb.group({
-      content: type === 'code' ? 'code' : (type === 'title' ? 'Bienvenue' : 3),
+      content: '',
       type,
     });
     this.body = this.snippetForm.get('body') as FormArray;
@@ -137,5 +140,9 @@ export class EditSnippetComponent implements OnInit {
     }
     this.snippetService.modify = false;
     this.router.navigate(['/snippets']);
+  }
+
+  trackByFn(index) {
+    return index;
   }
 }

@@ -11,17 +11,17 @@ import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-sass';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/components/prism-scss';
 
 declare var Prism: any;
 
 @Injectable()
 export class PrismService {
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
-
   highlightAll() {
       Prism.highlightAll();
-      console.log('Snippet Highlight');
+      console.log('Snippet Highlight' , Prism.highlightAll());
     }
+
 }

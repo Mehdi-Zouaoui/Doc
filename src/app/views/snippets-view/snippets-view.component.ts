@@ -17,6 +17,7 @@ export class SnippetsViewComponent implements OnInit {
 
   ngOnInit() {
     this.snippetService.getData();
+    this.snippetService.getCategoriesData();
   }
 
 
