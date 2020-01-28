@@ -1,7 +1,8 @@
 <div class="sidebar h-100">
   <form class="form-inline my-2 my-lg-0">
     <div class="input-group mb-3 w-100">
-      <input type="text" [(ngModel)]="snippetSearch" name="snippetSearch" class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="button-search">
+      <input type="text" [(ngModel)]="snippetSearch" name="snippetSearch" class="form-control" placeholder="Recherche"
+             aria-label="Recherche" aria-describedby="button-search">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" id="button-search">
           <fa-icon [icon]="faSearch"></fa-icon>
@@ -9,12 +10,12 @@
       </div>
     </div>
   </form>
-  <ul  class="col-4 nav flex-column">
-    <li *ngFor="let category of categories | keyvalue | searchSnippetFilter :  snippetSearch"  class="nav-item">
-      <a class="nav-link" routerLinkActive="active" (click)="sendCategory(category);" >{{category.value.name}}</a>
+  <ul class="col-4 nav flex-column">
+    <li *ngFor="let category of categories | keyvalue | searchSnippetFilter :  snippetSearch" class="nav-item">
+      <a class="nav-link" routerLinkActive="active" (click)="sendCategory(category);">{{category.value.name}}</a>
     </li>
-    <li  class="nav-item">
-      <a class="nav-link" routerLinkActive="active" (click)="sendCategory(''); snippetSearch = ''" >Clear</a>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" (click)="sendCategory(''); snippetSearch = ''">Clear</a>
     </li>
   </ul>
   <button class="btn btn-dark text-right " routerLink="/snippets/editSnippet">

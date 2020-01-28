@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="sidebar">
+  <div class="sidebar" style="height: 100vh;">
     <div class="col-12 text-right">
       <button class="btn btn-primary btn-block" (click)="addField('title')"> Titre</button>
       <button class="btn btn-primary btn-block" (click)="addField('text')"> Texte</button>
@@ -8,6 +8,7 @@
       <button class="btn btn-primary btn-block" (click)="addField('css')"> CSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('scss')"> SCSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('js')"> JS</button>
+
     </div>
   </div>
   <div class="container-fluid">
@@ -22,19 +23,22 @@
           </div>
 
           <div id="content" class="form-group" formArrayName="body">
-            <div class="form-group" [formGroupName]="i"
+            <div class="form-group d-flex flex-column"  [formGroupName]="i"
                  *ngFor="let field of snippetForm.controls.body.controls ;index as i">
+
               <div [ngSwitch]="field.value.type">
                 <label
                   [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
                   :</label>
+
                 <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
 
-                <textarea class="form-control" *ngSwitchDefault  id="code"  name="content" cols="30" rows="10"
+                <textarea class="form-control" *ngSwitchDefault id="code" name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
 
               </div>
+              <button class="btn btn-danger align-self-end mt-2 delete_body_content" (click)="removeBodyContent(i)">Delete</button>
             </div>
           </div>
           <label for="categoryId">Catégories :</label>
@@ -72,17 +76,20 @@
 
         </form>
       </div>
-      <div class="col-6">
-        <h1>{{snippetForm.value.title}}</h1>
-        <div *ngFor="let body of snippetForm.value.body; trackBy: trackByFn">
-          <div *ngIf="body.type !== 'html' && body.type !=='css' && body.type !=='scss'  && body.type !== 'js'">
-            {{body.content}}
+      <div class="card mt-2 col-6">
+        <div class="card-body ">
+          <h1>{{snippetForm.value.title}}</h1>
+          <div *ngFor="let body of snippetForm.value.body; trackBy: trackByFn">
+            <div *ngIf="body.type !== 'html' && body.type !=='css' && body.type !=='scss'  && body.type !== 'js'">
+              {{body.content}}
+            </div>
+            <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
+              <pre class="language-markup line-numbers"><code class="language-{{body.type}}"
+                                                              (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
+            </div>
           </div>
-          <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
-            <pre class="language-markup line-numbers"><code class="language-{{body.type}}" (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
-          </div>
-        </div>
 
+        </div>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-<div class="card my-2">
+  <div class="card my-2 snippet" >
   <div class="card-body">
     <div class="badge badge-secondary ml-1" *ngFor="let badge of categoryNames">{{badge}}</div>
     <h3 class="card-title">
@@ -9,14 +9,14 @@
         <div *ngIf="object.type !== 'html' && object.type !=='css' && object.type !=='scss'  && object.type !== 'js'">
           {{object.content}}
         </div>
-
         <pre class="language-markup line-numbers" *ngIf="object.type === 'html' || object.type ==='css' || object.type ==='scss'  || object.type === 'js'"><code class="language-{{object.type}}" >{{object.content}}</code></pre>
       </div>
     </div>
-    <button class=" btn btn-success btn-sm mr-2" (click)="onModify(snippetId)" routerLinkActive="active"
-            [routerLink]="[sanitizeTitle]">Modifier
+    <button class=" btn btn-success btn-sm mr-2" (click)="onModify()" routerLinkActive="active"
+            [routerLink]="['edit',sanitizeTitle]">Modifier
     </button>
-    <button class=" btn btn-danger btn-sm" (click)="onDelete(snippetId)">Supprimer</button>
+    <button class=" btn btn-danger btn-sm mr-2" (click)="onDelete(snippetId)">Supprimer</button>
+    <button class=" btn btn-warning btn-sm " [routerLink]="[sanitizeTitle]" routerLinkActive="active">View</button>
   </div>
 </div>
 

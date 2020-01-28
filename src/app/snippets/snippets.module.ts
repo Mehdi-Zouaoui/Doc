@@ -12,7 +12,6 @@ import {IsotopeModule} from 'ngx-isotope';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {SearchSnippetFilterPipe} from "../pipes/searchSnippetFilter.pipe";
 
-
 @NgModule({
   declarations: [
     EditSnippetComponent,

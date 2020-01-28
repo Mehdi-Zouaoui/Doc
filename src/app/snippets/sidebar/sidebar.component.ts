@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SnippetService} from '../../services/snippet.service';
-import {CategoryModel} from '../../models/snippets/category.model';
-import {SnippetsViewComponent} from '../../views/snippets-view/snippets-view.component';
+import {SnippetsViewComponent} from "../snippets-view.component";
 import {ActivatedRoute} from '@angular/router';
 import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
 import DocumentData = firebase.firestore.DocumentData;
@@ -11,12 +10,8 @@ import DocumentData = firebase.firestore.DocumentData;
 })
 
 export class SidebarComponent implements OnInit {
-  constructor(
-    private snippetService: SnippetService,
-    private snippetView: SnippetsViewComponent,
-    private route: ActivatedRoute) {}
+  constructor(private snippetService: SnippetService) {}
 
-  // categories = this.snippetService.categories;
   @Input() category: object;
   @Input() menus: string[];
   snippets = this.snippetService.snippets;

@@ -1,16 +1,15 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {SnippetService} from '../services/snippet.service';
-import {snippetContentModel} from '../models/snippets/snippetContent.model';
-import {PrismService} from '../services/prism.service';
+import {SnippetService} from "../../services/snippet.service";
+import {snippetContentModel} from "../../models/snippets/snippetContent.model";
+import {PrismService} from "../../services/prism.service";
 import {ActivatedRoute} from '@angular/router';
-import {CategoryModel} from '../models/snippets/category.model';
+import {CategoryModel} from "../../models/snippets/category.model";
 
 @Component({
   selector: 'app-snippets',
   templateUrl: './snippets.component.html',
   styles: ['']
 })
-
 
 export class SnippetsComponent implements OnInit, AfterViewInit {
   @Input() snippetId: number;
@@ -26,8 +25,7 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   id: number;
   private key: string;
 
-  constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {
-  }
+  constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.snippetService.modify = false;
@@ -45,15 +43,13 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   onDelete(key: number) {
     this.snippetService.deleteSnippet(key);
   }
 
-  onModify(key) {
+  onModify() {
     this.snippetService.modify = true;
-    // this.snippetService.snippets.get(key)
-  }
 
+  }
 
 }

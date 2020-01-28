@@ -8,16 +8,17 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { DisplayModule } from './display/display.module';
 import {SnippetsModule} from './snippets/snippets.module';
-import { SnippetsComponent } from './snippets/snippets.component';
+import {SnippetsComponent} from "./snippets/snippetComponent/snippets.component";
 import {SidebarComponent} from './snippets/sidebar/sidebar.component';
-import { SnippetsViewComponent } from './views/snippets-view/snippets-view.component';
-import { SingleSnippetComponent} from './snippets/single-snippet/single-snippet.component';
+import {SnippetsViewComponent} from "./snippets/snippets-view.component";
+import { SingleSnippetEditComponent} from './snippets/singleSnippetComponents/single-snippet-edit.component';
 import {PrismService} from './services/prism.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 // import {CategoryFilter} from "./pipes/categoryFilter.pipe";
 import {IsotopeModule} from "ngx-isotope";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {SingleSnippetViewComponent} from "./snippets/singleSnippetComponents/single-snippet-view.component";
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
@@ -27,7 +28,8 @@ firebase.initializeApp(environment.firebase);
     HeaderComponent,
     SidebarComponent,
     SnippetsViewComponent,
-    SingleSnippetComponent,
+    SingleSnippetEditComponent,
+    SingleSnippetViewComponent
 
   ],
   imports: [

@@ -24,7 +24,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   categories: Map<string, DocumentData>;
   badges: Array<string> = [];
   categoryClicked: boolean;
-  highlighted: Boolean = false;
   fieldType: string;
   language: string;
 
@@ -98,6 +97,10 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       content: this.fb.control([control.content]),
       type: [control.type, [Validators.required]]
     });
+  }
+  removeBodyContent(i:number){
+      this.body = this.snippetForm.get('body') as FormArray;
+      this.body.removeAt(i);
   }
 
   addField(type): FormGroup {

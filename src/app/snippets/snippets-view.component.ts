@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SnippetService} from '../../services/snippet.service';
-
-import {CategoryModel} from '../../models/snippets/category.model';
+import {SnippetService} from "../services/snippet.service";
 
 @Component({
   selector: 'app-snippets-view',
@@ -11,15 +9,12 @@ import {CategoryModel} from '../../models/snippets/category.model';
 export class SnippetsViewComponent implements OnInit {
   snippets = this.snippetService.snippets;
   category = this.snippetService.categoryId;
-
-
   constructor(private snippetService: SnippetService) {}
 
   ngOnInit() {
     this.snippetService.getData();
     this.snippetService.getCategoriesData();
   }
-
 
   receiveId($event) {
     console.log('EVENT', $event);

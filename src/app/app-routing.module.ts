@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {SnippetsComponent} from './snippets/snippets.component';
 import {DisplayComponent} from './display/main/content/display.component';
-import {SnippetsViewComponent} from "./views/snippets-view/snippets-view.component";
+import {SnippetsViewComponent} from "./snippets/snippets-view.component";
+import {EditSnippetComponent} from "./snippets/editSnippet/editSnippet.component";
+import {SingleSnippetEditComponent} from "./snippets/singleSnippetComponents/single-snippet-edit.component";
+import {SingleSnippetViewComponent} from "./snippets/singleSnippetComponents/single-snippet-view.component";
 
 const routes: Routes = [
+  {path : '', component: DisplayComponent},
   {path : 'snippets', component: SnippetsViewComponent},
-  {path : '', component: DisplayComponent}
 ];
 
 @NgModule({

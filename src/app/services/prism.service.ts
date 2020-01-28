@@ -21,7 +21,6 @@ export class PrismService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
   highlightAll() {
       Prism.highlightAll();
-      console.log('Snippet Highlight' , Prism.highlightAll());
     }
 
 }
