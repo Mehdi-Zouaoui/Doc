@@ -26,8 +26,11 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   id: number;
   private key: string;
 
-  constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {
-  }
+  constructor(
+    private snippetService: SnippetService,
+    private prismService: PrismService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.snippetService.modify = false;

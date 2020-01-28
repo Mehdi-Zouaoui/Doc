@@ -39,7 +39,6 @@ export class SnippetService {
   }
 
   updateData(snippet: SnippetsModel, key) {
-
     firebase.firestore().collection("snippets").doc(key).update({
       title: snippet.title,
       sanitizeTitle: snippet.sanitizeTitle,
@@ -49,7 +48,6 @@ export class SnippetService {
   }
 
   deleteSnippet(key) {
-
     firebase.firestore().collection("snippets").doc(key).delete().then(function () {
       console.log("Document successfully deleted!");
     }).catch(function (error) {
