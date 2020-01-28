@@ -1,17 +1,29 @@
 <div class="wrapper">
-  <app-sidebar [menus]="menus"></app-sidebar>
+  <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-12">
         <div class="tab-content" id="content">
-          <div *ngFor="let menu of menus" class="tab-pane fade show active wysiwyg"
-               [attr.id]="menu.title" role="tabpanel"
-               [attr.aria-labelledby]="menu.title+'-tab'"
-               [ngClass]="{ 'active': activeTab === menu.title }">
-            <h1>{{menu.title | uppercase}}</h1>
-            <p *ngFor="let item of menu.body">
-              {{item.content}}
-            </p>
+          <div *ngFor="let menu of this.menus | keyvalue" class="tab-pane fade show active wysiwyg"
+               [attr.id]="menu.value.sanitizeTitle" role="tabpanel"
+               [attr.aria-labelledby]="menu.value.sanitizeTitle+'-tab'"
+               [ngClass]="{ 'active': activeTab === menu.value.sanitizeTitle }">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="pull-left">{{menu.value.title | uppercase}}</h3>
+                <div class="pull-right">
+                  <a class="btn btn-danger" (click)="deleteDisplay(menu.key)">Supprimer</a>
+                  <button class="btn btn-info" [routerLink]="'/display/'+menu.key">Modifer</button>
+                </div>
+              </div>
+              <div class="card-body">
+                <p *ngFor="let item of menu.value.body">
+                  {{item.content}}
+                </p>
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>

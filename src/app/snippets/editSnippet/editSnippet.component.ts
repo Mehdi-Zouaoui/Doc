@@ -72,7 +72,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   initCategoryForm() {
     this.categoryForm = this.fb.group({
       categoryName: ' '
-
     })
   }
 

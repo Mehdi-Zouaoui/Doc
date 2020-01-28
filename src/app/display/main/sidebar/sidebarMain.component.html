@@ -10,16 +10,23 @@
     </div>
   </form>
   <div class="row">
-<!--    <ul class="nav nav-pills w-100">-->
-<!--      <li class="nav-item w-100">-->
-<!--        <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === menu.title}" [attr.id]="menu.title+'-tab'" data-toggle="tab"-->
-<!--          [attr.href]="'#'+menu.title" role="tab"-->
-<!--          [attr.aria-controls]="menu.title" aria-selected="true"-->
-<!--          *ngFor="let menu of menus | searchDisplayFilter :  displaySearch">-->
-<!--          {{menu.title}}-->
-<!--        </a>-->
-<!--      </li>-->
-<!--    </ul>-->
+    <ul class="nav nav-pills w-100">
+      <li class="nav-item w-100"  *ngFor="let menu of this.categories  | keyvalue | searchDisplayFilter :  displaySearch">
+         <h3>{{menu.value.title}}</h3>
+        <ul class="nav nav-pills w-100">
+          <ng-container *ngFor="let subMenu of this.subCategories  | keyvalue | searchDisplayFilter :  displaySearch">
+            <li class="nav-item w-100" *ngIf="subMenu.value.category == menu.value.sanitizeTitle">
+              <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === subMenu.value.sanitizeTitle}" [attr.id]="subMenu.value.sanitizeTitle+'-tab'" data-toggle="tab"
+                 [attr.href]="'#'+subMenu.value.sanitizeTitle" role="tab"
+                 [attr.aria-controls]="subMenu.value.sanitizeTitle" aria-selected="true">
+                {{subMenu.value.title}}
+              </a>
+            </li>
+          </ng-container>
+
+        </ul>
+      </li>
+    </ul>
     <div class="col-12 text-right">
       <button class="btn btn-dark" routerLink="/display/edit">
         <fa-icon [icon]="faPlus"></fa-icon> Ajouter

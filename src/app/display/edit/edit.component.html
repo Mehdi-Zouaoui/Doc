@@ -1,9 +1,13 @@
 <div class="wrapper">
   <div class="sidebar">
     <div class="col-12 text-right">
-      <button class="btn btn-primary btn-block" (click)="addField('title')"><fa-icon [icon]="faPlus"></fa-icon> Titre</button>
-      <button class="btn btn-primary btn-block" (click)="addField('text')"><fa-icon [icon]="faPlus"></fa-icon> Texte</button>
-      <button class="btn btn-primary btn-block" (click)="addField('code')"><fa-icon [icon]="faPlus"></fa-icon> Code</button>
+      <button class="btn btn-primary btn-block" (click)="addField('title')"> Titre</button>
+      <button class="btn btn-primary btn-block" (click)="addField('text')"> Texte</button>
+      <button class="btn btn-primary btn-block" (click)="addField('code')"> Code</button>
+      <button class="btn btn-primary btn-block" (click)="addField('html')"> HTML</button>
+      <button class="btn btn-primary btn-block" (click)="addField('css')"> CSS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('scss')"> SCSS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('js')"> JS</button>
     </div>
   </div>
   <div class="container-fluid">
@@ -17,12 +21,49 @@
             <input type="text" id="title" class="form-control" formControlName="title">
           </div>
 
+          <label for="categoryId">Catégories :</label>
+          <ng-select
+            class="browser-default mb-3 position-relative"
+            id="categoryId"
+            formControlName="category"
+            (click)="updateCat()">
+
+            <ng-option [value]="category.value.title"
+                       *ngFor="let category of categories | keyvalue; ">{{category.value.title}}
+            </ng-option>
+
+          </ng-select>
+          <div>
+            <div class="hidden_input btn btn-warning mb-2" id="categoryForm"
+                 [ngClass]="{'showCategoryFrom': this.categoryClicked }"
+                 (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">Ajouter une
+              catégorie
+            </div>
+            <div class="d-flex"></div>
+            <div *ngIf="this.categoryClicked" class="hidden_text">
+              <form [formGroup]="categoryForm">
+                <input class="form-control w-25 mb-1" type="text"
+                       formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
+                <button class="btn btn-danger" (click)="this.categoryClicked = false ; onSubmitCategory()">
+                  Enregistrer
+                </button>
+              </form>
+            </div>
+          </div>
+
           <div id="content" class="form-group" formArrayName="body">
-            <div class="form-group" [formGroupName]="i" *ngFor="let field of displayForm.controls.body.controls ;index as i">
+            <div class="form-group" [formGroupName]="i"
+                 *ngFor="let field of displayForm.controls.body.controls ;index as i">
               <div [ngSwitch]="field.value.type">
-                <textarea class="form-control" autosize *ngSwitchCase="'text'" name="content" formControlName="content"></textarea>
-                <textarea class="form-control" autosize *ngSwitchCase="'code'" name="content" formControlName="content"></textarea>
-                <input *ngSwitchDefault type="{{field.value.type}}" class="form-control" formControlName="content">
+                <label
+                  [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
+                  :</label>
+                <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
+                          formControlName="content"></textarea>
+
+                <textarea class="form-control" *ngSwitchDefault  id="code"  name="content" cols="30" rows="10"
+                          formControlName="content"></textarea>
+
               </div>
             </div>
           </div>
@@ -34,10 +75,10 @@
         </form>
       </div>
       <div class="col-6 wysiwyg">
-        <h1>{{displayForm.value.title}}</h1>
-        <div *ngFor="let content of displayForm.value.body">
-          <p>{{content.content}}</p>
-        </div>
+<!--        <h1>{{displayForm.value.title}}</h1>-->
+<!--        <div *ngFor="let content of displayForm.value.body">-->
+<!--          <p>{{content.content}}</p>-->
+<!--        </div>-->
       </div>
     </div>
   </div>

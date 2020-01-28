@@ -9,10 +9,12 @@ import { DisplayComponent } from './main/content/display.component';
 import { EditComponent } from './edit/edit.component';
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
 
 import {DisplayService} from '../services/display.service';
+import {PrismService} from "../services/prism.service";
 
 
 @NgModule({
@@ -31,10 +33,11 @@ import {DisplayService} from '../services/display.service';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-
+    NgSelectModule
   ],
   providers : [
-    DisplayService
+    DisplayService,
+    PrismService
   ]
 })
 export class DisplayModule {
