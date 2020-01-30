@@ -4,13 +4,16 @@ import {SnippetsViewComponent} from "../snippets-view.component";
 import {ActivatedRoute} from '@angular/router';
 import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
 import DocumentData = firebase.firestore.DocumentData;
+
 @Component({
   selector: 'snippetSidebar',
-  templateUrl:'sidebar.component.html'
+  templateUrl: 'sidebar.component.html'
 })
 
 export class SidebarComponent implements OnInit {
-  constructor(private snippetService: SnippetService) {}
+
+  constructor(private snippetService: SnippetService) {
+  }
 
   @Input() category: object;
   @Input() menus: string[];
@@ -20,12 +23,14 @@ export class SidebarComponent implements OnInit {
   faPlus = faPlus;
   snippetSearch: string;
   categories: Map<string, DocumentData>;
+  activeCategory: string;
 
   ngOnInit() {
     this.categories = this.snippetService.categories;
   }
 
   sendCategory(category) {
+    category ? this.activeCategory = category.value.sanitizeTitle : this.activeCategory = '';
     this.idEvent.emit(category);
   }
 

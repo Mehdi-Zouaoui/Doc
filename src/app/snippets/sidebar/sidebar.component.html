@@ -10,14 +10,17 @@
       </div>
     </div>
   </form>
-  <ul class="col-4 nav flex-column">
-    <li *ngFor="let category of categories | keyvalue | searchSnippetFilter :  snippetSearch" class="nav-item">
-      <a class="nav-link" routerLinkActive="active" (click)="sendCategory(category);">{{category.value.name}}</a>
+  <div class="row">
+  <ul class="nav nav-pills w-100">
+    <li class="nav-item w-100">
+      <a href="" class="nav-link" [ngClass]="{'active' : activeCategory === ''}" (click)="$event.preventDefault() ; sendCategory(''); snippetSearch =''">Voir tous</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLinkActive="active" (click)="sendCategory(''); snippetSearch = ''">Clear</a>
+    <li *ngFor="let category of categories | keyvalue | searchSnippetFilter :  snippetSearch" class="nav-item w-100" >
+      <a href="" class="nav-link" [ngClass]="{'active' : activeCategory === category.value.sanitizeTitle}" (click)="$event.preventDefault() ; sendCategory(category);">{{category.value.name}}</a>
     </li>
   </ul>
+  </div>
+
   <button class="btn btn-dark text-right " routerLink="/snippets/editSnippet">
     <fa-icon [icon]="faPlus"></fa-icon>
     Ajouter

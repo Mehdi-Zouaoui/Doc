@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SnippetService} from '../../services/snippet.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -26,6 +26,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   categoryClicked: boolean;
   fieldType: string;
   language: string;
+  snippet: DocumentData;
 
   constructor(
     private fb: FormBuilder,
@@ -38,15 +39,22 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.initForm();
     this.categoryClicked = false;
     this.key = this.route.snapshot.paramMap.get('sanitizeTitleURL');
     this.categories = this.snippetService.categories;
-    this.initForm();
     this.initCategoryForm();
-    this.snippetService.getCategoriesData();
+
     if (this.key) {
-      this.initModifyForm(this.key, this.snippetService.snippets);
-      this.badges = this.getCategoriesBadges(this.key, this.snippetService.snippets);
+      this.load()
+        .then((snippets: Map<any, DocumentData>) => {
+          this.snippet = snippets.get(this.key);
+          // this.badges = this.snippetService.getCategoriesData()
+          this.initModifyForm();
+        });
+    } else {
+
+      this.badges = this.getCategoriesBadges();
     }
   }
 
@@ -54,37 +62,50 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     this.prismService.highlightAll();
   }
 
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes[this.snippetService.getData()]) {
+  //     this.groupPosts = this.groupByCategory(this.data);
+  //   }
+  // }
+  // this.key ? this.fb.array(this.contents.map(elem => this.addContents(elem))) :
   initForm() {
-    if (this.snippetService.modify) {
-      this.contents = this.snippetService.snippets.get(this.key).body;
-    }
     this.snippetForm = this.fb.group({
         title: '',
         sanitizeTitle: '',
-        body: this.snippetService.modify ? this.fb.array(
-          this.contents.map(elem => this.addContents(elem))) : this.fb.array([]),
+        body: this.fb.array([]),
         categoriesArray: ''
-      },
-    );
+      });
 
   }
 
   initCategoryForm() {
     this.categoryForm = this.fb.group({
-      categoryName: ' '
+      categoryName: ''
     })
   }
 
-  initModifyForm(key: string, snippet: Map<string, DocumentData>) {
+  // this.snippetService.modify ? this.fb.array(
+  //   this.contents.map(elem => this.addContents(elem))) : this.fb.array([]),
+
+  initModifyForm() {
+    // this.snippetForm.addControl('body' ,  this.fb.array(this.contents.map(elem => this.addContents(elem))));
+      // body: this.fb.array(this.contents.map(elem => this.addContents(elem))),
+      // categoriesArray : this.snippet.categories
+    // this.snippetForm.body = this.fb.array([]);
+    // this.snippetForm.body = this.snippet.body.map(elem => this.addContents(elem));
+
     this.snippetForm.patchValue({
-      title: snippet.get(key).title,
-      body: snippet.get(key).body,
-      categoryId: snippet.get(key).categories,
+      title: this.snippet.title,
+      categoriesArray: this.snippet.categories,
+      body: this.snippet.body
     });
+    console.log(this.snippet.body);
   }
 
-  getCategoriesBadges(key: string, snippet: Map<string, DocumentData>) {
-    return snippet.get(key).categories;
+  getCategoriesBadges() {
+    console.log('badges' , this.snippet.categories);
+    return this.snippet.categories;
   }
 
   showCategoryForm() {
@@ -94,12 +115,14 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   addContents(control): FormGroup {
     return this.fb.group({
       content: this.fb.control([control.content]),
-      type: [control.type, [Validators.required]]
+      type: [control.type, [Validators.required]],
     });
   }
-  removeBodyContent(i:number){
-      this.body = this.snippetForm.get('body') as FormArray;
-      this.body.removeAt(i);
+
+  removeBodyContent(i: number) {
+    this.body = this.snippetForm.get('body') as FormArray;
+    this.body.removeAt(i);
+    console.log('Body', this.snippetForm.value.body);
   }
 
   addField(type): FormGroup {
@@ -117,11 +140,15 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     this.snippetService.getCategoriesData();
   }
 
+  async load() {
+    return await this.snippetService.getData();
+  }
+
   onSubmitCategory() {
     const categoryFormValue = this.categoryForm.value;
     const entry = new CategoryModel(
       categoryFormValue.categoryName,
-      categoryFormValue.categoryName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
+      categoryFormValue.categoryName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(' ').join('_').toLocaleLowerCase(),
     );
     this.snippetService.pushCategoryDatabase(entry);
   }
@@ -130,7 +157,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     const formValue = this.snippetForm.value;
     const entry = new SnippetsModel(
       formValue.title,
-      formValue.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
+      formValue.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(' ').join('_').toLocaleLowerCase(),
       formValue.body,
       formValue.categoriesArray
     );
@@ -145,6 +172,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   }
 
   trackByFn(index) {
+    console.log("index", index);
     return index;
   }
 }

@@ -3,6 +3,7 @@ import {SnippetsModel} from '../models/snippets/snippets.model';
 import {CategoryModel} from '../models/snippets/category.model';
 import * as firebase from 'firebase';
 import DocumentData = firebase.firestore.DocumentData;
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,28 +15,44 @@ export class SnippetService {
   categoryId: number;
   snippets: Map<any, DocumentData> = new Map();
   categories: Map<string, DocumentData> = new Map();
+  dataObservable: Observable<any>;
 
-  constructor() {}
+  constructor() {
+  }
 
   getData() {
-    firebase.firestore().collection("snippets").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        this.snippets.set(doc.id, doc.data())
+    return new Promise(resolve => {
+      firebase.firestore().collection("snippets")
+        .get()
+        .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          this.snippets.set(doc.id, doc.data())
+        });
+        resolve(this.snippets)
       });
-    });
+    })
+
+
   }
 
   getCategoriesData() {
-    firebase.firestore().collection('categories')
-      .get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        this.categories.set(doc.id, doc.data());
-      })
+    return new Promise(resolve => {
+      firebase.firestore().collection('snippetCategories')
+        .get()
+        .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          this.categories.set(doc.id, doc.data());
+        })
+      });
+      resolve(this.categories)
     })
+
   }
 
   updateData(snippet: SnippetsModel, key) {
-    firebase.firestore().collection("snippets").doc(key).update({
+    firebase.firestore().collection("snippets")
+      .doc(key)
+      .update({
       title: snippet.title,
       sanitizeTitle: snippet.sanitizeTitle,
       body: snippet.body,
@@ -67,7 +84,7 @@ export class SnippetService {
   }
 
   pushCategoryDatabase(categoryModel: CategoryModel) {
-    firebase.firestore().collection("categories").doc(categoryModel.name).set({
+    firebase.firestore().collection("snippetCategories").doc(categoryModel.sanitizeName).set({
       name: categoryModel.name,
       sanitizeTitle: categoryModel.sanitizeName
     })

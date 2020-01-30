@@ -3,7 +3,13 @@
     white-space: pre;
   }
 }
+.wrapper{
+  display: flex;
+  height: calc(100vh - 70px);
+  overflow: hidden;
 
-.container-fluid{
-  width: 100%;
+}
+
+a{
+  cursor: pointer;
 }

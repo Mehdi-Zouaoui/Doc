@@ -3,8 +3,7 @@ import {SnippetService} from "../services/snippet.service";
 
 @Component({
   selector: 'app-snippets-view',
-  templateUrl: './snippets-view.component.html',
-  styleUrls: ['./snippets-view.component.scss']
+  templateUrl: './snippets-view.component.html'
 })
 export class SnippetsViewComponent implements OnInit {
   snippets = this.snippetService.snippets;

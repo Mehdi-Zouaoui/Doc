@@ -4,6 +4,8 @@ import {snippetContentModel} from "../../models/snippets/snippetContent.model";
 import {PrismService} from "../../services/prism.service";
 import {ActivatedRoute} from '@angular/router';
 import {CategoryModel} from "../../models/snippets/category.model";
+import DocumentData = firebase.firestore.DocumentData;
+import {SnippetsModel} from "../../models/snippets/snippets.model";
 
 @Component({
   selector: 'app-snippets',
@@ -12,32 +14,26 @@ import {CategoryModel} from "../../models/snippets/category.model";
 })
 
 export class SnippetsComponent implements OnInit, AfterViewInit {
-  @Input() snippetId: number;
-  @Input() snippetTitle: string;
-  @Input() snippetBody: snippetContentModel[];
-  @Input() snippetCategory: Map<any, CategoryModel>;
-  @Input() sanitizeTitle: string;
-  categoryNames: string | Array<string>;
-  title: string;
+  @Input() snippet:any;
+  categoryNames: any;
   highlighted: Boolean = false;
   @Input() categoryKey: any;
   snippets = this.snippetService.snippets;
-  id: number;
-  private key: string;
 
-  constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {}
+  constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.snippetService.modify = false;
-    this.key = this.route.snapshot.paramMap.get('id');
-    this.categoryKey = this.route.snapshot.paramMap.get('categoryId');
-    this.categoryNames = this.snippetService.snippets.get(this.snippetId).categories;
+    this.loadCategories().then((category: Map<any, DocumentData>) => {
+      this.categoryNames = category
+    });
   }
 
   ngAfterViewInit(): void {
     if (!this.highlighted) {
-      this.snippetBody.forEach(() => {
-          this.prismService.highlightAll();
+      this.snippet.value.body.forEach(() => {
+        this.prismService.highlightAll();
       });
       this.highlighted = true;
     }
@@ -49,7 +45,11 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
 
   onModify() {
     this.snippetService.modify = true;
+  }
 
+  async loadCategories() {
+    const myCategories = await this.snippetService.getCategoriesData();
+    return myCategories;
   }
 
 }

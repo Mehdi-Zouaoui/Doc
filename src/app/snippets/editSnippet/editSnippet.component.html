@@ -20,11 +20,12 @@
               Titre :
             </label>
             <input type="text" id="title" class="form-control" formControlName="title">
+
           </div>
 
           <div id="content" class="form-group" formArrayName="body">
             <div class="form-group d-flex flex-column"  [formGroupName]="i"
-                 *ngFor="let field of snippetForm.controls.body.controls ;index as i">
+                 *ngFor="let field of snippetForm.controls.body.controls ;index as i;">
 
               <div [ngSwitch]="field.value.type">
                 <label
@@ -34,7 +35,7 @@
                 <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
 
-                <textarea class="form-control" *ngSwitchDefault id="code" name="content" cols="30" rows="10"
+                <textarea class="form-control" *ngSwitchDefault id="'code'" name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
 
               </div>
@@ -50,7 +51,7 @@
             formControlName="categoriesArray"
             (click)="updateCat()">
 
-            <ng-option [value]="category.value.name"
+            <ng-option [value]="category.value.sanitizeTitle"
                        *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
             </ng-option>
 
@@ -79,13 +80,13 @@
       <div class="card mt-2 col-6">
         <div class="card-body ">
           <h1>{{snippetForm.value.title}}</h1>
-          <div *ngFor="let body of snippetForm.value.body; trackBy: trackByFn">
+
+          <div *ngFor="let body of snippetForm.value.body;">
             <div *ngIf="body.type !== 'html' && body.type !=='css' && body.type !=='scss'  && body.type !== 'js'">
               {{body.content}}
             </div>
             <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
-              <pre class="language-markup line-numbers"><code class="language-{{body.type}}"
-                                                              (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
+              <pre class="language-markup line-numbers"><code class="language-{{body.type}}"(click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
             </div>
           </div>
 
