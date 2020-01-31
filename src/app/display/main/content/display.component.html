@@ -4,10 +4,11 @@
     <div class="row py-3">
       <div class="col-12">
         <div class="tab-content" id="content">
-          <div *ngFor="let menu of this.menus | keyvalue" class="tab-pane fade show active wysiwyg"
+          <div *ngFor="let menu of menus | keyvalue" class="tab-pane fade show active wysiwyg"
                [attr.id]="menu.value.sanitizeTitle" role="tabpanel"
                [attr.aria-labelledby]="menu.value.sanitizeTitle+'-tab'"
                [ngClass]="{ 'active': activeTab === menu.value.sanitizeTitle }">
+
             <div class="card">
               <div class="card-header">
                 <h3 class="pull-left">{{menu.value.title | uppercase}}</h3>
@@ -21,7 +22,6 @@
                   {{item.content}}
                 </p>
               </div>
-
             </div>
 
           </div>

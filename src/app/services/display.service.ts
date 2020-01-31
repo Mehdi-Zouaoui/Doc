@@ -1,27 +1,28 @@
 import {DisplayModel} from '../models/display/Display.model';
-import {Subject} from 'rxjs';
 import * as firebase from 'firebase';
 import DocumentData = firebase.firestore.DocumentData;
-import {CategoryModel} from "../models/display/Category.model";
+import {CategoryModel} from '../models/display/Category.model';
 
 export class DisplayService {
   displays: Map<any, DocumentData> = new Map();
   display: Map<any, DocumentData> = new Map();
   categories: Map<string, DocumentData> = new Map();
   subCategories: Map<string, DocumentData> = new Map();
-  modify: boolean;
 
   constructor() { }
 
   getData() {
-    firebase.firestore().collection('display')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.subCategories.set(doc.id, doc.data());
-        })
+    return new Promise<DocumentData>(
+      (resolve) => {
+        firebase.firestore().collection('display')
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              return this.subCategories.set(doc.id, doc.data());
+            });
+          });
+        resolve(this.subCategories);
       });
-    return this.subCategories;
   }
 
   getOneData(key) {
@@ -29,7 +30,7 @@ export class DisplayService {
       .doc(key)
       .get()
       .then((res) => {
-          this.display.set(res.id, res.data());
+        this.display.set(res.id, res.data());
       });
     return this.display;
   }
@@ -43,31 +44,34 @@ export class DisplayService {
         body: item.body,
         category: item.category,
       })
-      .then(function (res) {
-        console.log("Document successfully written!", res);
+      .then(res => {
+        console.log('Document successfully written!', res);
       })
-      .catch(function (error) {
-        console.error("Error writing document: ", error);
+      .catch(error => {
+        console.error('Error writing document: ', error);
       });
   }
 
-  deleteDisplay(key){
+  deleteDisplay(key) {
     firebase.firestore().collection("display").doc(key).delete().then(function () {
-      console.log("Document successfully deleted!");
-    }).catch(function (error) {
-      console.error("Error removing document: ", error);
-    });
+      console.log('Document successfully deleted!');
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
   }
 
   getCategoriesData() {
-    firebase.firestore().collection('displayCategories')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.categories.set(doc.id, doc.data());
-        })
-      });
-    return this.categories;
+    return new Promise(resolve => {
+      firebase.firestore().collection('displayCategories')
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.categories.set(doc.id, doc.data());
+          });
+        });
+      resolve(this.categories);
+    });
   }
 
   addCategory(category: CategoryModel) {

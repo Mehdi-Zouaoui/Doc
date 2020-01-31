@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import {DisplayService} from '../../../services/display.service';
 import DocumentData = firebase.firestore.DocumentData;
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html'
 })
 export class DisplayComponent implements OnInit {
-  menus:  Map<string, DocumentData>;
+  menus: unknown;
   activeTab: string;
 
   constructor(
     private displayService: DisplayService,
-    private router:Router,
+    private router: Router,
   ) {}
 
   ngOnInit() {
-    this.menus = this.displayService.getData();
-    this.activeTab = '';
+   this.displayService.getData()
+   .then(res => this.menus = res);
+   this.activeTab = '';
   }
 
   deleteDisplay(key) {
