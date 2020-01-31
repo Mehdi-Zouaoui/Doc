@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CategoryModel} from "../../models/snippets/category.model";
 import DocumentData = firebase.firestore.DocumentData;
 import {SnippetsModel} from "../../models/snippets/snippets.model";
+import{faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-snippets',
@@ -19,7 +20,7 @@ export class SnippetsComponent implements OnInit, AfterViewInit {
   highlighted: Boolean = false;
   @Input() categoryKey: any;
   snippets = this.snippetService.snippets;
-
+  faEllipsisV = faEllipsisV ;
   constructor(private snippetService: SnippetService, private prismService: PrismService, private route: ActivatedRoute) {
   }
 

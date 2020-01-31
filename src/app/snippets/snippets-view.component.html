@@ -3,7 +3,7 @@
   <div class="container-fluid" style="overflow-y: scroll;">
     <div class=" row py-2">
       <ng-container *ngFor="let snippet of snippets | keyvalue">
-        <div class="col-6 w-100" *ngIf="!category || snippet.value.categories.includes(category.value.sanitizeTitle)">
+        <div class="col-3 w-100" *ngIf="!category || snippet.value.categories.includes(category.value.sanitizeTitle)">
           <app-snippets [snippet]="snippet">
           </app-snippets>
         </div>

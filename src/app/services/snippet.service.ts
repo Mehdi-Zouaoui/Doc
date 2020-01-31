@@ -84,9 +84,9 @@ export class SnippetService {
   }
 
   pushCategoryDatabase(categoryModel: CategoryModel) {
-    firebase.firestore().collection("snippetCategories").doc(categoryModel.sanitizeName).set({
-      name: categoryModel.name,
-      sanitizeTitle: categoryModel.sanitizeName
+    firebase.firestore().collection("snippetCategories").doc(categoryModel.sanitizeTitle).set({
+      title: categoryModel.title,
+      sanitizeTitle: categoryModel.sanitizeTitle
     })
       .then(function () {
         console.log("Document successfully written!");

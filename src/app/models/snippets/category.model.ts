@@ -1,6 +1,6 @@
 export class CategoryModel {
   constructor(
-  public name:string,
-  public sanitizeName:string,
+  public title:string,
+  public sanitizeTitle:string,
   ) {}
 }

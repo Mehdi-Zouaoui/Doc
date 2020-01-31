@@ -1,6 +1,9 @@
 label{
   text-transform: capitalize;
 }
+ng-select{
+  flex: 1;
+}
 
 .delete_body_content{
   width: 100px;
@@ -11,4 +14,7 @@ label{
 .form-group{
   display: flex;
   flex-direction: column;
+}
+.dropdown-menu.show{
+  left: -124px !important;
 }

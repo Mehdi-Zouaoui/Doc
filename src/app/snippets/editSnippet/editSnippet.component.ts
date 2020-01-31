@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SnippetService} from '../../services/snippet.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SnippetsModel} from '../../models/snippets/snippets.model';
@@ -19,7 +19,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   categoryForm: FormGroup;
   body: FormArray;
   key: string;
-  contents: snippetContentModel[];
   categoriesArray: Array<string>;
   categories: Map<string, DocumentData>;
   badges: Array<string> = [];
@@ -27,6 +26,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   fieldType: string;
   language: string;
   snippet: DocumentData;
+
 
   constructor(
     private fb: FormBuilder,
@@ -49,17 +49,15 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       this.load()
         .then((snippets: Map<any, DocumentData>) => {
           this.snippet = snippets.get(this.key);
-          // this.badges = this.snippetService.getCategoriesData()
           this.initModifyForm();
         });
-    } else {
-
-      this.badges = this.getCategoriesBadges();
     }
   }
 
   ngAfterViewInit(): void {
-    this.prismService.highlightAll();
+    setTimeout(()=> {
+      this.prismService.highlightAll();
+    },1000)
   }
 
 
@@ -90,17 +88,25 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
 
   initModifyForm() {
     // this.snippetForm.addControl('body' ,  this.fb.array(this.contents.map(elem => this.addContents(elem))));
-      // body: this.fb.array(this.contents.map(elem => this.addContents(elem))),
-      // categoriesArray : this.snippet.categories
+    //   this.snippetForm.setControl('body', new FormControl(this.fb.array(this.contents.map(elem => this.addContents(elem)))));
+      console.log(this.snippetForm.controls.body = this.fb.array(this.snippet.body.map(elem => this.addContents(elem))));
+    console.log('SnippetForm' , this.snippetForm.controls.body);
+
+    // categoriesArray : this.snippet.categories
     // this.snippetForm.body = this.fb.array([]);
     // this.snippetForm.body = this.snippet.body.map(elem => this.addContents(elem));
 
     this.snippetForm.patchValue({
       title: this.snippet.title,
       categoriesArray: this.snippet.categories,
-      body: this.snippet.body
+       // body: this.snippet.body.forEach((controls) => console.log(controls) )
     });
-    console.log(this.snippet.body);
+    // this.snippet.body.forEach((content , index) =>{
+    //   this.snippetForm.controls.body[index].controls.content = content.content;
+    //   this.snippetForm.controls.body[index].controls.type = content.type;
+    //   console.log(index)
+    // })
+    console.log(this.snippetForm);
   }
 
   getCategoriesBadges() {

@@ -7,7 +7,7 @@ import {SingleSnippetEditComponent} from "./snippets/singleSnippetComponents/sin
 import {SingleSnippetViewComponent} from "./snippets/singleSnippetComponents/single-snippet-view.component";
 
 const routes: Routes = [
-  {path : '', component: DisplayComponent},
+  {path : '', component:SnippetsViewComponent},
   {path : 'snippets', component: SnippetsViewComponent},
 ];
 

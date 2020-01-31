@@ -3,7 +3,6 @@
     <div class="col-12 text-right">
       <button class="btn btn-primary btn-block" (click)="addField('title')"> Titre</button>
       <button class="btn btn-primary btn-block" (click)="addField('text')"> Texte</button>
-      <button class="btn btn-primary btn-block" (click)="addField('code')"> Code</button>
       <button class="btn btn-primary btn-block" (click)="addField('html')"> HTML</button>
       <button class="btn btn-primary btn-block" (click)="addField('css')"> CSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('scss')"> SCSS</button>
@@ -11,88 +10,101 @@
 
     </div>
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid ">
     <div class="row py-3">
-      <div class="col-6">
-        <form [formGroup]="snippetForm" (ngSubmit)="onSubmit(snippetIndex)">
-          <div class="form-group">
-            <label for="title">
-              Titre :
-            </label>
-            <input type="text" id="title" class="form-control" formControlName="title">
+      <div class="col-6 mt-2">
+        <div class="card">
+          <div class="card-body">
 
-          </div>
-
-          <div id="content" class="form-group" formArrayName="body">
-            <div class="form-group d-flex flex-column"  [formGroupName]="i"
-                 *ngFor="let field of snippetForm.controls.body.controls ;index as i;">
-
-              <div [ngSwitch]="field.value.type">
-                <label
-                  [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
-                  :</label>
-
-                <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
-                          formControlName="content"></textarea>
-
-                <textarea class="form-control" *ngSwitchDefault id="'code'" name="content" cols="30" rows="10"
-                          formControlName="content"></textarea>
-
+            <form [formGroup]="snippetForm" (ngSubmit)="onSubmit(snippetIndex)">
+              <div class="form-group">
+                <label for="title">
+                  Titre :
+                </label>
+                <input type="text" id="title" class="form-control" formControlName="title">
               </div>
-              <button class="btn btn-danger align-self-end mt-2 delete_body_content" (click)="removeBodyContent(i)">Delete</button>
-            </div>
-          </div>
-          <label for="categoryId">Catégories :</label>
-          <ng-select
-            multiple="true"
-            class="browser-default mb-3 position-relative"
-            id="categoryId"
-            [(ngModel)]="badges"
-            formControlName="categoriesArray"
-            (click)="updateCat()">
 
-            <ng-option [value]="category.value.sanitizeTitle"
-                       *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
-            </ng-option>
+              <label for="categoryId">Catégories :</label>
+              <div class="input-group mb-2">
+                <ng-select
+                  multiple="true"
+                  class="browser-default position-relative "
+                  id="categoryId"
+                  [(ngModel)]="badges"
+                  formControlName="categoriesArray"
+                  (click)="updateCat()">
 
-          </ng-select>
-          <div>
-            <div class="hidden_input btn btn-warning mb-2" id="categoryForm"
-                 [ngClass]="{'showCategoryFrom': this.categoryClicked }"
-                 (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">Ajouter une
-              catégorie
-            </div>
-            <div class="d-flex"></div>
-            <div *ngIf="this.categoryClicked" class="hidden_text">
-              <form [formGroup]="categoryForm">
-                <input class="form-control w-25 mb-1" type="text"
+                  <ng-option [value]="category.value.sanitizeTitle"
+                             *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
+                  </ng-option>
+
+                </ng-select>
+                <div class="input-group-append">
+                  <button class="btn btn-warning " type="button" id="categoryForm"
+                          [ngClass]="{'showCategoryFrom': this.categoryClicked }"
+                          (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">+
+                  </button>
+                </div>
+              </div>
+
+              <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2">
+
+                <input class="form-control " type="text"
                        formControlName="categoryName" name="categoryName" id="categoryName">
-                <button class="btn btn-danger" (click)="this.categoryClicked = false ; onSubmitCategory()">
-                  Enregistrer
-                </button>
+                <div class="input-group-append">
+                  <button class="btn btn-danger " (click)="this.categoryClicked = false ; onSubmitCategory()">
+                    Enregistrer
+                  </button>
+                </div>
               </form>
-            </div>
+
+
+              <div id="content" class="form-group" formArrayName="body">
+                <div class="form-group d-flex flex-column" [formGroupName]="i"
+                     *ngFor="let field of snippetForm.controls.body.controls ;index as i;">
+
+                  <div [ngSwitch]="field.value.type">
+                    <label
+                      [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
+                      :</label>
+
+                    <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
+                              formControlName="content"></textarea>
+
+                    <textarea class="form-control" *ngSwitchDefault id="'code'" name="content" cols="30" rows="10"
+                              formControlName="content"></textarea>
+
+                  </div>
+                  <button class="btn btn-danger align-self-end mt-2 delete_body_content" (click)="removeBodyContent(i)">
+                    Delete
+                  </button>
+                </div>
+              </div>
+              <button class="btn btn-success  align-self-end" (click)="onSubmit(key)">Enregistrer</button>
+            </form>
           </div>
-          <button class="btn btn-success mt-5" (click)="onSubmit(key)">Enregistrer</button>
-
-        </form>
-      </div>
-      <div class="card mt-2 col-6">
-        <div class="card-body ">
-          <h1>{{snippetForm.value.title}}</h1>
-
-          <div *ngFor="let body of snippetForm.value.body;">
-            <div *ngIf="body.type !== 'html' && body.type !=='css' && body.type !=='scss'  && body.type !== 'js'">
-              {{body.content}}
-            </div>
-            <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
-              <pre class="language-markup line-numbers"><code class="language-{{body.type}}"(click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
-            </div>
-          </div>
-
         </div>
       </div>
+      <div class="mt-2 col-6">
+        <div class="card">
+          <div class="card-body">
+            <h1>{{snippetForm.value.title}}</h1>
+            <div *ngFor="let body of snippetForm.value.body;">
+              <div *ngIf="body.type !== 'html' && body.type !=='css' && body.type !=='scss'  && body.type !== 'js'">
+                {{body.content}}
+              </div>
+              <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
+              <pre class="language-markup line-numbers"><code class="language-{{body.type}}"
+                                                              (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
     </div>
+
   </div>
 
 </div>

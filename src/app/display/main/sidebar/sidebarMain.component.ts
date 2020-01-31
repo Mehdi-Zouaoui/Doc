@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faPlus ,faEllipsisV} from '@fortawesome/free-solid-svg-icons';
 import DocumentData = firebase.firestore.DocumentData;
 import {DisplayService} from "../../../services/display.service";
 
@@ -17,7 +17,9 @@ export class SidebarMainComponent implements OnInit {
   faSearch = faSearch;
   faPlus = faPlus;
 
-  constructor(private displayService: DisplayService) {}
+
+
+    constructor(private displayService: DisplayService) {}
 
   ngOnInit() {
     this.categories = this.displayService.getCategoriesData();
