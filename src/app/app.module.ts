@@ -15,6 +15,8 @@ import { SingleSnippetEditComponent} from './snippets/singleSnippetComponents/si
 import {PrismService} from './services/prism.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
+import {AutosizeModule} from 'ngx-autosize';
+
 // import {CategoryFilter} from "./pipes/categoryFilter.pipe";
 import {IsotopeModule} from "ngx-isotope";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +43,8 @@ firebase.initializeApp(environment.firebase);
     DisplayModule,
     SnippetsModule,
     IsotopeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AutosizeModule
   ],
   providers: [
     PrismService

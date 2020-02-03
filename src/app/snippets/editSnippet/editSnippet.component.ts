@@ -4,16 +4,17 @@ import {SnippetService} from '../../services/snippet.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SnippetsModel} from '../../models/snippets/snippets.model';
 import {DisplayService} from '../../services/display.service';
-import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 import {CategoryModel} from '../../models/snippets/category.model';
-import {PrismService} from "../../services/prism.service";
+import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'snippet-edit',
+  selector: 'app-snippet-edit',
   templateUrl: './editSnippet.component.html'
 })
 export class EditSnippetComponent implements OnInit, AfterViewInit {
+  faTrash= faTrash;
   snippetIndex: number;
   snippetForm: FormGroup;
   categoryForm: FormGroup;
@@ -57,16 +58,9 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(()=> {
       this.prismService.highlightAll();
-    },1000)
+    }, 1000)
   }
 
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes[this.snippetService.getData()]) {
-  //     this.groupPosts = this.groupByCategory(this.data);
-  //   }
-  // }
-  // this.key ? this.fb.array(this.contents.map(elem => this.addContents(elem))) :
   initForm() {
     this.snippetForm = this.fb.group({
         title: '',
@@ -80,33 +74,16 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   initCategoryForm() {
     this.categoryForm = this.fb.group({
       categoryName: ''
-    })
+    });
   }
 
-  // this.snippetService.modify ? this.fb.array(
-  //   this.contents.map(elem => this.addContents(elem))) : this.fb.array([]),
-
   initModifyForm() {
-    // this.snippetForm.addControl('body' ,  this.fb.array(this.contents.map(elem => this.addContents(elem))));
-    //   this.snippetForm.setControl('body', new FormControl(this.fb.array(this.contents.map(elem => this.addContents(elem)))));
-      console.log(this.snippetForm.controls.body = this.fb.array(this.snippet.body.map(elem => this.addContents(elem))));
-    console.log('SnippetForm' , this.snippetForm.controls.body);
-
-    // categoriesArray : this.snippet.categories
-    // this.snippetForm.body = this.fb.array([]);
-    // this.snippetForm.body = this.snippet.body.map(elem => this.addContents(elem));
+    this.snippetForm.controls.body = this.fb.array(this.snippet.body.map(elem => this.addContents(elem)));
 
     this.snippetForm.patchValue({
       title: this.snippet.title,
       categoriesArray: this.snippet.categories,
-       // body: this.snippet.body.forEach((controls) => console.log(controls) )
     });
-    // this.snippet.body.forEach((content , index) =>{
-    //   this.snippetForm.controls.body[index].controls.content = content.content;
-    //   this.snippetForm.controls.body[index].controls.type = content.type;
-    //   console.log(index)
-    // })
-    console.log(this.snippetForm);
   }
 
   getCategoriesBadges() {

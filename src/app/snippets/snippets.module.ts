@@ -11,6 +11,8 @@ import {PrismService} from "../services/prism.service";
 import {IsotopeModule} from 'ngx-isotope';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {SearchSnippetFilterPipe} from "../pipes/searchSnippetFilter.pipe";
+import {AutosizeModule} from 'ngx-autosize';
+
 
 @NgModule({
   declarations: [
@@ -33,8 +35,8 @@ import {SearchSnippetFilterPipe} from "../pipes/searchSnippetFilter.pipe";
     FormsModule,
     ReactiveFormsModule,
     SnippetRoutingModule,
-    IsotopeModule
-
+    IsotopeModule,
+    AutosizeModule
   ],
   providers: [
     PrismService

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SnippetService} from '../../services/snippet.service';
-import {SnippetsViewComponent} from "../snippets-view.component";
+import {SnippetsViewComponent} from '../snippets-view.component';
 import {ActivatedRoute} from '@angular/router';
 import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
 import DocumentData = firebase.firestore.DocumentData;

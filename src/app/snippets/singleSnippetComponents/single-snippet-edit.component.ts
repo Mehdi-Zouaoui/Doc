@@ -4,7 +4,7 @@ import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 
 @Component({
   selector: 'app-single-snippet',
-  template: '<snippet-edit></snippet-edit>',
+  template: '<app-snippet-edit></app-snippet-edit>',
 })
 
 export class SingleSnippetEditComponent implements OnInit {

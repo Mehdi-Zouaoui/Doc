@@ -58,29 +58,26 @@
                 </div>
               </form>
 
-
               <div id="content" class="form-group" formArrayName="body">
                 <div class="form-group d-flex flex-column" [formGroupName]="i"
                      *ngFor="let field of snippetForm.controls.body.controls ;index as i;">
 
                   <div [ngSwitch]="field.value.type">
-                    <label
-                      [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
-                      :</label>
+                    <label [attr.for]="field.value.type">
+                      {{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}:
+                    </label>
+                    <button class="btn btn-danger pull-right" (click)="removeBodyContent(i)">
+                      <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
 
-                    <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
-                              formControlName="content"></textarea>
+                    <textarea autosize class="form-control" id="text" *ngSwitchCase="'text'" name="content" formControlName="content"></textarea>
 
-                    <textarea class="form-control" *ngSwitchDefault id="'code'" name="content" cols="30" rows="10"
-                              formControlName="content"></textarea>
+                    <textarea autosize class="form-control" *ngSwitchDefault id="'code'" name="content" formControlName="content"></textarea>
 
                   </div>
-                  <button class="btn btn-danger align-self-end mt-2 delete_body_content" (click)="removeBodyContent(i)">
-                    Delete
-                  </button>
                 </div>
               </div>
-              <button class="btn btn-success  align-self-end" (click)="onSubmit(key)">Enregistrer</button>
+              <button class="btn btn-success pull-right" (click)="onSubmit(key)">Enregistrer</button>
             </form>
           </div>
         </div>

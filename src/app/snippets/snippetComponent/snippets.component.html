@@ -2,12 +2,12 @@
   <a [routerLink]="['snippets',snippet.value.sanitizeTitle]">
     <div class="card-body">
 
-      <div class="badge badge-secondary ml-1" *ngFor="let badge of categoryNames | keyvalue">
+      <div class="badge badge-secondary mr-1" *ngFor="let badge of categoryNames | keyvalue">
         <ng-container *ngIf="snippet.value.categories.includes(badge.key)">
           {{badge.value.name}}
         </ng-container>
       </div>
-      <h3 class="card-title">
+      <h3 class="card-title mb-0">
         {{snippet.value.title}}
       </h3>
 
@@ -20,7 +20,7 @@
 
     </button>
     <div class="dropdown-menu">
-      <a class="dropdown-item "  (click)="onModify()" [routerLink]="['edit',snippet.key]">Modifier</a>
+      <a class="dropdown-item "  (click)="onModify()" [routerLink]="['snippets','edit',snippet.key]">Modifier</a>
       <a class="dropdown-item" (click)="$event.preventDefault(); onDelete(snippet.key)" href="#">Supprimer</a>
     </div>
   </div>
