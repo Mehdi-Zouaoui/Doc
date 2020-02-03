@@ -11,5 +11,6 @@
 
 a{
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
+  transition: color 0.3s;
 }
