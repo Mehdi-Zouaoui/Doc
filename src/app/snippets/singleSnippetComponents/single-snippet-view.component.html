@@ -1,13 +1,16 @@
-<section class="card mt-2 mx-4 px-2">
-<div class="card-body my-2" *ngIf="this.snippet">
-  <h1>{{snippet.title}}</h1>
-  <div class="body_container" *ngFor="let bodyContent of snippetContent;">
+<div class="container">
+  <div class="card my-4">
+    <div class="card-body" *ngIf="this.snippet">
+      <h1>{{snippet.title}}</h1>
+      <div class="body_container" *ngFor="let bodyContent of snippetContent;">
         <p *ngIf="bodyContent.type ==='text'">
           {{bodyContent.content}}
         </p>
-    <div *ngIf="bodyContent.type  === 'html' || bodyContent.type ==='css' || bodyContent.type ==='scss'  || bodyContent.type === 'js'">
-      <pre class="language-markup line-numbers"><code class="language-{{bodyContent.type}}" >{{bodyContent.content}}</code></pre>
+        <div *ngIf="bodyContent.type === 'html' || bodyContent.type ==='css' || bodyContent.type ==='scss' || bodyContent.type === 'js'">
+          <pre class="language-markup line-numbers"><code class="language-{{bodyContent.type}}" >{{bodyContent.content}}</code></pre>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-</section>
+

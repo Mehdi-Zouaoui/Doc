@@ -1,16 +1,15 @@
-.wysiwyg{
-  p{
-    white-space: pre;
-  }
-}
 .wrapper{
   display: flex;
   height: calc(100vh - 70px);
   overflow: hidden;
   overflow-y: visible
+}
 
+.card{
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
 a{
   cursor: pointer;
+  text-decoration: none;
 }

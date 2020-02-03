@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SnippetService} from "../services/snippet.service";
+import {SnippetService} from '../services/snippet.service';
 
 @Component({
   selector: 'app-snippets-view',
@@ -16,7 +16,6 @@ export class SnippetsViewComponent implements OnInit {
   }
 
   receiveId($event) {
-    console.log('EVENT', $event);
     this.category = $event;
   }
 }
