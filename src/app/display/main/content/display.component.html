@@ -18,19 +18,26 @@
                 </div>
               </div>
               <div class="card-body">
-                <p *ngFor="let item of menu.value.body">
-                  {{item.content}}
-                </p>
-              </div>
-            </div>
 
+                <div *ngFor="let item of menu.value.body">
+                  <div
+                    *ngIf="item.type  === 'html' || item.type ==='css' || item.type ==='scss'  || item.type === 'js'">
+              <pre class="language-markup line-numbers"><code class="language-{{item.type}}"
+                                                              (click)="this.prismService.highlightAll()">{{item.content}}</code></pre>
+                  </div>
+
+                  <p  *ngIf="item.type !== 'html' && item.type !=='css' && item.type !=='scss'  && item.type !== 'js'">{{item.content}}</p>
+
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
+
   </div>
 
 </div>
-
-

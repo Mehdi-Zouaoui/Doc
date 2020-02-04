@@ -9,7 +9,8 @@ export class DisplayService {
   categories: Map<string, DocumentData> = new Map();
   subCategories: Map<string, DocumentData> = new Map();
 
-  constructor() { }
+  constructor() {
+  }
 
   getData() {
     return new Promise<DocumentData>(
@@ -26,13 +27,32 @@ export class DisplayService {
   }
 
   getOneData(key) {
-    firebase.firestore().collection('display')
-      .doc(key)
-      .get()
-      .then((res) => {
-        this.display.set(res.id, res.data());
+    return new Promise(resolve => {
+      firebase.firestore().collection('display')
+        .doc(key)
+        .get()
+        .then((res) => {
+          this.display.set(res.id, res.data());
+        });
+      resolve(this.display);
+    })
+  }
+
+  createData(item: DisplayModel) {
+    firebase.firestore().collection("display")
+      .doc(item.sanitizeTitle)
+      .set({
+        title: item.title,
+        sanitizeTitle: item.sanitizeTitle,
+        body: item.body,
+        category: item.category,
+      })
+      .then(res => {
+        console.log('Document successfully written!', res);
+      })
+      .catch(error => {
+        console.error('Error writing document: ', error);
       });
-    return this.display;
   }
 
   updateData(item: DisplayModel) {

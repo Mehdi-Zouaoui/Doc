@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DisplayService} from '../../services/display.service';
 import {DisplayModel} from '../../models/display/Display.model';
@@ -18,13 +18,13 @@ export class EditComponent implements OnInit {
   displayForm: FormGroup;
   body: FormArray;
   fieldType: string;
-  contents : Array<DisplayContentModel>;
+  contents: Array<DisplayContentModel>;
 
   categoryForm: FormGroup;
   categories: Map<string, DocumentData>;
   categoryClicked: boolean = false;
   badges: Array<string> = [];
-  display: any;
+  display: DocumentData;
   highlighted: Boolean = false;
   displays = this.displayService.displays;
   key: string;
@@ -32,24 +32,27 @@ export class EditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private displayService: DisplayService,
-    private router:Router,
+    private router: Router,
     private prismService: PrismService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.initForm();
+    this.key = this.route.snapshot.paramMap.get('sanitizeTitle');
+    console.log(this.key);
+     if (this.key) {
+      this.loadOneData()
+        .then((display: Map<any, DocumentData>) => {
+        this.display = display.get(this.key);
+        this.initModifyForm();
+      })
+    }
   }
 
   initForm() {
-    this.key = this.route.snapshot.paramMap.get('sanitizeTitle');
-    if (this.key){
-      this.display = this.displayService.getOneData(this.key);
-      this.contents = this.display.values().next().value.body;
-    }
-    console.log(this.display);
-    console.log(this.contents);
-
+    console.log('display', this.display);
     this.displayForm = this.fb.group({
       title: '',
       sanitizeTitle: '',
@@ -61,10 +64,6 @@ export class EditComponent implements OnInit {
     });
     this.categories = this.displayService.categories;
 
-    if (this.key) {
-      this.initModifyForm(this.key, this.display);
-    }
-console.log(this.displayForm);
   }
 
   addContents(control): FormGroup {
@@ -85,13 +84,16 @@ console.log(this.displayForm);
     return add;
   }
 
-  initModifyForm(key: string, display: Map<string, DisplayModel>) {
-    console.log(this.contents);
+  initModifyForm() {
+
+    console.log(this.displayForm.controls);
+    console.log(this.display);
+    this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
     this.displayForm.patchValue({
-      title: display.get(key).title,
-      body: this.contents.forEach(elem => this.addContents(elem)),
-      category: display.get(key).category,
+      title: this.display.title,
+      category: this.display.category
     });
+
   }
 
   showCategoryForm() {
@@ -120,7 +122,17 @@ console.log(this.displayForm);
       formValue.body,
       formValue.category.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
-    this.displayService.updateData(entry);
+    console.log(entry)
+    if (this.key) {
+      this.displayService.updateData(entry);
+    } else {
+      this.displayService.createData(entry);
+    }
+
     this.router.navigate(['/display']);
+  }
+
+  async loadOneData() {
+    return await this.displayService.getData();
   }
 }
