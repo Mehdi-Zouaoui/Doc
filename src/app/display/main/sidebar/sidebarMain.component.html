@@ -9,10 +9,13 @@
       </div>
     </div>
   </form>
+
   <div class="row">
     <ul class="nav nav-pills w-100">
       <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue | searchDisplayFilter: displaySearch">
+
         <h3>{{menu.value.title}}</h3>
+
         <ul class="nav nav-pills w-100">
           <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | searchDisplayFilter: displaySearch">
             <li class="nav-item w-100" *ngIf="subMenu.value.category == menu.value.sanitizeTitle">
@@ -24,8 +27,10 @@
             </li>
           </ng-container>
         </ul>
+
       </li>
     </ul>
+
     <div class="col-12 text-right">
       <button class="btn btn-dark" routerLink="/display/edit">
         <fa-icon [icon]="faPlus"></fa-icon>

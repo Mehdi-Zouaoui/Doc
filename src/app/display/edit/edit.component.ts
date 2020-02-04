@@ -40,7 +40,7 @@ export class EditComponent implements OnInit {
           this.display = display.get(this.key);
           console.log('thisDisplay', this.display);
           this.initModifyForm();
-        })
+        });
     }
   }
 
@@ -105,7 +105,7 @@ export class EditComponent implements OnInit {
     } else {
       this.displayService.createData(entry);
     }
-    this.router.navigate(['/display']);
+    this.router.navigate(['/display']).then();
   }
 
   async loadOneData() {
