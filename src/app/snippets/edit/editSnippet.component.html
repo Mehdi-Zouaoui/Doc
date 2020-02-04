@@ -9,8 +9,10 @@
       <button class="btn btn-primary btn-block" (click)="addField('js')"> JS</button>
     </div>
   </div>
+
   <div class="container-fluid">
     <div class="row py-3">
+
       <div class="col-6 mt-2">
         <div class="card">
           <div class="card-body">
@@ -28,11 +30,10 @@
                   multiple="true"
                   class="browser-default position-relative "
                   id="categoryId"
-                  formControlName="categoriesArray"
-                  (click)="getCategories()">
+                  formControlName="categoriesArray">
 
-                  <ng-option [value]="category.value.sanitizeTitle"
-                             *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
+                  <ng-option *ngFor="let category of categories | keyvalue;" [value]="category.value.sanitizeTitle">
+                    {{category.value.title}}
                   </ng-option>
 
                 </ng-select>
@@ -44,12 +45,12 @@
                 </div>
               </div>
 
-              <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2">
+              <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2" (ngSubmit)="onSubmitCategory()">
 
                 <input class="form-control " type="text"
                        formControlName="categoryName" name="categoryName" id="categoryName">
                 <div class="input-group-append">
-                  <button class="btn btn-danger " (click)="this.categoryClicked = false ; onSubmitCategory()">
+                  <button class="btn btn-danger" type="submit" (click)="this.categoryClicked = false;">
                     Enregistrer
                   </button>
                 </div>
@@ -76,12 +77,15 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success float-right" (click)="onSubmit(key)">Enregistrer</button>
+
+              <button class="btn btn-success float-right" type="submit">Enregistrer</button>
             </form>
           </div>
         </div>
       </div>
+
       <div class="mt-2 col-6">
+
         <div class="card">
           <div class="card-body">
             <h1>{{snippetForm.value.title}}</h1>
@@ -90,8 +94,9 @@
                 {{body.content}}
               </div>
               <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
-              <pre class="language-markup line-numbers"><code class="language-{{body.type}}"
-                                                              (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
+              <pre class="language-markup line-numbers">
+                <code class="language-{{body.type}}" (click)="this.prismService.highlightAll()">{{body.content}}</code>
+              </pre>
               </div>
             </div>
 
@@ -100,7 +105,6 @@
       </div>
 
     </div>
-
   </div>
 
 </div>

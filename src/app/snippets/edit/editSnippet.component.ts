@@ -21,7 +21,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   body: FormArray;
   key: string;
   categoriesArray: Array<string>;
-  categories: Map<string, DocumentData>;
+  categories: unknown;
   categoryClicked: boolean;
   fieldType: string;
   language: string;
@@ -41,7 +41,8 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     this.initForm();
     this.categoryClicked = false;
     this.key = this.route.snapshot.paramMap.get('sanitizeTitleURL');
-    this.categories = this.snippetService.categories;
+    this.snippetService.getCategoriesData()
+    .then(res => this.categories = res);
     this.initCategoryForm();
     if (this.key) {
       this.load()
