@@ -1,5 +1,5 @@
 <div class="card my-2 snippet">
-  <a [routerLink]="['snippets',snippet.value.sanitizeTitle]">
+  <a [routerLink]="['/snippets',snippet.value.sanitizeTitle]">
     <div class="card-body">
 
       <div class="badge badge-secondary mr-1" *ngFor="let badge of categoryNames | keyvalue">
@@ -20,7 +20,7 @@
 
     </button>
     <div class="dropdown-menu">
-      <a class="dropdown-item "  (click)="onModify()" [routerLink]="['snippets','edit',snippet.key]">Modifier</a>
+      <a class="dropdown-item "  (click)="onModify()" [routerLink]="['/snippets','edit',snippet.key]">Modifier</a>
       <a class="dropdown-item" (click)="$event.preventDefault(); onDelete(snippet.key)" href="#">Supprimer</a>
     </div>
   </div>
