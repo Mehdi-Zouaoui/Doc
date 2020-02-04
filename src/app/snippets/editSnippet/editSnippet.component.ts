@@ -143,6 +143,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       formValue.body,
       formValue.categoriesArray
     );
+    console.log('SnippetENTRY',entry.body);
     if (!this.snippetService.modify) {
       this.snippetService.pushDatabase(entry);
     } else {

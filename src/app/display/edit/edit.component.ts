@@ -19,11 +19,9 @@ export class EditComponent implements OnInit {
   body: FormArray;
   fieldType: string;
   contents: Array<DisplayContentModel>;
-
   categoryForm: FormGroup;
   categories: Map<string, DocumentData>;
   categoryClicked: boolean = false;
-  badges: Array<string> = [];
   display: DocumentData;
   highlighted: Boolean = false;
   displays = this.displayService.displays;
@@ -67,7 +65,8 @@ export class EditComponent implements OnInit {
   }
 
   addContents(control): FormGroup {
-    return this.fb.group({
+ //POURQUOI LE CONTENT EST UN ARRAY ET PAS UN STRING ?
+     return this.fb.group({
       content: this.fb.control([control.content]),
       type: [control.type, [Validators.required]]
     });
@@ -85,10 +84,10 @@ export class EditComponent implements OnInit {
   }
 
   initModifyForm() {
-
     console.log(this.displayForm.controls);
-    console.log(this.display);
-    this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
+    this.displayForm.controls.body = new FormArray (this.display.body.map(elem => this.addContents(elem)));
+    console.log(this.displayForm.controls);
+
     this.displayForm.patchValue({
       title: this.display.title,
       category: this.display.category
@@ -116,13 +115,13 @@ export class EditComponent implements OnInit {
   onSubmit() {
     console.log(this.displayForm.value);
     const formValue = this.displayForm.value;
+    console.log(formValue.body);
     const entry = new DisplayModel(
       formValue.title,
       formValue.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
       formValue.body,
       formValue.category.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
-    console.log(entry);
     if (this.key) {
       this.displayService.updateData(entry);
     } else {

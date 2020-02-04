@@ -3,7 +3,6 @@
     <div class="col-12 text-right">
       <button class="btn btn-primary btn-block" (click)="addField('title')"> Titre</button>
       <button class="btn btn-primary btn-block" (click)="addField('text')"> Texte</button>
-      <button class="btn btn-primary btn-block" (click)="addField('code')"> Code</button>
       <button class="btn btn-primary btn-block" (click)="addField('html')"> HTML</button>
       <button class="btn btn-primary btn-block" (click)="addField('css')"> CSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('scss')"> SCSS</button>
@@ -13,6 +12,7 @@
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6">
+
         <form [formGroup]="displayForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="title">
@@ -22,23 +22,31 @@
           </div>
 
           <label for="categoryId">Catégories :</label>
-          <ng-select
-            class="browser-default mb-3 position-relative"
-            id="categoryId"
-            formControlName="category"
-            (click)="updateCat()">
+          <div class="input-group mb-2">
+            <ng-select
+              class="browser-default position-relative"
+              id="categoryId"
+              formControlName="category"
+              (click)="updateCat()">
 
-            <ng-option [value]="category.value.title"
-                       *ngFor="let category of categories | keyvalue; ">{{category.value.title}}
-            </ng-option>
+              <ng-option [value]="category.value.title"
+                         *ngFor="let category of categories | keyvalue; ">{{category.value.title}}
+              </ng-option>
 
-          </ng-select>
-          <div>
-            <div class="hidden_input btn btn-warning mb-2" id="categoryForm"
-                 [ngClass]="{'showCategoryFrom': this.categoryClicked }"
-                 (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">Ajouter une
-              catégorie
+            </ng-select>
+            <div class="input-group-append">
+              <button class="btn btn-warning " type="button" id="categoryForm"
+                      [ngClass]="{'showCategoryFrom': this.categoryClicked }"
+                      (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">+
+              </button>
             </div>
+          </div>
+          <div>
+            <!--            <div class="hidden_input btn btn-warning mb-2" id="categoryForm"-->
+            <!--                 [ngClass]="{'showCategoryFrom': this.categoryClicked }"-->
+            <!--                 (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">Ajouter une-->
+            <!--              catégorie-->
+            <!--            </div>-->
             <div class="d-flex"></div>
             <div *ngIf="this.categoryClicked" class="hidden_text">
               <form [formGroup]="categoryForm">
@@ -61,24 +69,20 @@
                 <textarea class="form-control" id="text" *ngSwitchCase="'text'" name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
 
-                <textarea class="form-control" *ngSwitchDefault  id="code"  name="content" cols="30" rows="10"
+                <textarea class="form-control" *ngSwitchDefault id="code" name="content" cols="30" rows="10"
                           formControlName="content"></textarea>
 
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12 text-right">
-              <button class="btn btn-success">Enregistrer</button>
-            </div>
-          </div>
+          <button class="btn btn-success pull-right" (click)="onSubmit()">Enregistrer</button>
         </form>
       </div>
       <div class="col-6 wysiwyg">
-<!--        <h1>{{displayForm.value.title}}</h1>-->
-<!--        <div *ngFor="let content of displayForm.value.body">-->
-<!--          <p>{{content.content}}</p>-->
-<!--        </div>-->
+        <!--        <h1>{{displayForm.value.title}}</h1>-->
+        <!--        <div *ngFor="let content of displayForm.value.body">-->
+        <!--          <p>{{content.content}}</p>-->
+        <!--        </div>-->
       </div>
     </div>
   </div>
