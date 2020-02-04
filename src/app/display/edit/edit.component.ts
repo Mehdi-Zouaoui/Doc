@@ -65,7 +65,7 @@ export class EditComponent implements OnInit {
   addContents(control): FormGroup {
     // POURQUOI LE CONTENT EST UN ARRAY ET PAS UN STRING ?
     return this.fb.group({
-      content: this.fb.control([control.content]),
+      content: this.fb.control(control.content),
       type: [control.type, [Validators.required]]
     });
   }
