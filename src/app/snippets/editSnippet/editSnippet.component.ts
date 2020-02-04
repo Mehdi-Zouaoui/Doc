@@ -56,9 +56,9 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(()=> {
+    setTimeout(() => {
       this.prismService.highlightAll();
-    }, 1000)
+    },  1000);
   }
 
   initForm() {
@@ -87,7 +87,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   }
 
   getCategoriesBadges() {
-    console.log('badges' , this.snippet.categories);
     return this.snippet.categories;
   }
 
@@ -155,7 +154,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   }
 
   trackByFn(index) {
-    console.log("index", index);
     return index;
   }
 }
