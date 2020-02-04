@@ -11,10 +11,21 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="pull-left">{{menu.value.title | uppercase}}</h3>
-                <div class="pull-right">
-                  <a class="btn btn-danger" (click)="deleteDisplay(menu.key)">Supprimer</a>
-                  <button class="btn btn-info" [routerLink]="'/display/'+menu.key">Modifer</button>
+                <h3 class="float-left">{{menu.value.title | uppercase}}</h3>
+                <div class="float-right">
+                  <div class="dropdown dropleft" style="position: absolute; top: 10px; right: 10px;">
+                    <button class="btn btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                      <fa-icon [icon]="faEllipsisV"></fa-icon>
+
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item " [routerLink]="'/display/' + menu.key">Modifier</a>
+                      <a class="dropdown-item" (click)="$event.preventDefault(); deleteDisplay(menu.key)" href="#">Supprimer</a>
+                    </div>
+                  </div>
+<!--                  <a class="btn btn-danger" (click)="deleteDisplay(menu.key)">Supprimer</a>-->
+<!--                  <button class="btn btn-info" [routerLink]="'/display/'+menu.key">Modifer</button>-->
                 </div>
               </div>
               <div class="card-body">

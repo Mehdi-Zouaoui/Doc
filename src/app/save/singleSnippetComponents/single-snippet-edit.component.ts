@@ -8,7 +8,7 @@ import {snippetContentModel} from '../../models/snippets/snippetContent.model';
 })
 
 export class SingleSnippetEditComponent implements OnInit {
-  index = this.snippetService.index;
+  index = this.snippetService;
   snippets = this.snippetService.snippets;
   title: string;
   body: snippetContentModel[];

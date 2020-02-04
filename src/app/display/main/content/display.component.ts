@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {DisplayService} from '../../../services/display.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {Router} from '@angular/router';
+import{faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 import {PrismService} from '../../../services/prism.service';
 
 @Component({
@@ -11,6 +12,7 @@ import {PrismService} from '../../../services/prism.service';
 export class DisplayComponent implements OnInit, AfterViewInit {
   menus: unknown;
   activeTab: string;
+  faEllipsisV = faEllipsisV ;
 
   constructor(
     private displayService: DisplayService,

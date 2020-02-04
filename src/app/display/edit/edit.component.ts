@@ -14,17 +14,13 @@ import {DisplayContentModel} from '../../models/display/DisplayContent.model';
   templateUrl: './edit.component.html'
 })
 export class EditComponent implements OnInit {
-  faPlus = faPlus;
   displayForm: FormGroup;
   body: FormArray;
   fieldType: string;
-  contents: Array<DisplayContentModel>;
   categoryForm: FormGroup;
   categories: Map<string, DocumentData>;
   categoryClicked = false;
   display: DocumentData;
-  highlighted  = false;
-  displays = this.displayService.displays;
   key: string;
 
   constructor(
@@ -42,9 +38,11 @@ export class EditComponent implements OnInit {
     if (this.key) {
       this.loadOneData()
         .then((display: Map<any, DocumentData>) => {
+          console.log('loadingData', display);
           this.display = display.get(this.key);
+          console.log('thisDisplay', this.display);
           this.initModifyForm();
-        });
+        })
     }
   }
 
@@ -59,11 +57,18 @@ export class EditComponent implements OnInit {
       categoryTitle: ''
     });
     this.categories = this.displayService.categories;
+  }
 
+  initModifyForm() {
+    this.displayForm.patchValue({
+      title: this.display.title,
+      category: this.display.category
+    });
+    this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
+    console.log(this.displayForm)
   }
 
   addContents(control): FormGroup {
-    // POURQUOI LE CONTENT EST UN ARRAY ET PAS UN STRING ?
     return this.fb.group({
       content: this.fb.control(control.content),
       type: [control.type, [Validators.required]]
@@ -78,21 +83,10 @@ export class EditComponent implements OnInit {
     });
     this.body = this.displayForm.get('body') as FormArray;
     this.body.push(add);
-    console.log("add field", this.displayForm)
     return add;
   }
 
-  initModifyForm() {
-    this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
-
-    this.displayForm.patchValue({
-      title: this.display.title,
-      category: this.display.category
-    });
-console.log(this.displayForm)
-  }
-
-  updateCat() {
+  getCategories() {
     this.displayService.getCategoriesData();
   }
 
@@ -106,15 +100,14 @@ console.log(this.displayForm)
   }
 
   onSubmit() {
-    const formValue = this.displayForm.value;
+    const formValue = this.displayForm.controls;
     const entry = new DisplayModel(
-      formValue.title,
-      formValue.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
-      formValue.body,
-      formValue.category.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
+      formValue.title.value,
+      formValue.title.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
+      formValue.body.value,
+      formValue.category.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
     if (this.key) {
-      entry.key = this.key;
       this.displayService.updateData(entry);
     } else {
       this.displayService.createData(entry);
@@ -124,6 +117,6 @@ console.log(this.displayForm)
   }
 
   async loadOneData() {
-    return await this.displayService.getData();
+    return await this.displayService.getOneData(this.key);
   }
 }

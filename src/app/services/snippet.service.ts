@@ -3,7 +3,6 @@ import {SnippetsModel} from '../models/snippets/snippets.model';
 import {CategoryModel} from '../models/snippets/category.model';
 import * as firebase from 'firebase';
 import DocumentData = firebase.firestore.DocumentData;
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,28 +10,23 @@ import {Observable} from "rxjs";
 
 export class SnippetService {
   modify: boolean;
-  index: number;
   categoryId: number;
   snippets: Map<any, DocumentData> = new Map();
   categories: Map<string, DocumentData> = new Map();
-  dataObservable: Observable<any>;
 
-  constructor() {
-  }
+  constructor() {}
 
   getData() {
     return new Promise(resolve => {
       firebase.firestore().collection("snippets")
         .get()
         .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.snippets.set(doc.id, doc.data())
+          querySnapshot.forEach((doc) => {
+            this.snippets.set(doc.id, doc.data())
+          });
+          resolve(this.snippets)
         });
-        resolve(this.snippets)
-      });
     })
-
-
   }
 
   getCategoriesData() {
@@ -40,24 +34,23 @@ export class SnippetService {
       firebase.firestore().collection('snippetCategories')
         .get()
         .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.categories.set(doc.id, doc.data());
-        })
-      });
+          querySnapshot.forEach((doc) => {
+            this.categories.set(doc.id, doc.data());
+          })
+        });
       resolve(this.categories)
     })
-
   }
 
   updateData(snippet: SnippetsModel, key) {
     firebase.firestore().collection("snippets")
       .doc(key)
       .update({
-      title: snippet.title,
-      sanitizeTitle: snippet.sanitizeTitle,
-      body: snippet.body,
-      categories: snippet.categories,
-    })
+        title: snippet.title,
+        sanitizeTitle: snippet.sanitizeTitle,
+        body: snippet.body,
+        categories: snippet.categories,
+      })
   }
 
   deleteSnippet(key) {

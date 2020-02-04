@@ -7,15 +7,13 @@
       <button class="btn btn-primary btn-block" (click)="addField('css')"> CSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('scss')"> SCSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('js')"> JS</button>
-
     </div>
   </div>
-  <div class="container-fluid ">
+  <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6 mt-2">
         <div class="card">
           <div class="card-body">
-
             <form [formGroup]="snippetForm" (ngSubmit)="onSubmit(snippetIndex)">
               <div class="form-group">
                 <label for="title">
@@ -30,9 +28,8 @@
                   multiple="true"
                   class="browser-default position-relative "
                   id="categoryId"
-                  [(ngModel)]="badges"
                   formControlName="categoriesArray"
-                  (click)="updateCat()">
+                  (click)="getCategories()">
 
                   <ng-option [value]="category.value.sanitizeTitle"
                              *ngFor="let category of categories | keyvalue; ">{{category.value.name}}
@@ -66,20 +63,20 @@
                     <label [attr.for]="field.value.type">
                       {{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}:
                     </label>
-                    <button class="btn btn-danger pull-right" (click)="removeBodyContent(i)">
+                    <button class="btn btn-danger float-right" (click)="removeBodyContent(i)">
                       <fa-icon [icon]="faTrash"></fa-icon>
                     </button>
 
-                    <textarea autosize class="form-control" id="text" *ngSwitchCase="'text'" name="content"
+                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"
                               formControlName="content"></textarea>
 
-                    <textarea autosize class="form-control" *ngSwitchDefault id="'code'" name="content"
+                    <textarea autosize class="form-control" *ngSwitchDefault name="content"
                               formControlName="content"></textarea>
 
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success pull-right" (click)="onSubmit(key)">Enregistrer</button>
+              <button class="btn btn-success float-right" (click)="onSubmit(key)">Enregistrer</button>
             </form>
           </div>
         </div>

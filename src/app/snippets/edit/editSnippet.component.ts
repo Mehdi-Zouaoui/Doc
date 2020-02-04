@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SnippetService} from '../../services/snippet.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SnippetsModel} from '../../models/snippets/snippets.model';
@@ -22,12 +22,10 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   key: string;
   categoriesArray: Array<string>;
   categories: Map<string, DocumentData>;
-  badges: Array<string> = [];
   categoryClicked: boolean;
   fieldType: string;
   language: string;
   snippet: DocumentData;
-
 
   constructor(
     private fb: FormBuilder,
@@ -45,7 +43,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     this.key = this.route.snapshot.paramMap.get('sanitizeTitleURL');
     this.categories = this.snippetService.categories;
     this.initCategoryForm();
-
     if (this.key) {
       this.load()
         .then((snippets: Map<any, DocumentData>) => {
@@ -58,17 +55,16 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.prismService.highlightAll();
-    },  1000);
+    }, 1000);
   }
 
   initForm() {
     this.snippetForm = this.fb.group({
-        title: '',
-        sanitizeTitle: '',
-        body: this.fb.array([]),
-        categoriesArray: ''
-      });
-
+      title: '',
+      sanitizeTitle: '',
+      body: this.fb.array([]),
+      categoriesArray: ''
+    });
   }
 
   initCategoryForm() {
@@ -79,15 +75,10 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
 
   initModifyForm() {
     this.snippetForm.controls.body = this.fb.array(this.snippet.body.map(elem => this.addContents(elem)));
-
     this.snippetForm.patchValue({
       title: this.snippet.title,
       categoriesArray: this.snippet.categories,
     });
-  }
-
-  getCategoriesBadges() {
-    return this.snippet.categories;
   }
 
   showCategoryForm() {
@@ -96,7 +87,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
 
   addContents(control): FormGroup {
     return this.fb.group({
-      content: this.fb.control([control.content]),
+      content: this.fb.control(control.content),
       type: [control.type, [Validators.required]],
     });
   }
@@ -104,7 +95,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   removeBodyContent(i: number) {
     this.body = this.snippetForm.get('body') as FormArray;
     this.body.removeAt(i);
-    console.log('Body', this.snippetForm.value.body);
   }
 
   addField(type): FormGroup {
@@ -116,10 +106,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     this.body = this.snippetForm.get('body') as FormArray;
     this.body.push(add);
     return add;
-  }
-
-  updateCat() {
-    this.snippetService.getCategoriesData();
   }
 
   async load() {
@@ -136,14 +122,13 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(key) {
-    const formValue = this.snippetForm.value;
+    const formValue = this.snippetForm.controls;
     const entry = new SnippetsModel(
-      formValue.title,
-      formValue.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(' ').join('_').toLocaleLowerCase(),
-      formValue.body,
-      formValue.categoriesArray
+      formValue.title.value,
+      formValue.title.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(' ').join('_').toLocaleLowerCase(),
+      formValue.body.value,
+      formValue.categoriesArray.value
     );
-    console.log('SnippetENTRY',entry.body);
     if (!this.snippetService.modify) {
       this.snippetService.pushDatabase(entry);
     } else {
@@ -152,9 +137,5 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     }
     this.snippetService.modify = false;
     this.router.navigate(['/snippets']);
-  }
-
-  trackByFn(index) {
-    return index;
   }
 }

@@ -12,8 +12,9 @@
   <div class="container-fluid">
     <div class="row py-3">
       <div class="col-6">
-
-        <form [formGroup]="displayForm" (ngSubmit)="onSubmit()">
+        <div class="card">
+          <div class="card-body">
+        <form  [formGroup]="displayForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="title">
               Titre
@@ -42,11 +43,6 @@
             </div>
           </div>
           <div>
-            <!--            <div class="hidden_input btn btn-warning mb-2" id="categoryForm"-->
-            <!--                 [ngClass]="{'showCategoryFrom': this.categoryClicked }"-->
-            <!--                 (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">Ajouter une-->
-            <!--              catégorie-->
-            <!--            </div>-->
             <div class="d-flex"></div>
             <div *ngIf="this.categoryClicked" class="hidden_text">
               <form [formGroup]="categoryForm">
@@ -73,8 +69,10 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-success pull-right" (click)="onSubmit()">Enregistrer</button>
+          <button class="btn btn-success float-right" type="submit">Enregistrer</button>
         </form>
+          </div>
+        </div>
       </div>
       <div class="col-6 wysiwyg">
         <!--        <h1>{{displayForm.value.title}}</h1>-->

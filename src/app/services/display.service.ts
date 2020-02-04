@@ -1,16 +1,19 @@
+import {Injectable} from "@angular/core";
 import {DisplayModel} from '../models/display/Display.model';
+import {CategoryModel} from '../models/display/Category.model';
 import * as firebase from 'firebase';
 import DocumentData = firebase.firestore.DocumentData;
-import {CategoryModel} from '../models/display/Category.model';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 export class DisplayService {
-  displays: Map<any, DocumentData> = new Map();
   display: Map<any, DocumentData> = new Map();
   categories: Map<string, DocumentData> = new Map();
   subCategories: Map<string, DocumentData> = new Map();
 
-  constructor() {
-  }
+  constructor() {}
 
   getData() {
     return new Promise<DocumentData>(
@@ -27,12 +30,13 @@ export class DisplayService {
   }
 
   getOneData(key) {
-    return new Promise(resolve => {
+    return new Promise<DocumentData>(resolve => {
       firebase.firestore().collection('display')
         .doc(key)
         .get()
         .then((res) => {
-          this.display.set(res.id, res.data());
+          console.log('RES',res)
+          return this.display.set(res.id, res.data());
         });
       resolve(this.display);
     })
@@ -58,7 +62,7 @@ export class DisplayService {
   updateData(item: DisplayModel) {
     console.log('update display', item);
     firebase.firestore().collection("display")
-      .doc(item.key)
+      .doc(item.sanitizeTitle)
       .update({
         title: item.title,
         sanitizeTitle: item.sanitizeTitle,
@@ -66,7 +70,7 @@ export class DisplayService {
         category: item.category,
       })
       .then(res => {
-        console.log('Document successfully written!', res);
+        console.log('Document successfully update!' , res);
       })
       .catch(error => {
         console.error('Error writing document: ', error);
