@@ -4,10 +4,10 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {DisplayService} from '../../services/display.service';
 import {DisplayModel} from '../../models/display/Display.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PrismService} from "../../services/prism.service";
+import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
-import {CategoryModel} from "../../models/display/Category.model";
-import {DisplayContentModel} from "../../models/display/DisplayContent.model";
+import {CategoryModel} from '../../models/display/Category.model';
+import {DisplayContentModel} from '../../models/display/DisplayContent.model';
 
 @Component({
   selector: 'app-edit',
@@ -21,9 +21,9 @@ export class EditComponent implements OnInit {
   contents: Array<DisplayContentModel>;
   categoryForm: FormGroup;
   categories: Map<string, DocumentData>;
-  categoryClicked: boolean = false;
+  categoryClicked = false;
   display: DocumentData;
-  highlighted: Boolean = false;
+  highlighted  = false;
   displays = this.displayService.displays;
   key: string;
 
@@ -39,18 +39,16 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.key = this.route.snapshot.paramMap.get('sanitizeTitle');
-    console.log(this.key);
-     if (this.key) {
+    if (this.key) {
       this.loadOneData()
         .then((display: Map<any, DocumentData>) => {
-        this.display = display.get(this.key);
-        this.initModifyForm();
-      })
+          this.display = display.get(this.key);
+          this.initModifyForm();
+        });
     }
   }
 
   initForm() {
-    console.log('display', this.display);
     this.displayForm = this.fb.group({
       title: '',
       sanitizeTitle: '',
@@ -65,8 +63,8 @@ export class EditComponent implements OnInit {
   }
 
   addContents(control): FormGroup {
- //POURQUOI LE CONTENT EST UN ARRAY ET PAS UN STRING ?
-     return this.fb.group({
+    // POURQUOI LE CONTENT EST UN ARRAY ET PAS UN STRING ?
+    return this.fb.group({
       content: this.fb.control([control.content]),
       type: [control.type, [Validators.required]]
     });
@@ -80,23 +78,18 @@ export class EditComponent implements OnInit {
     });
     this.body = this.displayForm.get('body') as FormArray;
     this.body.push(add);
+    console.log("add field", this.displayForm)
     return add;
   }
 
   initModifyForm() {
-    console.log(this.displayForm.controls);
-    this.displayForm.controls.body = new FormArray (this.display.body.map(elem => this.addContents(elem)));
-    console.log(this.displayForm.controls);
+    this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
 
     this.displayForm.patchValue({
       title: this.display.title,
       category: this.display.category
     });
-
-  }
-
-  showCategoryForm() {
-    return this.categoryClicked = true;
+console.log(this.displayForm)
   }
 
   updateCat() {
@@ -113,9 +106,7 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.displayForm.value);
     const formValue = this.displayForm.value;
-    console.log(formValue.body);
     const entry = new DisplayModel(
       formValue.title,
       formValue.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
@@ -123,6 +114,7 @@ export class EditComponent implements OnInit {
       formValue.category.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
     if (this.key) {
+      entry.key = this.key;
       this.displayService.updateData(entry);
     } else {
       this.displayService.createData(entry);

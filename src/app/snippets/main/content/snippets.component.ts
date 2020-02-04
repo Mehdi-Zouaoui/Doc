@@ -1,0 +1,21 @@
+import {Component, OnInit} from '@angular/core';
+import {SnippetService} from '../../../services/snippet.service';
+
+@Component({
+  selector: 'app-snippets',
+  templateUrl: './snippets.component.html'
+})
+export class SnippetsComponent implements OnInit {
+  snippets = this.snippetService.snippets;
+  category = this.snippetService.categoryId;
+  constructor(private snippetService: SnippetService) {}
+
+  ngOnInit() {
+    this.snippetService.getData();
+    this.snippetService.getCategoriesData();
+  }
+
+  receiveId($event) {
+    this.category = $event;
+  }
+}

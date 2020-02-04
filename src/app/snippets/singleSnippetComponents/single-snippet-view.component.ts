@@ -8,8 +8,8 @@ import {PrismService} from '../../services/prism.service';
 @Component({
   selector: 'app-single-snippet',
   templateUrl: 'single-snippet-view.component.html'
-
 })
+
 export class SingleSnippetViewComponent implements OnInit, AfterViewInit {
   key: string;
   index = this.snippetService.index;

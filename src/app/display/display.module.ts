@@ -15,6 +15,7 @@ import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
 
 import {DisplayService} from '../services/display.service';
 import {PrismService} from "../services/prism.service";
+import {AutosizeModule} from 'ngx-autosize';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {PrismService} from "../services/prism.service";
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    AutosizeModule
   ],
   providers : [
     DisplayService,

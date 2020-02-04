@@ -39,7 +39,7 @@ export class DisplayService {
   }
 
   createData(item: DisplayModel) {
-    firebase.firestore().collection("display")
+    firebase.firestore().collection('display')
       .doc(item.sanitizeTitle)
       .set({
         title: item.title,
@@ -56,8 +56,9 @@ export class DisplayService {
   }
 
   updateData(item: DisplayModel) {
+    console.log('update display', item);
     firebase.firestore().collection("display")
-      .doc(item.sanitizeTitle)
+      .doc(item.key)
       .update({
         title: item.title,
         sanitizeTitle: item.sanitizeTitle,

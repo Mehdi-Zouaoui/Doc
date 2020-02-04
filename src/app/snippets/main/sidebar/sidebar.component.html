@@ -1,0 +1,30 @@
+<div class="sidebar h-100">
+  <form class="form-inline my-2 my-lg-0">
+    <div class="input-group mb-3 w-100">
+      <input type="text" [(ngModel)]="snippetSearch" name="snippetSearch" class="form-control" placeholder="Recherche"
+             aria-label="Recherche" aria-describedby="button-search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-search">
+          <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+  <ul class="nav nav-pills w-100">
+    <li class="nav-item w-100">
+      <a href="" class="nav-link rounded-0" [ngClass]="{'active': !activeCategory}" (click)="$event.preventDefault() ; sendCategory(''); snippetSearch =''">Voir tous</a>
+    </li>
+    <li *ngFor="let category of categories | keyvalue | searchSnippetFilter :  snippetSearch" class="nav-item w-100" >
+      <a href="" class="nav-link rounded-0" [ngClass]="{'active': activeCategory === category.value.sanitizeTitle}"
+         (click)="$event.preventDefault() ; sendCategory(category);">
+        {{category.value.name}}
+      </a>
+    </li>
+  </ul>
+  </div>
+
+  <button class="btn btn-dark pull-right" routerLink="['./snippets/editSnippet']">
+    <fa-icon [icon]="faPlus"></fa-icon>Ajouter
+  </button>
+</div>
