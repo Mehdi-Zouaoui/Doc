@@ -55,9 +55,9 @@ export class DisplayService {
       });
   }
 
-  updateData(item: DisplayModel) {
+  updateData(item: DisplayModel , key) {
     firebase.firestore().collection("display")
-      .doc(item.sanitizeTitle)
+      .doc(key)
       .update({
         title: item.title,
         sanitizeTitle: item.sanitizeTitle,

@@ -122,7 +122,7 @@ export class EditComponent implements OnInit {
       formValue.body,
       formValue.category.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
-    console.log(entry)
+    console.log(entry);
     if (this.key) {
       this.displayService.updateData(entry);
     } else {
