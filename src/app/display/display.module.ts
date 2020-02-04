@@ -10,12 +10,12 @@ import { EditComponent } from './edit/edit.component';
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {AutosizeModule} from 'ngx-autosize';
 
 import {SearchDisplayFilterPipe} from '../pipes/searchDisplayFilter.pipe';
 
 import {DisplayService} from '../services/display.service';
-import {PrismService} from "../services/prism.service";
-import {AutosizeModule} from 'ngx-autosize';
+import {PrismService} from '../services/prism.service';
 
 
 @NgModule({

@@ -1,21 +1,34 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+
 import {SnippetRoutingModule} from './snippet-routing.module';
-import {EditSnippetComponent} from './editSnippet/editSnippet.component';
+
+import {SnippetsComponent} from './main/content/snippets.component';
+import {SidebarComponent} from './main/sidebar/sidebar.component';
+import {SnippetCardComponent} from './main/content/snippetCard/snippet-card.component';
+import {SnippetViewComponent} from './main/content/snippetView/snippet-view.component';
+
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {OrderBy} from '../pipes/orderBy.pipe';
-import {PrismService} from "../services/prism.service";
-import {IsotopeModule} from 'ngx-isotope';
+import {SearchSnippetFilterPipe} from '../pipes/searchSnippetFilter.pipe';
+
 import {NgSelectModule} from '@ng-select/ng-select';
-import {SearchSnippetFilterPipe} from "../pipes/searchSnippetFilter.pipe";
 import {AutosizeModule} from 'ngx-autosize';
+
+import {PrismService} from '../services/prism.service';
+import {SnippetService} from '../services/snippet.service';
+import {EditSnippetComponent} from './edit/editSnippet.component';
 
 
 @NgModule({
   declarations: [
+    SidebarComponent,
+    SnippetsComponent,
+    SnippetCardComponent,
+    SnippetViewComponent,
     EditSnippetComponent,
     OrderBy,
     SearchSnippetFilterPipe
@@ -23,9 +36,7 @@ import {AutosizeModule} from 'ngx-autosize';
   exports: [
     RouterModule,
     OrderBy,
-    EditSnippetComponent,
     SearchSnippetFilterPipe
-
   ],
   imports: [
     BrowserModule,
@@ -35,10 +46,10 @@ import {AutosizeModule} from 'ngx-autosize';
     FormsModule,
     ReactiveFormsModule,
     SnippetRoutingModule,
-    IsotopeModule,
     AutosizeModule
   ],
   providers: [
+    SnippetService,
     PrismService
   ]
 })

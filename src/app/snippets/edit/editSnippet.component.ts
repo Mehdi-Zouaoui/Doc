@@ -13,7 +13,7 @@ import {faTrash} from '@fortawesome/free-solid-svg-icons';
   selector: 'app-snippet-edit',
   templateUrl: './editSnippet.component.html'
 })
-export class EditComponent implements OnInit, AfterViewInit {
+export class EditSnippetComponent implements OnInit, AfterViewInit {
   faTrash = faTrash;
   snippetIndex: number;
   snippetForm: FormGroup;
@@ -68,6 +68,7 @@ export class EditComponent implements OnInit, AfterViewInit {
         body: this.fb.array([]),
         categoriesArray: ''
       });
+
   }
 
   initCategoryForm() {
@@ -142,6 +143,7 @@ export class EditComponent implements OnInit, AfterViewInit {
       formValue.body,
       formValue.categoriesArray
     );
+    console.log('SnippetENTRY',entry.body);
     if (!this.snippetService.modify) {
       this.snippetService.pushDatabase(entry);
     } else {

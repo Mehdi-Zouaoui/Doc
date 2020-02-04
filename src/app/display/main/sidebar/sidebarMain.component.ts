@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
 import DocumentData = firebase.firestore.DocumentData;
 import {DisplayService} from '../../../services/display.service';
-import {CategoryModel} from '../../../models/display/Category.model';
 
 @Component({
   selector: 'app-sidebar',

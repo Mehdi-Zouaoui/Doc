@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {DisplayService} from '../../../services/display.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {Router} from '@angular/router';
-import {PrismService} from "../../../services/prism.service";
+import {PrismService} from '../../../services/prism.service';
 
 @Component({
   selector: 'app-display',

@@ -8,31 +8,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { DisplayModule } from './display/display.module';
 import {SnippetsModule} from './snippets/snippets.module';
-import {SnippetsComponent} from "./snippets/snippetComponent/snippets.component";
-import {SidebarComponent} from './snippets/sidebar/sidebar.component';
-import {SnippetsViewComponent} from "./snippets/snippets-view.component";
-import { SingleSnippetEditComponent} from './snippets/singleSnippetComponents/single-snippet-edit.component';
 import {PrismService} from './services/prism.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 import {AutosizeModule} from 'ngx-autosize';
 
-// import {CategoryFilter} from "./pipes/categoryFilter.pipe";
-import {IsotopeModule} from "ngx-isotope";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {SingleSnippetViewComponent} from "./snippets/singleSnippetComponents/single-snippet-view.component";
+import {SnippetsComponent} from './snippets/main/content/snippets.component';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [
     AppComponent,
-    SnippetsComponent,
     HeaderComponent,
-    SidebarComponent,
-    SnippetsViewComponent,
-    SingleSnippetEditComponent,
-    SingleSnippetViewComponent
-
   ],
   imports: [
     BrowserModule,
@@ -42,7 +30,6 @@ firebase.initializeApp(environment.firebase);
     AppRoutingModule,
     DisplayModule,
     SnippetsModule,
-    IsotopeModule,
     BrowserAnimationsModule,
     AutosizeModule
   ],
@@ -50,7 +37,6 @@ firebase.initializeApp(environment.firebase);
     PrismService
   ],
   exports: [
-    SnippetsComponent
   ],
   bootstrap: [AppComponent]
 })
