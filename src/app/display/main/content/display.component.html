@@ -8,7 +8,6 @@
                [attr.id]="menu.value.sanitizeTitle" role="tabpanel"
                [attr.aria-labelledby]="menu.value.sanitizeTitle+'-tab'"
                [ngClass]="{ 'active': activeTab === menu.value.sanitizeTitle }">
-
             <div class="card">
               <div class="card-header">
                 <h3 class="float-left">{{menu.value.title | uppercase}}</h3>
@@ -16,39 +15,26 @@
                   <div class="dropdown dropleft" style="position: absolute; top: 10px; right: 10px;">
                     <button class="btn btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                      <fa-icon [icon]="faEllipsisV"></fa-icon>
-
-                    </button>
+                      <fa-icon [icon]="faEllipsisV"></fa-icon></button>
                     <div class="dropdown-menu">
                       <a class="dropdown-item " [routerLink]="'/display/' + menu.key">Modifier</a>
                       <a class="dropdown-item" (click)="$event.preventDefault(); deleteDisplay(menu.key)" href="#">Supprimer</a>
                     </div>
                   </div>
-<!--                  <a class="btn btn-danger" (click)="deleteDisplay(menu.key)">Supprimer</a>-->
-<!--                  <button class="btn btn-info" [routerLink]="'/display/'+menu.key">Modifer</button>-->
                 </div>
               </div>
               <div class="card-body">
-
                 <div *ngFor="let item of menu.value.body">
-                  <div
-                    *ngIf="item.type  === 'html' || item.type ==='css' || item.type ==='scss'  || item.type === 'js'">
-              <pre class="language-markup line-numbers"><code class="language-{{item.type}}"
-                                                              (click)="this.prismService.highlightAll()">{{item.content}}</code></pre>
+                  <div *ngIf="item.type === 'html' || item.type ==='css' || item.type ==='scss'|| item.type === 'js'">
+              <pre class="language-markup line-numbers"><code class="language-{{item.type}}" (click)="this.prismService.highlightAll()">{{item.content}}</code></pre>
                   </div>
-
-                  <p *ngIf="item.type !== 'html' && item.type !=='css' && item.type !=='scss'  && item.type !== 'js'">Bonjour{{item.content}}</p>
-
+                  <p *ngIf="item.type !== 'html' && item.type !=='css' && item.type !=='scss' && item.type !== 'js'">{{item.content}}</p>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
-
 </div>

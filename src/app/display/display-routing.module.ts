@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DisplayComponent } from './main/content/display.component';
 import { EditComponent } from './edit/edit.component';
 
-
 const routes: Routes = [
   {path : 'display', component: DisplayComponent},
   {path : 'display/edit', component: EditComponent},

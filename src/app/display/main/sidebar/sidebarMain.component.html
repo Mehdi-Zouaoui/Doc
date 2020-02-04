@@ -1,4 +1,4 @@
-<div class="sidebar ">
+<div class="sidebar">
   <form class="form-inline my-2 my-lg-0">
     <div class="input-group mb-3 w-100">
       <input type="text" [(ngModel)]="displaySearch" name="displaySearch" class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="button-search">
@@ -11,28 +11,26 @@
   </form>
   <div class="row">
     <ul class="nav nav-pills w-100">
-      <li class="nav-item w-100"  *ngFor="let menu of this.categories  | keyvalue | searchDisplayFilter :  displaySearch">
-         <h3>{{menu.value.title}}</h3>
+      <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue | searchDisplayFilter: displaySearch">
+        <h3>{{menu.value.title}}</h3>
         <ul class="nav nav-pills w-100">
-          <ng-container *ngFor="let subMenu of this.subCategories  | keyvalue | searchDisplayFilter :  displaySearch">
+          <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | searchDisplayFilter: displaySearch">
             <li class="nav-item w-100" *ngIf="subMenu.value.category == menu.value.sanitizeTitle">
-              <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === subMenu.value.sanitizeTitle}" [attr.id]="subMenu.value.sanitizeTitle+'-tab'" data-toggle="tab"
+              <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === subMenu.value.sanitizeTitle}"
+                 [attr.id]="subMenu.value.sanitizeTitle+'-tab'" data-toggle="tab"
                  [attr.href]="'#'+subMenu.value.sanitizeTitle" role="tab"
                  [attr.aria-controls]="subMenu.value.sanitizeTitle" aria-selected="true">
-                {{subMenu.value.title}}
-              </a>
+                {{subMenu.value.title}}</a>
             </li>
           </ng-container>
-
         </ul>
       </li>
     </ul>
     <div class="col-12 text-right">
       <button class="btn btn-dark" routerLink="/display/edit">
-        <fa-icon [icon]="faPlus"></fa-icon> Ajouter
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Ajouter
       </button>
     </div>
-
   </div>
-
 </div>

@@ -1,12 +1,12 @@
 <div class="wrapper">
   <div class="sidebar">
     <div class="col-12 text-right">
-      <button class="btn btn-primary btn-block" (click)="addField('title')"> Titre</button>
-      <button class="btn btn-primary btn-block" (click)="addField('text')"> Texte</button>
-      <button class="btn btn-primary btn-block" (click)="addField('html')"> HTML</button>
-      <button class="btn btn-primary btn-block" (click)="addField('css')"> CSS</button>
-      <button class="btn btn-primary btn-block" (click)="addField('scss')"> SCSS</button>
-      <button class="btn btn-primary btn-block" (click)="addField('js')"> JS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('title')">Titre</button>
+      <button class="btn btn-primary btn-block" (click)="addField('text')">Texte</button>
+      <button class="btn btn-primary btn-block" (click)="addField('html')">HTML</button>
+      <button class="btn btn-primary btn-block" (click)="addField('css')">CSS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('scss')">SCSS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('js')">JS</button>
     </div>
   </div>
   <div class="container-fluid">
@@ -14,71 +14,58 @@
       <div class="col-6">
         <div class="card">
           <div class="card-body">
-        <form  [formGroup]="displayForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="title">
-              Titre
-            </label>
-            <input type="text" id="title" class="form-control" formControlName="title">
-          </div>
-
-          <label for="categoryId">Catégories :</label>
-          <div class="input-group mb-2">
-            <ng-select
-              class="browser-default position-relative"
-              id="categoryId"
-              formControlName="category"
-              (click)="updateCat()">
-
-              <ng-option [value]="category.value.title"
-                         *ngFor="let category of categories | keyvalue; ">{{category.value.title}}
-              </ng-option>
-
-            </ng-select>
-            <div class="input-group-append">
-              <button class="btn btn-warning " type="button" id="categoryForm"
-                      [ngClass]="{'showCategoryFrom': this.categoryClicked }"
-                      (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">+
-              </button>
-            </div>
-          </div>
-          <div>
-            <div class="d-flex"></div>
-            <div *ngIf="this.categoryClicked" class="hidden_text">
-              <form [formGroup]="categoryForm">
-                <input class="form-control w-25 mb-1" type="text"
-                       formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
-                <button class="btn btn-danger" (click)="this.categoryClicked = false ; onSubmitCategory()">
-                  Enregistrer
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <div id="content" class="form-group" formArrayName="body">
-            <div class="form-group" [formGroupName]="i"
-                 *ngFor="let field of displayForm.controls.body.controls ;index as i">
-              <div [ngSwitch]="field.value.type">
-                <label
-                  [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
-                  :</label>
-                <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content" formControlName="content"></textarea>
-
-                <textarea autosize class="form-control" *ngSwitchDefault name="content" formControlName="content"></textarea>
-
+            <form [formGroup]="displayForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="title">
+                  Titre
+                </label>
+                <input type="text" id="title" class="form-control" formControlName="title">
               </div>
-            </div>
-          </div>
-          <button class="btn btn-success float-right" type="submit">Enregistrer</button>
-        </form>
+              <label for="categoryId">Catégories :</label>
+              <div class="input-group mb-2">
+                <ng-select
+                  class="browser-default position-relative"
+                  id="categoryId"
+                  formControlName="category"
+                  (click)="updateCat()">
+                  <ng-option [value]="category.value.title"
+                             *ngFor="let category of categories | keyvalue; ">{{category.value.title}}
+                  </ng-option>
+                </ng-select>
+                <div class="input-group-append">
+                  <button class="btn btn-warning" type="button" id="categoryForm"
+                          [ngClass]="{'showCategoryFrom': this.categoryClicked }"
+                          (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">+
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div class="d-flex"></div>
+                <div *ngIf="this.categoryClicked" class="hidden_text">
+                  <form [formGroup]="categoryForm">
+                    <input class="form-control w-25 mb-1" type="text"
+                           formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
+                    <button class="btn btn-danger" (click)="this.categoryClicked = false ; onSubmitCategory()">Enregistrer</button>
+                  </form>
+                </div>
+              </div>
+              <div id="content" class="form-group" formArrayName="body">
+                <div class="form-group" [formGroupName]="i" *ngFor="let field of displayForm.controls.body.controls ;index as i">
+                  <div [ngSwitch]="field.value.type">
+                    <label
+                      [attr.for]="field.value.type">{{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}}
+                      :</label>
+                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content" formControlName="content"></textarea>
+                    <textarea autosize class="form-control" *ngSwitchDefault name="content" formControlName="content"></textarea>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-success float-right" type="submit">Enregistrer</button>
+            </form>
           </div>
         </div>
       </div>
       <div class="col-6 wysiwyg">
-        <!--        <h1>{{displayForm.value.title}}</h1>-->
-        <!--        <div *ngFor="let content of displayForm.value.body">-->
-        <!--          <p>{{content.content}}</p>-->
-        <!--        </div>-->
       </div>
     </div>
   </div>

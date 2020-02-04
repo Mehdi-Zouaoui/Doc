@@ -1,18 +1,17 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DisplayService} from '../../services/display.service';
 import {DisplayModel} from '../../models/display/Display.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {CategoryModel} from '../../models/display/Category.model';
-import {DisplayContentModel} from '../../models/display/DisplayContent.model';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html'
 })
+
 export class EditComponent implements OnInit {
   displayForm: FormGroup;
   body: FormArray;
@@ -29,8 +28,7 @@ export class EditComponent implements OnInit {
     private router: Router,
     private prismService: PrismService,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -65,7 +63,6 @@ export class EditComponent implements OnInit {
       category: this.display.category
     });
     this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
-    console.log(this.displayForm)
   }
 
   addContents(control): FormGroup {
@@ -84,10 +81,6 @@ export class EditComponent implements OnInit {
     this.body = this.displayForm.get('body') as FormArray;
     this.body.push(add);
     return add;
-  }
-
-  getCategories() {
-    this.displayService.getCategoriesData();
   }
 
   onSubmitCategory() {
@@ -112,7 +105,6 @@ export class EditComponent implements OnInit {
     } else {
       this.displayService.createData(entry);
     }
-
     this.router.navigate(['/display']);
   }
 
