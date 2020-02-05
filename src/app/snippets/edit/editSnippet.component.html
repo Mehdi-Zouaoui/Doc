@@ -28,26 +28,24 @@
               <div class="input-group mb-2">
                 <ng-select
                   multiple="true"
-                  class="browser-default position-relative "
                   id="categoryId"
                   formControlName="categoriesArray">
-
                   <ng-option *ngFor="let category of categories | keyvalue;" [value]="category.value.sanitizeTitle">
                     {{category.value.title}}
                   </ng-option>
-
                 </ng-select>
+
                 <div class="input-group-append">
                   <button class="btn btn-warning " type="button" id="categoryForm"
                           [ngClass]="{'showCategoryFrom': this.categoryClicked }"
-                          (click)="!this.categoryClicked ? showCategoryForm() : this.categoryClicked = false">+
+                          (click)="this.categoryClicked = !this.categoryClicked">+
                   </button>
                 </div>
               </div>
 
               <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2" >
                 <input placeholder="Catégorie..." class="form-control " type="text"
-                       formControlName="categoryName" name="categoryName" id="categoryName">
+                       formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
                 <div class="input-group-append">
                   <button class="btn btn-info" type="submit" (click)="onSubmitCategory() ;this.categoryClicked = false;">
                     Enregistrer
@@ -93,9 +91,7 @@
                 {{body.content}}
               </div>
               <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
-              <pre class="language-markup line-numbers">
-                <code class="language-{{body.type}}" (click)="this.prismService.highlightAll()">{{body.content}}</code>
-              </pre>
+              <pre class="language-markup line-numbers"><code class="language-{{body.type}}" (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
               </div>
             </div>
 

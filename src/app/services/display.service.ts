@@ -83,7 +83,6 @@ export class DisplayService {
   }
 
   getCategoriesData() {
-
       return firebase.firestore().collection('displayCategories')
         .get()
         .then((querySnapshot) => {

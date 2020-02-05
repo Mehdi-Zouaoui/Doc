@@ -37,7 +37,7 @@
                 <div class="input-group-append">
                   <button class="btn btn-warning" type="button" id="categoryForm"
                           [ngClass]="{'showCategoryFrom': this.categoryClicked }"
-                          (click)="!this.categoryClicked ? this.categoryClicked = true : this.categoryClicked = false">+
+                          (click)="this.categoryClicked = !this.categoryClicked">+
                   </button>
                 </div>
               </div>

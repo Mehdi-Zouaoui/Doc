@@ -34,22 +34,16 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private prismService: PrismService
-  ) {
-  }
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.initForm();
     this.categoryClicked = false;
     this.key = this.route.snapshot.paramMap.get('sanitizeTitleURL');
-    this.snippetService.getCategoriesData()
-    .then(res => this.categories = res);
-    this.initCategoryForm();
+    this.categories = await this.snippetService.getCategoriesData();
     if (this.key) {
-      this.load()
-        .then((snippets: Map<any, DocumentData>) => {
-          this.snippet = snippets.get(this.key);
-          this.initModifyForm();
-        });
+      this.snippet = await this.snippetService.getOneData(this.key);
+      this.initModifyForm();
     }
   }
 
@@ -66,11 +60,8 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       body: this.fb.array([]),
       categoriesArray: ''
     });
-  }
-
-  initCategoryForm() {
     this.categoryForm = this.fb.group({
-      categoryName: ''
+      categoryTitle: ''
     });
   }
 
@@ -80,10 +71,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       title: this.snippet.title,
       categoriesArray: this.snippet.categories,
     });
-  }
-
-  showCategoryForm() {
-    return this.categoryClicked = true;
   }
 
   addContents(control): FormGroup {
@@ -109,22 +96,16 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     return add;
   }
 
-  async load() {
-    return await this.snippetService.getData();
-  }
-
   onSubmitCategory() {
-    console.log('yes');
     const categoryFormValue = this.categoryForm.value;
-    console.log(categoryFormValue);
     const entry = new CategoryModel(
-      categoryFormValue.categoryName,
-      categoryFormValue.categoryName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(' ').join('_').toLocaleLowerCase(),
+      categoryFormValue.categoryTitle,
+      categoryFormValue.categoryTitle.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(' ').join('_').toLocaleLowerCase(),
     );
-    this.snippetService.pushCategoryDatabase(entry);
+    this.snippetService.addCategory(entry);
   }
 
-  onSubmit(key) {
+  async onSubmit(key) {
     const formValue = this.snippetForm.controls;
     const entry = new SnippetsModel(
       formValue.title.value,
@@ -132,13 +113,12 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       formValue.body.value,
       formValue.categoriesArray.value
     );
-    if (!this.snippetService.modify) {
-      this.snippetService.pushDatabase(entry);
+    if (!this.key) {
+      this.snippetService.createSnippet(entry);
     } else {
       this.snippetService.snippets.set(key, entry);
-      this.snippetService.updateData(entry, key);
+      await this.snippetService.updateSnippet(entry);
     }
-    this.snippetService.modify = false;
     this.router.navigate(['/snippets']);
   }
 }

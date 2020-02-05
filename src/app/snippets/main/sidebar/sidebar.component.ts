@@ -18,9 +18,14 @@ export class SidebarComponent implements OnInit {
   activeCategory: string;
 
   constructor(private snippetService: SnippetService) {}
-  
-  ngOnInit() {
-    this.categories = this.snippetService.categories;
+
+  async ngOnInit() {
+    try {
+      this.categories = await this.snippetService.getCategoriesData();
+      console.log(this.categories);
+    } catch (e) {
+      console.log('ERREUR', e);
+    }
   }
 
   sendCategory(category) {

@@ -12,6 +12,7 @@ export class SnippetService {
   modify: boolean;
   categoryId: number;
   snippets: Map<any, DocumentData> = new Map();
+  snippet: Map<any, DocumentData> = new Map();
   categories: Map<string, DocumentData> = new Map();
 
   constructor() {}
@@ -29,22 +30,31 @@ export class SnippetService {
     });
   }
 
+  getOneData(key) {
+    return firebase.firestore().collection('snippets')
+      .doc(key)
+      .get()
+      .then((res) => {
+        const data = res.data();
+        this.snippet.set(res.id, data);
+        return data;
+      });
+  }
+
   getCategoriesData() {
-    return new Promise(resolve => {
-      firebase.firestore().collection('snippetCategories')
+      return firebase.firestore().collection('snippetCategories')
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            this.categories.set(doc.id, doc.data());
+            return this.categories.set(doc.id, doc.data());
           });
+          return this.categories;
         });
-      resolve(this.categories);
-    });
   }
 
-  updateData(snippet: SnippetsModel, key) {
-    firebase.firestore().collection("snippets")
-      .doc(key)
+  updateSnippet(snippet: SnippetsModel) {
+    return firebase.firestore().collection('snippets')
+      .doc(snippet.sanitizeTitle)
       .update({
         title: snippet.title,
         sanitizeTitle: snippet.sanitizeTitle,
@@ -61,7 +71,7 @@ export class SnippetService {
     });
   }
 
-  pushDatabase(snippet: SnippetsModel) {
+  createSnippet(snippet: SnippetsModel) {
     firebase.firestore().collection('snippets').doc(snippet.sanitizeTitle).set({
       title: snippet.title,
       sanitizeTitle: snippet.sanitizeTitle,
@@ -76,7 +86,7 @@ export class SnippetService {
       });
   }
 
-  pushCategoryDatabase(categoryModel: CategoryModel) {
+  addCategory(categoryModel: CategoryModel) {
     firebase.firestore().collection('snippetCategories').doc(categoryModel.sanitizeTitle).set({
       title: categoryModel.title,
       sanitizeTitle: categoryModel.sanitizeTitle

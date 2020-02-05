@@ -2,7 +2,10 @@
   <div class="card my-4">
     <div class="card-body" *ngIf="this.snippet">
       <h1>{{snippet.title}}</h1>
-      <div class="body_container" *ngFor="let bodyContent of snippetContent;">
+      <div *ngFor="let bodyContent of snippet.body;">
+        <h3 *ngIf="bodyContent.type ==='title'">
+          {{bodyContent.content}}
+        </h3>
         <p *ngIf="bodyContent.type ==='text'">
           {{bodyContent.content}}
         </p>

@@ -22,12 +22,12 @@ export class SnippetCardComponent implements OnInit, AfterViewInit {
     private prismService: PrismService,
     private route: ActivatedRoute) {}
 
-  ngOnInit() {
-    this.snippetService.modify = false;
-    this.loadCategories().then((category: Map<any, DocumentData>) => {
-      this.categoryNames = category;
-      console.log(this.categoryNames);
-    });
+  async ngOnInit() {
+    try {
+      this.categoryNames = await this.snippetService.getCategoriesData();
+    } catch (e) {
+      console.log('ERREUR', e);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -46,10 +46,4 @@ export class SnippetCardComponent implements OnInit, AfterViewInit {
   onModify() {
     this.snippetService.modify = true;
   }
-
-  async loadCategories() {
-    const myCategories = await this.snippetService.getCategoriesData();
-    return myCategories;
-  }
-
 }

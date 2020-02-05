@@ -4,7 +4,7 @@
 
       <div class="badge badge-secondary mr-1" *ngFor="let badge of categoryNames | keyvalue">
         <ng-container *ngIf="snippet.value.categories.includes(badge.key)">
-          {{badge.value.name}}
+          {{badge.value.title}}
         </ng-container>
       </div>
       <h3 class="card-title mb-0">

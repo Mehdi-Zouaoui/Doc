@@ -23,21 +23,18 @@ export class SnippetViewComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private prismService: PrismService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.key = this.route.snapshot.paramMap.get('titleUrl');
-    this.loadData()
-      .then((data: Map<any , DocumentData>) => {
-        this.snippet = data.get(this.key);
-        this.snippetContent = this.snippet.body;
-        this.prismService.highlightAll();
-      });
+    try {
+      this.snippet = await this.snippetService.getOneData(this.key);
+      console.log(this.snippet)
+      this.prismService.highlightAll();
+    } catch (e) {
+      console.log('ERREUR', e);
+    }
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => this.prismService.highlightAll() , 1000);
-  }
-
-  async loadData() {
-    return await this.snippetService.getData();
   }
 }
