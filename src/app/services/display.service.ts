@@ -16,30 +16,26 @@ export class DisplayService {
   constructor() {}
 
   getData() {
-    return new Promise<DocumentData>(
-      (resolve) => {
-        firebase.firestore().collection('display')
+
+        return firebase.firestore().collection('display')
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              return this.subCategories.set(doc.id, doc.data());
+              this.subCategories.set(doc.id, doc.data());
             });
+            return this.subCategories
           });
-        resolve(this.subCategories);
-      });
   }
 
   getOneData(key) {
-    return new Promise<DocumentData>(resolve => {
-      firebase.firestore().collection('display')
-        .doc(key)
-        .get()
-        .then((res) => {
-          console.log('RES',res)
-          return this.display.set(res.id, res.data());
-        });
-      resolve(this.display);
-    })
+    return firebase.firestore().collection('display')
+      .doc(key)
+      .get()
+      .then((res) => {
+        const data = res.data();
+        this.display.set(res.id, data);
+        return data;
+      });
   }
 
   createData(item: DisplayModel) {
@@ -87,16 +83,16 @@ export class DisplayService {
   }
 
   getCategoriesData() {
-    return new Promise(resolve => {
-      firebase.firestore().collection('displayCategories')
+
+      return firebase.firestore().collection('displayCategories')
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            this.categories.set(doc.id, doc.data());
+            return this.categories.set(doc.id, doc.data());
           });
+          return this.categories;
         });
-      resolve(this.categories);
-    });
+
   }
 
   addCategory(category: CategoryModel) {

@@ -14,12 +14,20 @@ export class SidebarMainComponent implements OnInit {
   displaySearch: string ;
   faSearch = faSearch;
   faPlus = faPlus;
+  dataLoaded = false;
   constructor(private displayService: DisplayService) {}
 
-  ngOnInit() {
-    this.displayService.getCategoriesData()
-    .then(res => this.categories = res);
-    this.displayService.getData()
-    .then(res => this.subCategories = res);
+  async ngOnInit() {
+    try{
+      this.categories = await this.displayService.getCategoriesData();
+      this.subCategories = await this.displayService.getData();
+      this.dataLoaded = true;
+    }catch (e) {
+      console.error(e);
+    }
+
+
+    console.log('categories',this.categories);
+    console.log('subCategories',this.subCategories);
   }
 }

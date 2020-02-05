@@ -12,7 +12,6 @@ import {snippetContentModel} from '../../../../models/snippets/snippetContent.mo
 
 export class SnippetViewComponent implements OnInit, AfterViewInit {
   key: string;
-  index = this.snippetService.index;
   snippet: any;
   snippetContent: any;
   title: string;

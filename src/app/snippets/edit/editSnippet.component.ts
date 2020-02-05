@@ -114,7 +114,9 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitCategory() {
+    console.log('yes');
     const categoryFormValue = this.categoryForm.value;
+    console.log(categoryFormValue);
     const entry = new CategoryModel(
       categoryFormValue.categoryName,
       categoryFormValue.categoryName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(' ').join('_').toLocaleLowerCase(),

@@ -1,7 +1,8 @@
 <div class="sidebar">
   <form class="form-inline my-2 my-lg-0">
     <div class="input-group mb-3 w-100">
-      <input type="text" [(ngModel)]="displaySearch" name="displaySearch" class="form-control" placeholder="Recherche" aria-label="Recherche" aria-describedby="button-search">
+      <input type="text" [(ngModel)]="displaySearch" name="displaySearch" class="form-control" placeholder="Recherche"
+             aria-label="Recherche" aria-describedby="button-search">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" id="button-search">
           <fa-icon [icon]="faSearch"></fa-icon>
@@ -10,7 +11,7 @@
     </div>
   </form>
 
-  <div class="row">
+  <div class="row" *ngIf="dataLoaded">
     <ul class="nav nav-pills w-100">
       <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue | searchDisplayFilter: displaySearch">
 
@@ -18,7 +19,7 @@
 
         <ul class="nav nav-pills w-100">
           <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | searchDisplayFilter: displaySearch">
-            <li class="nav-item w-100" *ngIf="subMenu.value.category == menu.value.sanitizeTitle">
+            <li class="nav-item w-100" *ngIf="subMenu.value.category === menu.value.sanitizeTitle">
               <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === subMenu.value.sanitizeTitle}"
                  [attr.id]="subMenu.value.sanitizeTitle+'-tab'" data-toggle="tab"
                  [attr.href]="'#'+subMenu.value.sanitizeTitle" role="tab"

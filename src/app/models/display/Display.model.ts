@@ -7,6 +7,6 @@ export class DisplayModel {
     public title: string,
     public sanitizeTitle: string,
     public body: Array<DisplayContentModel>,
-    public category: Array<CategoryModel>
+    public category: CategoryModel
   ) { }
 }

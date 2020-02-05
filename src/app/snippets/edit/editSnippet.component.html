@@ -45,12 +45,11 @@
                 </div>
               </div>
 
-              <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2" (ngSubmit)="onSubmitCategory()">
-
-                <input class="form-control " type="text"
+              <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2" >
+                <input placeholder="Catégorie..." class="form-control " type="text"
                        formControlName="categoryName" name="categoryName" id="categoryName">
                 <div class="input-group-append">
-                  <button class="btn btn-danger" type="submit" (click)="this.categoryClicked = false;">
+                  <button class="btn btn-info" type="submit" (click)="onSubmitCategory() ;this.categoryClicked = false;">
                     Enregistrer
                   </button>
                 </div>

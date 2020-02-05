@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DisplayService} from '../../services/display.service';
 import {DisplayModel} from '../../models/display/Display.model';
@@ -7,12 +7,19 @@ import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {CategoryModel} from '../../models/display/Category.model';
 
+enum LOADING_STATUS {
+  LOADING,
+  LOADED,
+  ERROR
+}
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html'
 })
 
 export class EditComponent implements OnInit {
+  LOADING_STATUS = LOADING_STATUS;
   displayForm: FormGroup;
   body: FormArray;
   fieldType: string;
@@ -21,26 +28,29 @@ export class EditComponent implements OnInit {
   categoryClicked = false;
   display: DocumentData;
   key: string;
+  dataLoadingStatus = LOADING_STATUS.LOADING;
 
   constructor(
     private fb: FormBuilder,
     private displayService: DisplayService,
     private router: Router,
     private prismService: PrismService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+  ) {
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.initForm();
     this.key = this.route.snapshot.paramMap.get('sanitizeTitle');
     if (this.key) {
-      this.loadOneData()
-        .then((display: Map<any, DocumentData>) => {
-          console.log('loadingData', display);
-          this.display = display.get(this.key);
-          console.log('thisDisplay', this.display);
-          this.initModifyForm();
-        });
+      try {
+        this.display = await this.displayService.getOneData(this.key);
+        this.dataLoadingStatus = LOADING_STATUS.LOADED;
+        this.initModifyForm();
+      } catch (e) {
+        console.error(e);
+        this.dataLoadingStatus = LOADING_STATUS.ERROR;
+      }
     }
   }
 
@@ -55,6 +65,7 @@ export class EditComponent implements OnInit {
       categoryTitle: ''
     });
     this.categories = this.displayService.categories;
+    console.log('ici', this.displayForm)
   }
 
   initModifyForm() {
@@ -62,6 +73,7 @@ export class EditComponent implements OnInit {
       title: this.display.title,
       category: this.display.category
     });
+
     this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
   }
 
@@ -94,12 +106,14 @@ export class EditComponent implements OnInit {
 
   onSubmit() {
     const formValue = this.displayForm.controls;
+    console.log(formValue);
     const entry = new DisplayModel(
       formValue.title.value,
       formValue.title.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
       formValue.body.value,
       formValue.category.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
+    console.log(entry.category);
     if (this.key) {
       this.displayService.updateData(entry);
     } else {
@@ -108,7 +122,5 @@ export class EditComponent implements OnInit {
     this.router.navigate(['/display']).then();
   }
 
-  async loadOneData() {
-    return await this.displayService.getOneData(this.key);
-  }
+
 }

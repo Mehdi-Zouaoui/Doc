@@ -26,6 +26,7 @@ export class SnippetCardComponent implements OnInit, AfterViewInit {
     this.snippetService.modify = false;
     this.loadCategories().then((category: Map<any, DocumentData>) => {
       this.categoryNames = category;
+      console.log(this.categoryNames);
     });
   }
 
