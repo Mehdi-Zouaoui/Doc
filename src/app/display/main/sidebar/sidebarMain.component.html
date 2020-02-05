@@ -12,19 +12,25 @@
   </form>
 
   <div class="row" *ngIf="dataLoaded">
-    <ul class="nav nav-pills w-100">
-      <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue | searchDisplayFilter: displaySearch">
+    <ul class="nav nav-pills w-100" >
+      <li class="nav-item w-100"  *ngFor="let menu of this.categories | keyvalue | searchDisplayFilter: displaySearch ; index as i" >
 
-        <h3>{{menu.value.title}}</h3>
+        <button class="btn btn-link h5" data-toggle="collapse" [attr.data-target]="'#collapseElement'+ i" aria-expanded="false" [attr.aria-controls]="'collapseElement'+i">
+          <h5>
+            {{menu.value.title}}
 
-        <ul class="nav nav-pills w-100">
+          </h5>
+        </button>
+
+        <ul class="nav nav-pills list-group w-100 collapse multi-collapse" id="collapseElement{{i}}">
           <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | searchDisplayFilter: displaySearch">
-            <li class="nav-item w-100" *ngIf="subMenu.value.category === menu.value.sanitizeTitle">
+            <li class="nav-item w-100 list-group-item" *ngIf="subMenu.value.category === menu.value.sanitizeTitle">
               <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === subMenu.value.sanitizeTitle}"
                  [attr.id]="subMenu.value.sanitizeTitle+'-tab'" data-toggle="tab"
                  [attr.href]="'#'+subMenu.value.sanitizeTitle" role="tab"
                  [attr.aria-controls]="subMenu.value.sanitizeTitle" aria-selected="true">
                 {{subMenu.value.title}}</a>
+
             </li>
           </ng-container>
         </ul>

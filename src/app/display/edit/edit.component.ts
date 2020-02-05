@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DisplayService} from '../../services/display.service';
 import {DisplayModel} from '../../models/display/Display.model';
@@ -65,7 +65,6 @@ export class EditComponent implements OnInit {
       categoryTitle: ''
     });
     this.categories = this.displayService.categories;
-    console.log('ici', this.displayForm)
   }
 
   initModifyForm() {
@@ -73,7 +72,6 @@ export class EditComponent implements OnInit {
       title: this.display.title,
       category: this.display.category
     });
-
     this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
   }
 
@@ -113,7 +111,6 @@ export class EditComponent implements OnInit {
       formValue.body.value,
       formValue.category.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
-    console.log(entry.category);
     if (this.key) {
       this.displayService.updateData(entry);
     } else {
@@ -121,6 +118,4 @@ export class EditComponent implements OnInit {
     }
     this.router.navigate(['/display']).then();
   }
-
-
 }

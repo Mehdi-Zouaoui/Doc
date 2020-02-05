@@ -1,4 +1,5 @@
 <div class="wrapper">
+
   <div class="sidebar">
     <div class="col-12 text-right">
       <button class="btn btn-primary btn-block" (click)="addField('title')">Titre</button>
@@ -9,6 +10,7 @@
       <button class="btn btn-primary btn-block" (click)="addField('js')">JS</button>
     </div>
   </div>
+
   <div class="container" [ngClass]="{'d-flex justify-content-center': dataLoadingStatus === 0}"
        [ngSwitch]="dataLoadingStatus">
     <div class="row py-3" *ngSwitchCase="key ? LOADING_STATUS.LOADED : ''">
@@ -22,9 +24,9 @@
                 </label>
                 <input type="text" id="title" class="form-control" formControlName="title">
               </div>
+
               <label for="categoryId">Catégories :</label>
               <div class="input-group mb-2">
-
                 <ng-select
                   id="categoryId"
                   formControlName="category">
@@ -32,7 +34,6 @@
                     {{category.value.title}}
                   </ng-option>
                 </ng-select>
-
                 <div class="input-group-append">
                   <button class="btn btn-warning" type="button" id="categoryForm"
                           [ngClass]="{'showCategoryFrom': this.categoryClicked }"
@@ -43,13 +44,14 @@
               <div>
                 <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2">
                   <input placeholder="Catégorie..." class="form-control" type="text"
-                  formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
+                         formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
                   <div class="input-group-append">
-                  <button class="btn btn-info" (click)="this.categoryClicked = false ; onSubmitCategory()">
-                    Enregistrer
-                  </button>
+                    <button class="btn btn-info" (click)="this.categoryClicked = false ; onSubmitCategory()">
+                      Enregistrer
+                    </button>
                   </div>
                 </form>
+
               </div>
               <div id="content" class="form-group" formArrayName="body">
                 <div class="form-group" [formGroupName]="i"
