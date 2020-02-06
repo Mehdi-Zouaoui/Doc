@@ -47,7 +47,7 @@
                 <input placeholder="Catégorie..." class="form-control " type="text"
                        formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
                 <div class="input-group-append">
-                  <button class="btn btn-info" type="submit" (click)="onSubmitCategory() ;this.categoryClicked = false;">
+                  <button class="btn btn-info" type="submit" (click)="onSubmitCategory() ; snippetService.getCategoriesData() ;this.categoryClicked = false;">
                     Enregistrer
                   </button>
                 </div>
