@@ -10,8 +10,9 @@
     </div>
   </div>
 
-  <div class="container-fluid">
-    <div class="row py-3">
+  <div class="container-fluid" [ngClass]="{'d-flex justify-content-center': dataLoadingStatus === 0}"
+       [ngSwitch]="dataLoadingStatus">
+    <div class="row py-3" *ngSwitchCase="key ? LOADING_STATUS.LOADED : ''">
 
       <div class="col-6 mt-2">
         <div class="card">
@@ -43,11 +44,12 @@
                 </div>
               </div>
 
-              <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2" >
+              <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2">
                 <input placeholder="Catégorie..." class="form-control " type="text"
                        formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
                 <div class="input-group-append">
-                  <button class="btn btn-info" type="submit" (click)="onSubmitCategory() ; snippetService.getCategoriesData() ;this.categoryClicked = false;">
+                  <button class="btn btn-info" type="submit"
+                          (click)="onSubmitCategory() ; snippetService.getCategoriesData() ;this.categoryClicked = false;">
                     Enregistrer
                   </button>
                 </div>
@@ -64,9 +66,10 @@
                     <button class="btn btn-danger float-right" (click)="removeBodyContent(i)">
                       <fa-icon [icon]="faTrash"></fa-icon>
                     </button>
-                    <angular-editor [attr.id]="'editor'+i" formControlName="content" [config]="editorConfig"  *ngSwitchCase="'text'"></angular-editor>
-<!--                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"-->
-<!--                              formControlName="content"></textarea>-->
+                    <angular-editor [attr.id]="'editor'+i" formControlName="content" [config]="editorConfig"
+                                    *ngSwitchCase="'text'"></angular-editor>
+                    <!--                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"-->
+                    <!--                              formControlName="content"></textarea>-->
 
                     <textarea autosize class="form-control" *ngSwitchDefault name="content"
                               formControlName="content"></textarea>
@@ -91,7 +94,8 @@
                 {{body.content}}
               </div>
               <div *ngIf="body.type  === 'html' || body.type ==='css' || body.type ==='scss'  || body.type === 'js'">
-              <pre class="language-markup line-numbers"><code class="language-{{body.type}}" (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
+                <pre class="language-markup line-numbers"><code class="language-{{body.type}}"
+                                                                (click)="this.prismService.highlightAll()">{{body.content}}</code></pre>
               </div>
             </div>
 
@@ -100,6 +104,15 @@
       </div>
 
     </div>
+    <ng-container *ngIf="key">
+      <div *ngSwitchCase="LOADING_STATUS.LOADING" style="width: 4rem; height: 4rem;"
+           class="spinner-border align-self-center text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </ng-container>
+
+    <div *ngSwitchCase="LOADING_STATUS.ERROR">Impossible de charger les données...</div>
+
   </div>
 
 </div>

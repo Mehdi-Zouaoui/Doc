@@ -8,53 +8,16 @@ import {CategoryModel} from '../../models/snippets/category.model';
 import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import {AngularEditorConfig} from '@kolkov/angular-editor';
+import {LOADING_STATUS} from "../../../environments/environment";
+import {editorConfig} from "../../../environments/environment";
 
 @Component({
   selector: 'app-snippet-edit',
   templateUrl: './editSnippet.component.html'
 })
 export class EditSnippetComponent implements OnInit, AfterViewInit {
-  editorConfig: AngularEditorConfig ={
-    editable: true,
-    spellcheck: true,
-    height: 'auto',
-    minHeight: '0',
-    maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      {class: 'arial', name: 'Arial'},
-      {class: 'times-new-roman', name: 'Times New Roman'},
-      {class: 'calibri', name: 'Calibri'},
-      {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: 'v1/image',
-    sanitize: true,
-    toolbarPosition: 'top'
-  };
+  editorConfig = editorConfig;
   faTrash = faTrash;
   snippetIndex: number;
   snippetForm: FormGroup;
@@ -67,6 +30,8 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   fieldType: string;
   language: string;
   snippet: DocumentData;
+  LOADING_STATUS = LOADING_STATUS;
+  dataLoadingStatus = LOADING_STATUS.LOADING;
 
   constructor(
     private fb: FormBuilder,
@@ -75,7 +40,8 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private prismService: PrismService
-  ) {}
+  ) {
+  }
 
   async ngOnInit() {
     this.initForm();
@@ -83,8 +49,14 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     this.key = this.route.snapshot.paramMap.get('sanitizeTitleURL');
     this.categories = await this.snippetService.getCategoriesData();
     if (this.key) {
-      this.snippet = await this.snippetService.getOneData(this.key);
-      this.initModifyForm();
+      try {
+        this.snippet = await this.snippetService.getOneData(this.key);
+        this.dataLoadingStatus = LOADING_STATUS.LOADED;
+        this.initModifyForm();
+      } catch (e) {
+        console.log(e);
+        this.dataLoadingStatus = LOADING_STATUS.ERROR;
+      }
     }
   }
 
