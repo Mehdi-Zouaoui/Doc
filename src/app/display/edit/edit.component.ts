@@ -7,12 +7,8 @@ import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {CategoryModel} from '../../models/display/Category.model';
 import {AngularEditorConfig} from "@kolkov/angular-editor";
-
-enum LOADING_STATUS {
-  LOADING,
-  LOADED,
-  ERROR
-}
+import {LOADING_STATUS} from "../../../environments/environment";
+import {editorConfig} from "../../../environments/environment";
 
 @Component({
   selector: 'app-edit',
@@ -20,46 +16,7 @@ enum LOADING_STATUS {
 })
 
 export class EditComponent implements OnInit {
-  editorConfig: AngularEditorConfig ={
-    editable: true,
-    spellcheck: true,
-    height: 'auto',
-    minHeight: '0',
-    maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      {class: 'arial', name: 'Arial'},
-      {class: 'times-new-roman', name: 'Times New Roman'},
-      {class: 'calibri', name: 'Calibri'},
-      {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: 'v1/image',
-    sanitize: true,
-    toolbarPosition: 'top'
-  };
+  editorConfig = editorConfig;
   LOADING_STATUS = LOADING_STATUS;
   displayForm: FormGroup;
   body: FormArray;
