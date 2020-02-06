@@ -11,6 +11,7 @@ import { AutosizeModule } from 'ngx-autosize';
 import { SearchDisplayFilterPipe } from '../pipes/searchDisplayFilter.pipe';
 import { DisplayService } from '../services/display.service';
 import { PrismService } from '../services/prism.service';
+import {AngularEditorModule} from "@kolkov/angular-editor";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PrismService } from '../services/prism.service';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    AutosizeModule
+    AutosizeModule,
+    AngularEditorModule
   ],
   providers : [
     DisplayService,

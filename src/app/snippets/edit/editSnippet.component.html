@@ -64,9 +64,9 @@
                     <button class="btn btn-danger float-right" (click)="removeBodyContent(i)">
                       <fa-icon [icon]="faTrash"></fa-icon>
                     </button>
-
-                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"
-                              formControlName="content"></textarea>
+                    <angular-editor formControlName="content" [config]="editorConfig"  *ngSwitchCase="'text'"></angular-editor>
+<!--                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"-->
+<!--                              formControlName="content"></textarea>-->
 
                     <textarea autosize class="form-control" *ngSwitchDefault name="content"
                               formControlName="content"></textarea>

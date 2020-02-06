@@ -21,6 +21,7 @@ import {AutosizeModule} from 'ngx-autosize';
 import {PrismService} from '../services/prism.service';
 import {SnippetService} from '../services/snippet.service';
 import {EditSnippetComponent} from './edit/editSnippet.component';
+import {AngularEditorModule} from "@kolkov/angular-editor";
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {EditSnippetComponent} from './edit/editSnippet.component';
     FormsModule,
     ReactiveFormsModule,
     SnippetRoutingModule,
-    AutosizeModule
+    AutosizeModule,
+    AngularEditorModule
   ],
   providers: [
     SnippetService,

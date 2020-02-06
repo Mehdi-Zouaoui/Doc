@@ -12,6 +12,8 @@ import {PrismService} from './services/prism.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 import {AutosizeModule} from 'ngx-autosize';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SnippetsComponent} from './snippets/main/content/snippets.component';
@@ -31,7 +33,8 @@ firebase.initializeApp(environment.firebase);
     DisplayModule,
     SnippetsModule,
     BrowserAnimationsModule,
-    AutosizeModule
+    AutosizeModule,
+    AngularEditorModule
   ],
   providers: [
     PrismService

@@ -60,8 +60,9 @@
                     <label [attr.for]="field.value.type">
                       {{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}} :
                     </label>
-                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"
-                              formControlName="content"></textarea>
+                    <angular-editor formControlName="content" [config]="editorConfig"  *ngSwitchCase="'text'"></angular-editor>
+<!--                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"-->
+<!--                              formControlName="content"></textarea>-->
                     <textarea autosize class="form-control" *ngSwitchDefault name="content"
                               formControlName="content"></textarea>
                   </div>

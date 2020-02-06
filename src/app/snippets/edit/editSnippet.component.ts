@@ -8,12 +8,53 @@ import {CategoryModel} from '../../models/snippets/category.model';
 import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-snippet-edit',
   templateUrl: './editSnippet.component.html'
 })
 export class EditSnippetComponent implements OnInit, AfterViewInit {
+  editorConfig: AngularEditorConfig ={
+    editable: true,
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '0',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      {class: 'arial', name: 'Arial'},
+      {class: 'times-new-roman', name: 'Times New Roman'},
+      {class: 'calibri', name: 'Calibri'},
+      {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+    ],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    sanitize: true,
+    toolbarPosition: 'top'
+  };
   faTrash = faTrash;
   snippetIndex: number;
   snippetForm: FormGroup;
@@ -116,7 +157,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     if (!this.key) {
       this.snippetService.createSnippet(entry);
     } else {
-      this.snippetService.snippets.set(key, entry);
       await this.snippetService.updateSnippet(entry);
     }
     this.router.navigate(['/snippets']);

@@ -6,9 +6,7 @@
         <h3 *ngIf="bodyContent.type ==='title'">
           {{bodyContent.content}}
         </h3>
-        <p *ngIf="bodyContent.type ==='text'">
-          {{bodyContent.content}}
-        </p>
+        <p *ngIf="bodyContent.type ==='text'" [innerHTML]="bodyContent.content"></p>
         <div *ngIf="bodyContent.type === 'html' || bodyContent.type ==='css' || bodyContent.type ==='scss' || bodyContent.type === 'js'">
           <pre class="language-markup line-numbers"><code class="language-{{bodyContent.type}}" >{{bodyContent.content}}</code></pre>
         </div>
