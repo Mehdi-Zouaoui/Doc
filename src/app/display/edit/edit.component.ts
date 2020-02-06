@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {CategoryModel} from '../../models/display/Category.model';
-import {AngularEditorConfig} from "@kolkov/angular-editor";
 import {LOADING_STATUS} from "../../../environments/environment";
 import {editorConfig} from "../../../environments/environment";
 
@@ -117,6 +116,6 @@ export class EditComponent implements OnInit {
     } else {
       this.displayService.createData(entry);
     }
-    this.router.navigate(['/display']).then();
+    this.router.navigate(['/display/view/', this.key]).then();
   }
 }

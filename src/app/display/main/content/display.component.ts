@@ -31,7 +31,7 @@ export class DisplayComponent implements OnInit, AfterViewInit {
     this.displayService.getData()
       .then(res => {
         this.menus = res;
-        // this.dataLoadingStatus = LOADING_STATUS.LOADED;
+        this.dataLoadingStatus = LOADING_STATUS.LOADED;
       }).catch(e => {
       console.error(e);
       this.dataLoadingStatus = LOADING_STATUS.ERROR;

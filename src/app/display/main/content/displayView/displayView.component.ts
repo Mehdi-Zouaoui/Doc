@@ -17,6 +17,7 @@ export class DisplayViewComponent implements OnInit, AfterViewInit {
   title: string;
   body: DisplayContentModel[];
   faEllipsisV = faEllipsisV;
+  private loaded: boolean;
 
   constructor(
     private displayService: DisplayService,
@@ -25,10 +26,12 @@ export class DisplayViewComponent implements OnInit, AfterViewInit {
     private prismService: PrismService) {}
 
   async ngOnInit() {
+    this.loaded = false;
     this.key = this.route.snapshot.paramMap.get('sanitizeTitle');
     try {
       this.display = await this.displayService.getOneData(this.key);
       this.prismService.highlightAll();
+      this.loaded = true;
     } catch (e) {
       console.log('ERREUR', e);
     }

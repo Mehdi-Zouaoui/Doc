@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="loaded">
   <div class="row py-3">
     <div class="col-12">
           <div class="card">
@@ -10,7 +10,7 @@
                           aria-haspopup="true" aria-expanded="false">
                     <fa-icon [icon]="faEllipsisV"></fa-icon></button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item " [routerLink]="'/display/' + key">Modifier</a>
+                    <a class="dropdown-item" [routerLink]="'/display/edit/' + key">Modifier</a>
                     <a class="dropdown-item" (click)="$event.preventDefault(); deleteDisplay(key)" href="#">Supprimer</a>
                   </div>
                 </div>

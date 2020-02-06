@@ -8,7 +8,6 @@ import {CategoryModel} from '../../models/snippets/category.model';
 import {PrismService} from '../../services/prism.service';
 import DocumentData = firebase.firestore.DocumentData;
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {LOADING_STATUS} from "../../../environments/environment";
 import {editorConfig} from "../../../environments/environment";
 
@@ -118,7 +117,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     this.snippetService.addCategory(entry);
   }
 
-  async onSubmit(key) {
+  async onSubmit() {
     const formValue = this.snippetForm.controls;
     const entry = new SnippetsModel(
       formValue.title.value,
@@ -131,6 +130,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     } else {
       await this.snippetService.updateSnippet(entry);
     }
-    this.router.navigate(['/snippets']);
+    this.router.navigate(['/snippets', this.key]).then();
   }
 }
