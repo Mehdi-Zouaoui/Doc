@@ -11,11 +11,14 @@ export class SearchDisplayFilterPipe implements PipeTransform {
     if (!searchText) {
       return items;
     }
-    searchText = searchText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();
+    searchText = searchText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase();
 
-    return items.filter(it => {
-
-      return it.sanitizeTitle.toLocaleLowerCase().includes(searchText);
+    let results = items.filter(it => {
+      return it.key.includes(searchText);
     });
+
+    console.log(results);
+
+    return results;
   }
 }

@@ -50,6 +50,9 @@ export class EditComponent implements OnInit {
         this.dataLoadingStatus = LOADING_STATUS.ERROR;
       }
     }
+    else{
+      this.dataLoadingStatus = LOADING_STATUS.LOADED;
+    }
   }
 
   initForm() {

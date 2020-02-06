@@ -2,43 +2,6 @@
 
   <app-sidebar></app-sidebar>
 
-  <div class="container-fluid">
-    <div class="row py-3">
-      <div class="col-12">
-        <div class="tab-content" id="content">
-          <div *ngFor="let menu of menus | keyvalue" class="tab-pane fade show active wysiwyg"
-               [attr.id]="menu.value.sanitizeTitle" role="tabpanel"
-               [attr.aria-labelledby]="menu.value.sanitizeTitle+'-tab'"
-               [ngClass]="{ 'active': activeTab === menu.value.sanitizeTitle }">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="float-left">{{menu.value.title | uppercase}}</h3>
-                <div class="float-right">
-                  <div class="dropdown dropleft" style="position: absolute; top: 10px; right: 10px;">
-                    <button class="btn btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                      <fa-icon [icon]="faEllipsisV"></fa-icon></button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item " [routerLink]="'/display/' + menu.key">Modifier</a>
-                      <a class="dropdown-item" (click)="$event.preventDefault(); deleteDisplay(menu.key)" href="#">Supprimer</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div *ngFor="let item of menu.value.body">
-                  <div *ngIf="item.type === 'html' || item.type ==='css' || item.type ==='scss'|| item.type === 'js'">
-              <pre class="language-markup line-numbers"><code class="language-{{item.type}}" (click)="this.prismService.highlightAll()">{{item.content}}</code></pre>
-                  </div>
-                  <h3 *ngIf="item.type == 'title'" [innerHtml]="item.content" style="white-space: pre-line"></h3>
-                  <p *ngIf="item.type == 'text'" [innerHtml]="item.content" style="white-space: pre-line"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-display-view *ngIf="key" class="container-fluid"></app-display-view>
 
 </div>

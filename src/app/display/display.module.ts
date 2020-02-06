@@ -12,11 +12,13 @@ import { SearchDisplayFilterPipe } from '../pipes/searchDisplayFilter.pipe';
 import { DisplayService } from '../services/display.service';
 import { PrismService } from '../services/prism.service';
 import {AngularEditorModule} from "@kolkov/angular-editor";
+import {DisplayViewComponent} from "./main/content/displayView/displayView.component";
 
 @NgModule({
   declarations: [
     SidebarMainComponent,
     DisplayComponent,
+    DisplayViewComponent,
     EditComponent,
     SearchDisplayFilterPipe
   ],

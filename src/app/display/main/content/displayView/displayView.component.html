@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="float-left">{{display.title | uppercase}}</h3>
+              <div class="float-right">
+                <div class="dropdown dropleft" style="position: absolute; top: 10px; right: 10px;">
+                  <button class="btn btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                    <fa-icon [icon]="faEllipsisV"></fa-icon></button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item " [routerLink]="'/display/' + key">Modifier</a>
+                    <a class="dropdown-item" (click)="$event.preventDefault(); deleteDisplay(key)" href="#">Supprimer</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div *ngFor="let item of display.body">
+                <div *ngIf="item.type === 'html' || item.type ==='css' || item.type ==='scss'|| item.type === 'js'">
+                  <pre class="language-markup line-numbers"><code class="language-{{item.type}}" (click)="this.prismService.highlightAll()">{{item.content}}</code></pre>
+                </div>
+                <h3 *ngIf="item.type == 'title'" [innerHtml]="item.content" style="white-space: pre-line"></h3>
+                <p *ngIf="item.type == 'text'" [innerHtml]="item.content" style="white-space: pre-line"></p>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>

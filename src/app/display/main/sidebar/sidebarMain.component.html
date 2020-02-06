@@ -12,8 +12,9 @@
   </form>
 
   <div class="row" *ngIf="dataLoaded">
-    <ul class="nav nav-pills w-100" >
-      <li class="nav-item w-100"  *ngFor="let menu of this.categories | keyvalue | searchDisplayFilter: displaySearch ; index as i" >
+    <ul class="nav nav-pills w-100">
+      <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue; index as i">
+<!--        <ng-container *ngIf="this.subCategories.filter(function(element) {return element.value.sanitizeTitle === menu.value.sanitizeTitle}).length">s</ng-container>-->
         <a class="btn btn-link text-primary" data-toggle="collapse" [attr.data-target]="'#collapseElement'+ i" aria-expanded="false" [attr.aria-controls]="'collapseElement'+i">
           <h5 class="p-0">
             {{menu.value.title}}
@@ -24,11 +25,8 @@
           <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | searchDisplayFilter: displaySearch">
             <li class="nav-item w-100 list-group-item p-0" *ngIf="subMenu.value.category === menu.value.sanitizeTitle">
               <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === subMenu.value.sanitizeTitle}"
-                 [attr.id]="subMenu.value.sanitizeTitle+'-tab'" data-toggle="tab"
-                 [attr.href]="'#'+subMenu.value.sanitizeTitle" role="tab"
-                 [attr.aria-controls]="subMenu.value.sanitizeTitle" aria-selected="true">
+               [routerLink]="['/display','view', subMenu.value.sanitizeTitle]">
                 {{subMenu.value.title}}</a>
-
             </li>
           </ng-container>
         </ul>

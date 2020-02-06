@@ -13,7 +13,7 @@
 
   <div class="container" [ngClass]="{'d-flex justify-content-center': dataLoadingStatus === 0}"
        [ngSwitch]="dataLoadingStatus">
-    <div class="row py-3" *ngSwitchCase="key ? LOADING_STATUS.LOADED : ''">
+    <div class="row py-3" *ngSwitchCase="LOADING_STATUS.LOADED">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
