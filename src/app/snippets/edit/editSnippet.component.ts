@@ -6,10 +6,9 @@ import {SnippetsModel} from '../../models/snippets/snippets.model';
 import {DisplayService} from '../../services/display.service';
 import {CategoryModel} from '../../models/snippets/category.model';
 import {PrismService} from '../../services/prism.service';
-import DocumentData = firebase.firestore.DocumentData;
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import {LOADING_STATUS} from "../../../environments/environment";
-import {editorConfig} from "../../../environments/environment";
+import {editorConfig, LOADING_STATUS} from "../../../environments/environment";
+import DocumentData = firebase.firestore.DocumentData;
 
 @Component({
   selector: 'app-snippet-edit',
@@ -18,12 +17,10 @@ import {editorConfig} from "../../../environments/environment";
 export class EditSnippetComponent implements OnInit, AfterViewInit {
   editorConfig = editorConfig;
   faTrash = faTrash;
-  snippetIndex: number;
   snippetForm: FormGroup;
   categoryForm: FormGroup;
   body: FormArray;
   key: string;
-  categoriesArray: Array<string>;
   categories: unknown;
   categoryClicked: boolean;
   fieldType: string;
@@ -31,6 +28,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
   snippet: DocumentData;
   LOADING_STATUS = LOADING_STATUS;
   dataLoadingStatus = LOADING_STATUS.LOADING;
+
 
   constructor(
     private fb: FormBuilder,
@@ -56,7 +54,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
         console.log(e);
         this.dataLoadingStatus = LOADING_STATUS.ERROR;
       }
-    }
+    } else this.dataLoadingStatus = LOADING_STATUS.NONE;
   }
 
   ngAfterViewInit(): void {
@@ -64,6 +62,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       this.prismService.highlightAll();
     }, 1000);
   }
+
 
   initForm() {
     this.snippetForm = this.fb.group({
@@ -84,6 +83,7 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
       categoriesArray: this.snippet.categories,
     });
   }
+
 
   addContents(control): FormGroup {
     return this.fb.group({
@@ -130,6 +130,6 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
     } else {
       await this.snippetService.updateSnippet(entry);
     }
-    this.router.navigate(['/snippets', this.key]).then();
+    this.router.navigate(['/snippets', this.key ? this.key : entry.sanitizeTitle ]).then();
   }
 }

@@ -10,14 +10,13 @@
     </div>
   </div>
 
-  <div class="container-fluid" [ngClass]="{'d-flex justify-content-center': dataLoadingStatus === 0}"
+  <div class="container-fluid" [ngClass]="{'d-flex justify-content-center': dataLoadingStatus === 1 }"
        [ngSwitch]="dataLoadingStatus">
     <div class="row py-3" *ngSwitchCase="key ? LOADING_STATUS.LOADED : ''">
-
       <div class="col-6 mt-2">
         <div class="card">
           <div class="card-body">
-            <form [formGroup]="snippetForm" (ngSubmit)="onSubmit(snippetIndex)">
+            <form [formGroup]="snippetForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
                 <label for="title">
                   Titre :
@@ -89,7 +88,7 @@
         <div class="card">
           <div class="card-body">
             <h1>{{snippetForm.value.title}}</h1>
-            <div *ngFor="let body of snippetForm.value.body;">
+            <div *ngFor="let body of snippetForm.value.body; trackBy: trackByFn">
               <div *ngIf="body.type !== 'html' && body.type !=='css' && body.type !=='scss'  && body.type !== 'js'">
                 {{body.content}}
               </div>

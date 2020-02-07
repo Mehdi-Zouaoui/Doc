@@ -18,7 +18,7 @@
             </div>
             <div class="card-body">
               <div *ngFor="let item of display.body">
-                <div *ngIf="item.type === 'html' || item.type ==='css' || item.type ==='scss'|| item.type === 'js'">
+                <div *ngIf="item.type === 'html' || item.type ==='css' || item.type ==='scss'|| item.type === 'js' || item.type ==='json'">
                   <pre class="language-markup line-numbers"><code class="language-{{item.type}}" (click)="this.prismService.highlightAll()">{{item.content}}</code></pre>
                 </div>
                 <h3 *ngIf="item.type == 'title'" [innerHtml]="item.content" style="white-space: pre-line"></h3>

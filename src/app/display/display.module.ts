@@ -13,6 +13,7 @@ import { DisplayService } from '../services/display.service';
 import { PrismService } from '../services/prism.service';
 import {AngularEditorModule} from "@kolkov/angular-editor";
 import {DisplayViewComponent} from "./main/content/displayView/displayView.component";
+import {SnippetsModule} from "../snippets/snippets.module";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {DisplayViewComponent} from "./main/content/displayView/displayView.compo
     ReactiveFormsModule,
     NgSelectModule,
     AutosizeModule,
-    AngularEditorModule
+    AngularEditorModule,
+    SnippetsModule
   ],
   providers : [
     DisplayService,

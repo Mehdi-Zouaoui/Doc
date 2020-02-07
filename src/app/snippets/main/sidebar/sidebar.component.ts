@@ -17,7 +17,8 @@ export class SidebarComponent implements OnInit {
   categories: Map<string, DocumentData>;
   activeCategory: string;
 
-  constructor(private snippetService: SnippetService) {}
+  constructor(private snippetService: SnippetService) {
+  }
 
   async ngOnInit() {
     try {
@@ -32,6 +33,7 @@ export class SidebarComponent implements OnInit {
     category ? this.activeCategory = category.value.sanitizeTitle : this.activeCategory = '';
     this.idEvent.emit(category);
   }
+
 
 }
 

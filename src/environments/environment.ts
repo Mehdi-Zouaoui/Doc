@@ -19,6 +19,7 @@ export const environment = {
 };
 
 export enum LOADING_STATUS {
+  NONE,
   LOADING,
   LOADED,
   ERROR

@@ -8,10 +8,11 @@
       <button class="btn btn-primary btn-block" (click)="addField('css')">CSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('scss')">SCSS</button>
       <button class="btn btn-primary btn-block" (click)="addField('js')">JS</button>
+      <button class="btn btn-primary btn-block" (click)="addField('json')">JSON</button>
     </div>
   </div>
 
-  <div class="container" [ngClass]="{'d-flex justify-content-center': dataLoadingStatus === 0}"
+  <div class="container" [ngClass]="{'d-flex justify-content-center': dataLoadingStatus === 1}"
        [ngSwitch]="dataLoadingStatus">
     <div class="row py-3" *ngSwitchCase="LOADING_STATUS.LOADED">
       <div class="col-12">
@@ -46,7 +47,7 @@
                   <input placeholder="Catégorie..." class="form-control" type="text"
                          formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
                   <div class="input-group-append">
-                    <button class="btn btn-info" (click)="this.categoryClicked = false ; onSubmitCategory()">
+                    <button class="btn btn-info" (click)="this.categoryClicked = false ; onSubmitCategory() ; displayService.getCategoriesData()">
                       Enregistrer
                     </button>
                   </div>

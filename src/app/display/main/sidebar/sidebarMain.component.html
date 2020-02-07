@@ -13,7 +13,7 @@
 
   <div class="row">
     <ul class="nav nav-pills w-100">
-      <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue; index as i">
+      <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue ; index as i">
         <a class="btn btn-link text-primary" data-toggle="collapse" [attr.data-target]="'#collapseElement'+ i" aria-expanded="false" [attr.aria-controls]="'collapseElement'+i">
           <h5 class="p-0">
             {{menu.value.title}}
@@ -29,7 +29,6 @@
             </li>
           </ng-container>
         </ul>
-
       </li>
     </ul>
 
