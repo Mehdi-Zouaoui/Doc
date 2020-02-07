@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, OnChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import DocumentData = firebase.firestore.DocumentData;
 import {PrismService} from '../../../../services/prism.service';
@@ -11,7 +11,7 @@ import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
   templateUrl: 'displayView.component.html'
 })
 
-export class DisplayViewComponent implements OnInit, AfterViewInit {
+export class DisplayViewComponent implements OnInit, AfterViewInit, OnChanges {
   key: string;
   display: DocumentData;
   title: string;
@@ -26,6 +26,12 @@ export class DisplayViewComponent implements OnInit, AfterViewInit {
     private prismService: PrismService) {}
 
   async ngOnInit() {
+    this.route.url.subscribe(url =>{
+      this.loadPage()
+    });
+  }
+
+  async loadPage (){
     this.loaded = false;
     this.key = this.route.snapshot.paramMap.get('sanitizeTitle');
     try {
@@ -35,6 +41,11 @@ export class DisplayViewComponent implements OnInit, AfterViewInit {
     } catch (e) {
       console.log('ERREUR', e);
     }
+  }
+
+  ngOnChanges(){
+    console.log("prout");
+    this.ngOnInit().then();
   }
 
   ngAfterViewInit(): void {

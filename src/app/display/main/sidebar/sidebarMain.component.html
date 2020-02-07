@@ -23,9 +23,9 @@
         <ul class="nav nav-pills list-group w-100 collapse multi-collapse" id="collapseElement{{i}}" [routerLinkActive]="'show'">
           <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | searchDisplayFilter: displaySearch">
             <li class="nav-item w-100 list-group-item p-0" *ngIf="subMenu.value.category === menu.value.sanitizeTitle">
-              <a class="nav-link rounded-0" [ngClass]="{'active': activeTab === subMenu.value.sanitizeTitle}"
-               [routerLink]="['/display','view', subMenu.value.sanitizeTitle]" [routerLinkActive]="'active'">
-                {{subMenu.value.title}}</a>
+              <a class="nav-link rounded-0" [routerLink]="'/display/view/'+subMenu.value.sanitizeTitle" [routerLinkActive]="'active'">
+                {{subMenu.value.title}}
+              </a>
             </li>
           </ng-container>
         </ul>
@@ -34,7 +34,7 @@
     </ul>
 
     <div class="col-12 text-right">
-      <button class="btn btn-dark" routerLink="/display/edit">
+      <button class="btn btn-dark" routerLink="/display/create">
         <fa-icon [icon]="faPlus"></fa-icon>
         Ajouter
       </button>

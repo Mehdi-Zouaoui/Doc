@@ -6,7 +6,7 @@ import { EditComponent } from './edit/edit.component';
 const routes: Routes = [
   {path : 'display/edit/:sanitizeTitle', component: EditComponent},
   {path : 'display/view/:sanitizeTitle', component: DisplayComponent},
-  {path : 'display/edit', component: EditComponent},
+  {path : 'display/create', component: EditComponent},
   {path : 'display', component: DisplayComponent}
 ];
 
