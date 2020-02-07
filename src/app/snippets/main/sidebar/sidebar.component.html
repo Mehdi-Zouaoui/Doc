@@ -17,7 +17,7 @@
            (click)="$event.preventDefault(); sendCategory(''); snippetSearch =''">Voir tous</a>
       </li>
       <li *ngFor="let category of categories | keyvalue | searchSnippetFilter :  snippetSearch" class="nav-item w-100" >
-        <a href="" class="nav-link rounded-0" [ngClass]="{'active': activeCategory === category.value.sanitizeTitle}"
+        <a class="nav-link rounded-0" href="" [ngClass]="{'active': activeCategory === category.value.sanitizeTitle}"
            (click)="$event.preventDefault(); sendCategory(category);">
           {{category.value.title}}
         </a>

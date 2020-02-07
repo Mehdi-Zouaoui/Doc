@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import {SnippetsComponent} from './snippets/main/content/snippets.component';
 
 const routes: Routes = [
-  {path : '', component: SnippetsComponent},
   {path : 'snippets', component: SnippetsComponent},
+  {path : '', component: SnippetsComponent},
 ];
 
 @NgModule({
