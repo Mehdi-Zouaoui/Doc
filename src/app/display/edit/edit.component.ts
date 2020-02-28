@@ -8,6 +8,7 @@ import DocumentData = firebase.firestore.DocumentData;
 import {CategoryModel} from '../../models/display/Category.model';
 import {LOADING_STATUS} from "../../../environments/environment";
 import {editorConfig} from "../../../environments/environment";
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit',
@@ -26,6 +27,8 @@ export class EditComponent implements OnInit {
   display: DocumentData;
   key: string;
   dataLoadingStatus = LOADING_STATUS.LOADING;
+  faTrash = faTrash;
+
 
   constructor(
     private fb: FormBuilder,
@@ -82,6 +85,11 @@ export class EditComponent implements OnInit {
       content: this.fb.control(control.content),
       type: [control.type, [Validators.required]]
     });
+  }
+
+  removeBodyContent(i: number) {
+    this.body = this.displayForm.get('body') as FormArray;
+    this.body.removeAt(i);
   }
 
   addField(type): FormGroup {

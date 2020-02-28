@@ -67,8 +67,6 @@
                     </button>
                     <angular-editor [attr.id]="'editor'+i" formControlName="content" [config]="editorConfig"
                                     *ngSwitchCase="'text'"></angular-editor>
-                    <!--                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"-->
-                    <!--                              formControlName="content"></textarea>-->
 
                     <textarea autosize class="form-control" *ngSwitchDefault name="content"
                               formControlName="content"></textarea>
