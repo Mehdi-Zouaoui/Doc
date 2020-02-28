@@ -48,8 +48,7 @@ export class EditComponent implements OnInit {
         console.error(e);
         this.dataLoadingStatus = LOADING_STATUS.ERROR;
       }
-    }
-    else{
+    } else {
       this.dataLoadingStatus = LOADING_STATUS.LOADED;
     }
   }
@@ -58,11 +57,13 @@ export class EditComponent implements OnInit {
     this.displayForm = this.fb.group({
       title: '',
       sanitizeTitle: '',
+      index: '',
       body: this.fb.array([]),
       category: ''
     });
     this.categoryForm = this.fb.group({
-      categoryTitle: ''
+      categoryTitle: '',
+      categoryIndex: ''
     });
     this.categories = this.displayService.categories;
   }
@@ -70,6 +71,7 @@ export class EditComponent implements OnInit {
   initModifyForm() {
     this.displayForm.patchValue({
       title: this.display.title,
+      index: this.display.index,
       category: this.display.category
     });
     this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
@@ -98,6 +100,7 @@ export class EditComponent implements OnInit {
     const entry = new CategoryModel(
       categoryFormValue.categoryTitle,
       categoryFormValue.categoryTitle.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
+      categoryFormValue.categoryIndex
     );
     this.displayService.addCategory(entry);
   }

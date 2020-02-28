@@ -3,6 +3,7 @@ import { faSearch, faPlus} from '@fortawesome/free-solid-svg-icons';
 import DocumentData = firebase.firestore.DocumentData;
 import { DisplayService } from '../../../services/display.service';
 
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebarMain.component.html'
@@ -22,7 +23,7 @@ export class SidebarMainComponent implements OnInit {
       this.categories = await this.displayService.getCategoriesData();
       this.subCategories = await this.displayService.getData();
       this.dataLoaded = true;
-    }catch (e) {
+    } catch (e) {
       console.error(e);
     }
 

@@ -11,9 +11,10 @@ import { AutosizeModule } from 'ngx-autosize';
 import { SearchDisplayFilterPipe } from '../pipes/searchDisplayFilter.pipe';
 import { DisplayService } from '../services/display.service';
 import { PrismService } from '../services/prism.service';
-import {AngularEditorModule} from "@kolkov/angular-editor";
-import {DisplayViewComponent} from "./main/content/displayView/displayView.component";
-import {SnippetsModule} from "../snippets/snippets.module";
+import {AngularEditorModule} from '@kolkov/angular-editor';
+import {DisplayViewComponent} from './main/content/displayView/displayView.component';
+import {SnippetsModule} from '../snippets/snippets.module';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {SnippetsModule} from "../snippets/snippets.module";
     DisplayComponent,
     DisplayViewComponent,
     EditComponent,
-    SearchDisplayFilterPipe
+    SearchDisplayFilterPipe,
   ],
   exports: [
     SidebarMainComponent
@@ -35,7 +36,8 @@ import {SnippetsModule} from "../snippets/snippets.module";
     NgSelectModule,
     AutosizeModule,
     AngularEditorModule,
-    SnippetsModule
+    SnippetsModule,
+    OrderModule
   ],
   providers : [
     DisplayService,

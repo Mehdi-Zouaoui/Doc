@@ -12,7 +12,6 @@ import {SnippetViewComponent} from './main/content/snippetView/snippet-view.comp
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
-import {OrderBy} from '../pipes/orderBy.pipe';
 import {SearchSnippetFilterPipe} from '../pipes/searchSnippetFilter.pipe';
 
 import {NgSelectModule} from '@ng-select/ng-select';
@@ -21,7 +20,7 @@ import {AutosizeModule} from 'ngx-autosize';
 import {PrismService} from '../services/prism.service';
 import {SnippetService} from '../services/snippet.service';
 import {EditSnippetComponent} from './edit/editSnippet.component';
-import {AngularEditorModule} from "@kolkov/angular-editor";
+import {AngularEditorModule} from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -31,12 +30,10 @@ import {AngularEditorModule} from "@kolkov/angular-editor";
     SnippetCardComponent,
     SnippetViewComponent,
     EditSnippetComponent,
-    OrderBy,
     SearchSnippetFilterPipe
   ],
   exports: [
     RouterModule,
-    OrderBy,
     SearchSnippetFilterPipe
   ],
   imports: [

@@ -25,31 +25,43 @@
                 </label>
                 <input type="text" id="title" class="form-control" formControlName="title">
               </div>
-
-              <label for="categoryId">Catégories :</label>
-              <div class="input-group mb-2">
-                <ng-select
-                  id="categoryId"
-                  formControlName="category">
-                  <ng-option [value]="category.value.title" *ngFor="let category of categories | keyvalue;">
-                    {{category.value.title}}
-                  </ng-option>
-                </ng-select>
-                <div class="input-group-append">
-                  <button class="btn btn-warning" type="button" id="categoryForm"
-                          [ngClass]="{'showCategoryFrom': this.categoryClicked }"
-                          (click)="this.categoryClicked = !this.categoryClicked">+
-                  </button>
-                </div>
-              </div>
               <div>
-                <form [formGroup]="categoryForm" *ngIf="categoryClicked" class="input-group mb-2">
-                  <input placeholder="Catégorie..." class="form-control" type="text"
-                         formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
+                <label for="categoryId">Catégories :</label>
+                <div class="input-group mb-2">
+                  <ng-select
+                    id="categoryId"
+                    formControlName="category">
+                    <ng-option [value]="category.value.title" *ngFor="let category of categories | keyvalue;">
+                      {{category.value.title}}
+                    </ng-option>
+                  </ng-select>
                   <div class="input-group-append">
-                    <button class="btn btn-info" (click)="this.categoryClicked = false ; onSubmitCategory() ; displayService.getCategoriesData()">
-                      Enregistrer
+                    <button class="btn btn-warning" type="button" id="categoryForm"
+                            [ngClass]="{'showCategoryFrom': this.categoryClicked }"
+                            (click)="this.categoryClicked = !this.categoryClicked">+
                     </button>
+                  </div>
+                </div>
+
+                <form [formGroup]="categoryForm" *ngIf="categoryClicked" >
+                  <div class="row">
+                    <div class="col-8">
+
+                        <input placeholder="Catégorie..." class="form-control" type="text"
+                               formControlName="categoryTitle" name="categoryTitle" id="categoryTitle">
+
+
+                    </div>
+                    <div class="col-4">
+                      <div class="input-group mb-2">
+                      <input type="number" id="categoryIndex" class="form-control" formControlName="categoryIndex">
+                      <div class="input-group-append">
+                        <button class="btn btn-info" (click)="this.categoryClicked = false ; onSubmitCategory() ; displayService.getCategoriesData()">
+                          Enregistrer
+                        </button>
+                      </div>
+                      </div>
+                    </div>
                   </div>
                 </form>
 
@@ -62,8 +74,8 @@
                       {{field.value.type === 'text' ? field.value.type + 'e' : field.value.type}} :
                     </label>
                     <angular-editor [attr.id]="'editor'+i" formControlName="content" [config]="editorConfig"  *ngSwitchCase="'text'"></angular-editor>
-<!--                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"-->
-<!--                              formControlName="content"></textarea>-->
+                    <!--                    <textarea autosize class="form-control" *ngSwitchCase="'text'" name="content"-->
+                    <!--                              formControlName="content"></textarea>-->
                     <textarea autosize class="form-control" *ngSwitchDefault name="content"
                               formControlName="content"></textarea>
                   </div>

@@ -12,8 +12,8 @@
   </form>
 
   <div class="row">
-    <ul class="nav nav-pills w-100">
-      <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue ; index as i">
+    <ul class="nav nav-pills w-100" *ngIf="dataLoaded">
+      <li class="nav-item w-100" *ngFor="let menu of this.categories | keyvalue| orderBy: 'value.index' ; index as i">
         <a class="btn btn-link text-primary" data-toggle="collapse" [attr.data-target]="'#collapseElement'+ i" aria-expanded="false" [attr.aria-controls]="'collapseElement'+i">
           <h5 class="p-0">
             {{menu.value.title}}
@@ -21,7 +21,7 @@
         </a>
 
         <ul class="nav nav-pills list-group w-100 collapse multi-collapse" id="collapseElement{{i}}" [routerLinkActive]="'show'">
-          <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | searchDisplayFilter: displaySearch">
+          <ng-container *ngFor="let subMenu of this.subCategories | keyvalue | orderBy: 'subMenu.value.index' | searchDisplayFilter: displaySearch">
             <li class="nav-item w-100 list-group-item p-0" *ngIf="subMenu.value.category === menu.value.sanitizeTitle">
               <a class="nav-link rounded-0" [routerLink]="'/display/view/'+subMenu.value.sanitizeTitle" [routerLinkActive]="'active'">
                 {{subMenu.value.title}}
