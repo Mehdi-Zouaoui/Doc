@@ -5,6 +5,8 @@ import {SnippetService} from '../../../../services/snippet.service';
 import {PrismService} from '../../../../services/prism.service';
 import {snippetContentModel} from '../../../../models/snippets/snippetContent.model';
 import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
+import {LOADING_STATUS} from '../../../../../environments/environment';
+
 
 @Component({
   selector: 'app-snippet-view',
@@ -18,6 +20,8 @@ export class SnippetViewComponent implements OnInit, AfterViewInit {
   faEllipsisV = faEllipsisV;
   title: string;
   body: snippetContentModel[];
+  LOADING_STATUS = LOADING_STATUS;
+  dataLoadingStatus = LOADING_STATUS.LOADING;
 
   constructor(
     private snippetService: SnippetService,
@@ -29,10 +33,11 @@ export class SnippetViewComponent implements OnInit, AfterViewInit {
     this.key = this.route.snapshot.paramMap.get('titleUrl');
     try {
       this.snippet = await this.snippetService.getOneData(this.key);
-      console.log(this.snippet)
       this.prismService.highlightAll();
+      this.dataLoadingStatus = LOADING_STATUS.LOADED;
     } catch (e) {
       console.log('ERREUR', e);
+      this.dataLoadingStatus = LOADING_STATUS.ERROR;
     }
   }
 

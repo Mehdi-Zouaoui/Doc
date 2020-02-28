@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="card my-4">
+<div class="container" [ngSwitch]="dataLoadingStatus">
+  <div class="card my-4" *ngSwitchCase="LOADING_STATUS.LOADED">
     <div class="card-header">
       <h1>{{snippet.title}}</h1>
       <div class="float-right">
@@ -24,6 +24,12 @@
           <pre class="language-markup line-numbers"><code class="language-{{bodyContent.type}}" >{{bodyContent.content}}</code></pre>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="col-12 h-100 w-100 d-flex justify-content-center align-items-center">
+    <div *ngSwitchCase="LOADING_STATUS.LOADING" style="width: 6rem; height: 6rem;"
+         class="spinner-border align-self-center text-success" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 </div>
