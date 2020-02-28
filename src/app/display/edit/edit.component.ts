@@ -127,6 +127,6 @@ export class EditComponent implements OnInit {
     } else {
       await this.displayService.createData(entry);
     }
-    this.router.navigate(['/display', this.key ? this.key : entry.sanitizeTitle ]).then();
+    this.router.navigate(['/display/view', this.key ? this.key : entry.sanitizeTitle ]).then();
   }
 }

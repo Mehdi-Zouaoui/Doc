@@ -7,7 +7,7 @@ import {DisplayService} from '../../services/display.service';
 import {CategoryModel} from '../../models/snippets/category.model';
 import {PrismService} from '../../services/prism.service';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import {editorConfig, LOADING_STATUS} from "../../../environments/environment";
+import {editorConfig, LOADING_STATUS} from '../../../environments/environment';
 import DocumentData = firebase.firestore.DocumentData;
 
 @Component({
@@ -54,7 +54,9 @@ export class EditSnippetComponent implements OnInit, AfterViewInit {
         console.log(e);
         this.dataLoadingStatus = LOADING_STATUS.ERROR;
       }
-    } else this.dataLoadingStatus = LOADING_STATUS.NONE;
+    } else {
+      this.dataLoadingStatus = LOADING_STATUS.NONE;
+    }
   }
 
   ngAfterViewInit(): void {
