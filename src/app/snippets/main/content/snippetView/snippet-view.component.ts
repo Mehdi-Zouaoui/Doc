@@ -4,6 +4,7 @@ import DocumentData = firebase.firestore.DocumentData;
 import {SnippetService} from '../../../../services/snippet.service';
 import {PrismService} from '../../../../services/prism.service';
 import {snippetContentModel} from '../../../../models/snippets/snippetContent.model';
+import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-snippet-view',
@@ -14,6 +15,7 @@ export class SnippetViewComponent implements OnInit, AfterViewInit {
   key: string;
   snippet: any;
   snippetContent: any;
+  faEllipsisV = faEllipsisV;
   title: string;
   body: snippetContentModel[];
 
@@ -36,5 +38,10 @@ export class SnippetViewComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => this.prismService.highlightAll() , 1000);
+  }
+
+  deleteSnippet(key) {
+    this.snippetService.deleteSnippet(key);
+    this.router.navigate(['/snippets']).then();
   }
 }

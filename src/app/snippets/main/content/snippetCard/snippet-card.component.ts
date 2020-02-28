@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {SnippetService} from '../../../../services/snippet.service';
 import {PrismService} from '../../../../services/prism.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import DocumentData = firebase.firestore.DocumentData;
 import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
 
@@ -19,6 +19,7 @@ export class SnippetCardComponent implements OnInit, AfterViewInit {
   faEllipsisV = faEllipsisV ;
   constructor(
     private snippetService: SnippetService,
+    private router: Router,
     private prismService: PrismService,
     private route: ActivatedRoute) {}
 
@@ -41,6 +42,7 @@ export class SnippetCardComponent implements OnInit, AfterViewInit {
 
   onDelete(key: number) {
     this.snippetService.deleteSnippet(key);
+    this.router.navigate(['/snippets']).then();
   }
 
   onModify() {

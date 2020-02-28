@@ -113,7 +113,7 @@ export class EditComponent implements OnInit {
     this.displayService.addCategory(entry);
   }
 
-  onSubmit() {
+  async onSubmit() {
     const formValue = this.displayForm.controls;
     console.log(formValue);
     const entry = new DisplayModel(
@@ -123,10 +123,10 @@ export class EditComponent implements OnInit {
       formValue.category.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
     if (this.key) {
-      this.displayService.updateData(entry);
+      await this.displayService.updateData(entry);
     } else {
-      this.displayService.createData(entry);
+      await this.displayService.createData(entry);
     }
-    this.router.navigate(['/display/view/', this.key]).then();
+    this.router.navigate(['/display', this.key ? this.key : entry.sanitizeTitle ]).then();
   }
 }

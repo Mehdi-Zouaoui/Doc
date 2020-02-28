@@ -2,9 +2,9 @@ import {AfterViewInit, Component, OnInit, OnChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import DocumentData = firebase.firestore.DocumentData;
 import {PrismService} from '../../../../services/prism.service';
-import {DisplayContentModel} from "../../../../models/display/DisplayContent.model";
-import {DisplayService} from "../../../../services/display.service";
-import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
+import {DisplayContentModel} from '../../../../models/display/DisplayContent.model';
+import {DisplayService} from '../../../../services/display.service';
+import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-display-view',
@@ -31,7 +31,7 @@ export class DisplayViewComponent implements OnInit, AfterViewInit, OnChanges {
     });
   }
 
-  async loadPage (){
+  async loadPage(){
     this.loaded = false;
     this.key = this.route.snapshot.paramMap.get('sanitizeTitle');
     try {
@@ -44,7 +44,6 @@ export class DisplayViewComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(){
-    console.log("prout");
     this.ngOnInit().then();
   }
 
