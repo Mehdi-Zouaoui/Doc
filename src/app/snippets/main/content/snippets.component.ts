@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SnippetService} from '../../../services/snippet.service';
-import {SnippetCardComponent} from './snippetCard/snippet-card.component';
 import DocumentData = firebase.firestore.DocumentData;
-import {editorConfig, LOADING_STATUS} from '../../../../environments/environment';
+import {LOADING_STATUS} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-snippets',

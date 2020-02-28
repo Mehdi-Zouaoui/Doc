@@ -1,5 +1,5 @@
-<div class="container" *ngIf="loaded">
-  <div class="row py-3">
+<div class="container" [ngSwitch]="dataLoadingStatus">
+  <div class="row py-3" *ngSwitchCase="LOADING_STATUS.LOADED">
     <div class="col-12">
           <div class="card">
             <div class="card-header">
@@ -26,6 +26,12 @@
               </div>
             </div>
           </div>
+    </div>
+  </div>
+  <div class="col-12 h-100 w-100 d-flex justify-content-center align-items-center">
+    <div *ngSwitchCase="LOADING_STATUS.LOADING" style="width: 6rem; height: 6rem;"
+         class="spinner-border align-self-center text-success" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 </div>
