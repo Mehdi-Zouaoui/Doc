@@ -26,9 +26,5 @@ export class SidebarMainComponent implements OnInit {
     } catch (e) {
       console.error(e);
     }
-
-
-    console.log('categories',this.categories);
-    console.log('subCategories',this.subCategories);
   }
 }

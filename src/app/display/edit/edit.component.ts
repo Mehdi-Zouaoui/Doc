@@ -115,7 +115,6 @@ export class EditComponent implements OnInit {
 
   async onSubmit() {
     const formValue = this.displayForm.controls;
-    console.log(formValue);
     const entry = new DisplayModel(
       formValue.title.value,
       formValue.title.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),

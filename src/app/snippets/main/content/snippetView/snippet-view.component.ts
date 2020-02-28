@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import DocumentData = firebase.firestore.DocumentData;
 import {SnippetService} from '../../../../services/snippet.service';
 import {PrismService} from '../../../../services/prism.service';
 import {snippetContentModel} from '../../../../models/snippets/snippetContent.model';
@@ -16,7 +15,6 @@ import {LOADING_STATUS} from '../../../../../environments/environment';
 export class SnippetViewComponent implements OnInit, AfterViewInit {
   key: string;
   snippet: any;
-  snippetContent: any;
   faEllipsisV = faEllipsisV;
   title: string;
   body: snippetContentModel[];
@@ -31,6 +29,7 @@ export class SnippetViewComponent implements OnInit, AfterViewInit {
 
   async ngOnInit() {
     this.key = this.route.snapshot.paramMap.get('titleUrl');
+    console.log(this.key);
     try {
       this.snippet = await this.snippetService.getOneData(this.key);
       this.prismService.highlightAll();

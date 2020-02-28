@@ -12,10 +12,7 @@ export class SearchSnippetFilterPipe implements PipeTransform {
       return items;
     }
     searchText = searchText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();
-    console.log(items);
-    console.log(searchText);
     return items.filter(it => {
-     console.log(it);
       return String(it.value.sanitizeTitle).toLocaleLowerCase().includes(searchText);
     });
   }
