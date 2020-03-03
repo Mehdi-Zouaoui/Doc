@@ -23,7 +23,6 @@ export class SidebarComponent implements OnInit {
   async ngOnInit() {
     try {
       this.categories = await this.snippetService.getCategoriesData();
-      console.log(this.categories);
     } catch (e) {
       console.log('ERREUR', e);
     }

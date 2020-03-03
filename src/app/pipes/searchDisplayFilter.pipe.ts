@@ -16,9 +16,6 @@ export class SearchDisplayFilterPipe implements PipeTransform {
     let results = items.filter(it => {
       return it.key.includes(searchText);
     });
-
-    console.log(results);
-
     return results;
   }
 }
