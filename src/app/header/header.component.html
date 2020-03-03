@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="#"><img src="./../../assets/logo.svg" alt="CliCliC" height="20"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+          aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-true}">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link" routerLink="">Snippets</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
@@ -15,4 +15,5 @@ true}">
       </li>
     </ul>
   </div>
+  <button *ngIf="authStatus" class="btn btn-danger" (click)="onSignOut()">Déconnexion</button>
 </nav>

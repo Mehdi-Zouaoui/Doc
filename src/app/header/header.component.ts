@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AuthService} from "../services/auth.service";
+import {AuthentificationService} from "../services/authentification.service";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthentificationService) {
+  }
+
+  authStatus: boolean;
+
+  onSignOut() {
+    this.authService.changeAuthStatus(false);
+    if (!this.authStatus) {
+      this.authService.signOut();
+    }
+  }
 
   ngOnInit() {
+    this.authService.authStatus.subscribe(item => this.authStatus = item);
   }
 
 }

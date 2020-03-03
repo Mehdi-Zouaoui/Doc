@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,12 +15,14 @@ import {AutosizeModule} from 'ngx-autosize';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthentificationComponent } from './authentification/authentification.component';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    AuthentificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ firebase.initializeApp(environment.firebase);
     BrowserAnimationsModule,
     AutosizeModule,
     AngularEditorModule,
+    ReactiveFormsModule,
   ],
   providers: [
     PrismService
