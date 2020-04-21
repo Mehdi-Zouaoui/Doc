@@ -11,14 +11,15 @@ import {Observable, Subject} from "rxjs";
   styleUrls: ['./authentification.component.scss']
 })
 export class AuthentificationComponent implements OnInit {
-  constructor(private authService: AuthentificationService,
-              private fb: FormBuilder,
-              private router: Router
-  ) {
+  constructor(
+    private authService: AuthentificationService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
-  }
   authForm: FormGroup;
   authStatus : boolean;
+
   ngOnInit() {
     this.authService.authStatus.subscribe( item => this.authStatus = item);
     this.initAuthForm();
@@ -38,12 +39,13 @@ export class AuthentificationComponent implements OnInit {
       mail: formValue.email.value,
       password: formValue.password.value
     };
-    this.authService.signIn(entry.mail, entry.password, this.authStatus).then((boolean: boolean) => {
-      if (boolean) {
-        this.authService.changeAuthStatus(true);
-        this.router.navigate(['snippets']).then();
-      }
-    });
+    this.authService.signIn(entry.mail, entry.password, this.authStatus)
+      .then((boolean: boolean) => {
+        if (boolean) {
+          this.authService.changeAuthStatus(true);
+          this.router.navigate(['snippets']).then();
+        }
+      });
   }
 }
 

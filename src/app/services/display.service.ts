@@ -16,15 +16,14 @@ export class DisplayService {
   constructor() {}
 
   getData() {
-
-        return firebase.firestore().collection('display')
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              this.subCategories.set(doc.id, doc.data());
-            });
-            return this.subCategories
-          });
+    return firebase.firestore().collection('display')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          this.subCategories.set(doc.id, doc.data());
+        });
+        return this.subCategories
+      });
   }
 
   getOneData(key) {
@@ -83,14 +82,14 @@ export class DisplayService {
   }
 
   getCategoriesData() {
-      return firebase.firestore().collection('displayCategories')
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            return this.categories.set(doc.id, doc.data());
-          });
-          return this.categories;
+    return firebase.firestore().collection('displayCategories')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          return this.categories.set(doc.id, doc.data());
         });
+        return this.categories;
+      });
 
   }
 

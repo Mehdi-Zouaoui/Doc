@@ -8,7 +8,6 @@ import DocumentData = firebase.firestore.DocumentData;
 import {CategoryModel} from '../../models/display/Category.model';
 import {LOADING_STATUS} from "../../../environments/environment";
 import {editorConfig} from "../../../environments/environment";
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit',
@@ -27,8 +26,6 @@ export class EditComponent implements OnInit {
   display: DocumentData;
   key: string;
   dataLoadingStatus = LOADING_STATUS.LOADING;
-  faTrash = faTrash;
-
 
   constructor(
     private fb: FormBuilder,
@@ -51,7 +48,8 @@ export class EditComponent implements OnInit {
         console.error(e);
         this.dataLoadingStatus = LOADING_STATUS.ERROR;
       }
-    } else {
+    }
+    else{
       this.dataLoadingStatus = LOADING_STATUS.LOADED;
     }
   }
@@ -60,13 +58,11 @@ export class EditComponent implements OnInit {
     this.displayForm = this.fb.group({
       title: '',
       sanitizeTitle: '',
-      index: '',
       body: this.fb.array([]),
       category: ''
     });
     this.categoryForm = this.fb.group({
-      categoryTitle: '',
-      categoryIndex: ''
+      categoryTitle: ''
     });
     this.categories = this.displayService.categories;
   }
@@ -74,7 +70,6 @@ export class EditComponent implements OnInit {
   initModifyForm() {
     this.displayForm.patchValue({
       title: this.display.title,
-      index: this.display.index,
       category: this.display.category
     });
     this.displayForm.controls.body = this.fb.array(this.display.body.map(elem => this.addContents(elem)));
@@ -85,11 +80,6 @@ export class EditComponent implements OnInit {
       content: this.fb.control(control.content),
       type: [control.type, [Validators.required]]
     });
-  }
-
-  removeBodyContent(i: number) {
-    this.body = this.displayForm.get('body') as FormArray;
-    this.body.removeAt(i);
   }
 
   addField(type): FormGroup {
@@ -108,13 +98,14 @@ export class EditComponent implements OnInit {
     const entry = new CategoryModel(
       categoryFormValue.categoryTitle,
       categoryFormValue.categoryTitle.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
-      categoryFormValue.categoryIndex
+      0
     );
     this.displayService.addCategory(entry);
   }
 
-  async onSubmit() {
+  onSubmit() {
     const formValue = this.displayForm.controls;
+    console.log(formValue);
     const entry = new DisplayModel(
       formValue.title.value,
       formValue.title.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase(),
@@ -122,10 +113,10 @@ export class EditComponent implements OnInit {
       formValue.category.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ').join('_').toLocaleLowerCase()
     );
     if (this.key) {
-      await this.displayService.updateData(entry);
+      this.displayService.updateData(entry);
     } else {
-      await this.displayService.createData(entry);
+      this.displayService.createData(entry);
     }
-    this.router.navigate(['/display/view', this.key ? this.key : entry.sanitizeTitle ]).then();
+    this.router.navigate(['/display/view/', this.key]).then();
   }
 }
