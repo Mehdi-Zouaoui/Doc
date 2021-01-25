@@ -1,6 +1,6 @@
 # Docs
 
-CliCliC documentation &amp; snippets
+Documentation &amp; snippets
 
 Tools : 
  - Angular 8.2.9
